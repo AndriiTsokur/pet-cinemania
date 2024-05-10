@@ -11,5 +11,5 @@ export default defineConfig({
 			components: `${path.resolve(__dirname, './src/components/')}`,
 		},
 	},
-	base: '/template-vite-react-ts/',
+	base: '/pet-cinemania/',
 });
