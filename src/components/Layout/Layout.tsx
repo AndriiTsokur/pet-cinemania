@@ -13,7 +13,7 @@ export function Layout() {
 
 	return (
 		<div className={`${styles.layout} ${isThemeLight && styles.lightMode}`}>
-			<Header isThemeLight={isThemeLight} handleColorTheme={handleColorTheme} />
+			<Header isThemeLight={isThemeLight} themeHandler={handleColorTheme} />
 			<main>
 				{state === 'loading' ? (
 					<div role="loader">Loading, please wait...</div>

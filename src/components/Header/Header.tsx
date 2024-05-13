@@ -8,14 +8,11 @@ import themeLight from '@/assets/images/theme-light.svg';
 import { BurgerMenu, FullNavBar } from './parts';
 
 type PropsT = {
-	handleColorTheme: () => void;
+	themeHandler: () => void;
 	isThemeLight: boolean;
 };
 
-export const Header: React.FC<PropsT> = ({
-	handleColorTheme,
-	isThemeLight,
-}) => {
+export const Header: React.FC<PropsT> = ({ themeHandler, isThemeLight }) => {
 	const [isMobile, setIsMobile] = useState(false);
 
 	useEffect(() => {
@@ -39,7 +36,7 @@ export const Header: React.FC<PropsT> = ({
 			<img
 				className={styles.modeSwitcher}
 				src={isThemeLight ? themeLight : themeDark}
-				onClick={handleColorTheme}
+				onClick={themeHandler}
 				alt="Color mode switcher"
 			/>
 		</header>

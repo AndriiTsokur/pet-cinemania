@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom';
-import styles from './FullNavBar.module.css';
-import logo from '@/assets/images/logo.svg';
+// import styles from './FullNavBar.module.css';
+// import logo from '@/assets/images/logo.svg';
 
 export const FullNavBar: React.FC = () => {
 	return (

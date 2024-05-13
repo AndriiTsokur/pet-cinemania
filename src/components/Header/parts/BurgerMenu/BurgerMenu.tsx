@@ -5,10 +5,8 @@ export const BurgerMenu: React.FC = () => {
 		console.log('MENU');
 	};
 	return (
-		<nav className={`${styles.nav}`}>
-			<p onClick={handleMenu} className={styles.menu}>
-				Menu
-			</p>
-		</nav>
+		<p onClick={handleMenu} className={styles.menu}>
+			Menu
+		</p>
 	);
 };
