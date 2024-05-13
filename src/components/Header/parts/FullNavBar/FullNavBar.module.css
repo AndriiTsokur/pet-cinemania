@@ -1,0 +1,20 @@
+@import '@/assets/variables.css';
+
+.nav {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.logo {
+	width: 32px;
+	height: 32px;
+}
+
+.menu {
+	color: var(--color-gray);
+	font-size: 12px;
+	font-weight: 500;
+	line-height: calc(14 / 12);
+	text-transform: uppercase;
+}

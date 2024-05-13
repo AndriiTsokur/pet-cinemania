@@ -1,0 +1,13 @@
+:root {
+	--bg-color: #111111;
+	--color-primary: #ffffff;
+	--color-secondary: #f8f8f8;
+	--color-gray: #b7b7b7;
+}
+
+.lightMode {
+	--bg-color: #ffffff;
+	--color-primary: #111111;
+	--color-secondary: #282828;
+	--color-gray: #595959;
+}

@@ -1,0 +1,20 @@
+<svg width="60.000000" height="24.000000" viewBox="0 0 60 24" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<desc>
+			Created with Pixso.
+	</desc>
+	<defs>
+		<linearGradient x1="7.328655" y1="1.714874" x2="47.331493" y2="24.568779" id="paint_linear_261_31108_0" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#FFC226"/>
+			<stop offset="1.000000" stop-color="#F84119"/>
+		</linearGradient>
+		<linearGradient x1="6.581837" y1="7.372178" x2="5.130865" y2="18.006439" id="paint_linear_261_31111_0" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#FFC226"/>
+			<stop offset="1.000000" stop-color="#F84119"/>
+		</linearGradient>
+	</defs>
+	<rect id="Rectangle 1" rx="12.000000" width="60.000000" height="24.000000" fill="url(#paint_linear_261_31108_0)" fill-opacity="1.000000"/>
+	<path id="Ellipse 1" d="M18.35 5.64C14.83 2.12 9.13 2.11 5.62 5.62C2.11 9.13 2.12 14.83 5.64 18.35C9.16 21.87 14.86 21.88 18.37 18.37C21.88 14.86 21.87 9.16 18.35 5.64Z" fill="#FFFFFF" fill-opacity="1.000000" fill-rule="nonzero"/>
+	<path id="Ellipse 2" d="M6.82 6.57C3.94 9.65 3.95 14.65 6.84 17.74" stroke="url(#paint_linear_261_31111_0)" stroke-opacity="1.000000" stroke-width="1.200000" stroke-linecap="round"/>
+	<path id="Vector" d="M49 17C46.23 17 44 14.76 44 12C44 9.23 46.23 7 49 7C51.76 7 54 9.23 54 12C54 14.76 51.76 17 49 17Z" stroke="#FFFFFF" stroke-opacity="1.000000" stroke-width="1.000000" stroke-linejoin="round"/>
+	<path id="Vector" d="M53.9 7.09L53.99 7M44 16.99L44.09 16.9M49 5.05L49 5M49 19L49 18.94M42.05 12L42 12M56 12L55.94 12M44.09 7.09L44 7M53.99 16.99L53.9 16.9" stroke="#FFFFFF" stroke-opacity="1.000000" stroke-width="1.500000" stroke-linejoin="round"/>
+</svg>
