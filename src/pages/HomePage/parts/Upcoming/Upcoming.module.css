@@ -1,0 +1,99 @@
+@import '@/assets/styles/variables.css';
+
+.upcoming {
+	padding-inline: 20px;
+}
+
+.container {
+	display: flex;
+	flex-direction: column;
+	row-gap: 24px;
+}
+
+.posterContainer {
+	width: 280px;
+	height: 402px;
+	border-radius: 5px;
+	overflow: hidden;
+	box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.5);
+}
+
+.poster {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: left;
+}
+
+.infoContainer {
+	font-size: 16px;
+	font-weight: 500;
+	line-height: calc(19 / 16);
+}
+
+.title {
+	margin-bottom: 20px;
+	color: var(--color-primary);
+	font-size: 20px;
+	font-weight: 500;
+	line-height: calc(23 / 20);
+	text-transform: uppercase;
+}
+
+.detailsWrapper {
+	display: flex;
+	column-gap: 10px;
+	justify-content: space-between;
+	width: 100%;
+	margin-bottom: 20px;
+	/* font-size: 16px;
+	font-weight: 500;
+	line-height: calc(19 / 16); */
+}
+
+.parameterName {
+	color: var(--color-gray);
+}
+
+.parameterName p:not(:last-child),
+.data p:not(:last-child) {
+	margin-bottom: 12px;
+}
+
+.releaseDate {
+	color: var(--color-accent);
+}
+
+.data {
+	color: var(--color-secondary);
+}
+
+.votes {
+	display: inline-block;
+	min-width: 36px;
+	padding: 1px 4px;
+	border-radius: 5px;
+	background-color: var(--color-secondary);
+	color: var(--bg-color);
+	font-size: 14px;
+	font-weight: 500;
+	line-height: calc(16 / 14);
+	text-align: center;
+}
+
+.aboutTitle {
+	margin-bottom: 16px;
+	color: var(--color-gray);
+	font-size: inherit;
+	font-weight: inherit;
+	line-height: inherit;
+	text-transform: uppercase;
+}
+
+.aboutText {
+	margin-bottom: 40px;
+	color: var(--color-secondary);
+	font-size: 14px;
+	font-weight: 400;
+	line-height: calc(20 / 14);
+}

@@ -21,6 +21,7 @@ export function Layout() {
 					<Outlet />
 				)}
 			</main>
+			<p>FOOTER</p>
 		</div>
 	);
 }

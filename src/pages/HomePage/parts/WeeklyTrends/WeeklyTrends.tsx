@@ -18,14 +18,13 @@ export const WeeklyTrends: React.FC = () => {
 
 	return (
 		<article className={styles.weeklyTrends}>
-			<div className={styles.titleWrapper}>
-				<ArticleTitle title="Weekly Trends" />
+			<ArticleTitle title="Weekly Trends">
 				<p>
 					<NavLink to="/catalogue" className={styles.link}>
 						See all
 					</NavLink>
 				</p>
-			</div>
+			</ArticleTitle>
 
 			<ul className={styles.cardsList}>
 				{isMobile ? (
