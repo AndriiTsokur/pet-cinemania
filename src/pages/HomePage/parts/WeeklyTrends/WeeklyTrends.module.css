@@ -1,0 +1,68 @@
+@import '@/assets/styles/variables.css';
+
+.weeklyTrends {
+	margin-bottom: 32px;
+	padding-inline: 20px;
+}
+
+.titleWrapper {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 24px;
+	font-size: 16px;
+	font-weight: 500;
+	line-height: calc(19 / 16);
+}
+
+.link {
+	color: var(--color-accent);
+}
+
+.cardsList {
+	display: flex;
+}
+
+.cardItem {
+	flex-basis: 100%;
+}
+
+@media screen and (min-width: 768px) {
+	.weeklyTrends {
+		margin-bottom: 44px;
+		padding-inline: 32px;
+	}
+
+	.titleWrapper {
+		font-size: 24px;
+		line-height: calc(28 / 24);
+	}
+
+	.cardsList {
+		column-gap: 16px;
+	}
+
+	.cardItem {
+		flex-basis: calc((100% - 16px * 2) / 3);
+	}
+}
+
+@media screen and (min-width: 1280px) {
+	.weeklyTrends {
+		margin-bottom: 60px;
+	}
+
+	.titleWrapper {
+		margin-bottom: 28px;
+		font-size: 28px;
+		line-height: calc(33 / 28);
+	}
+
+	.cardsList {
+		column-gap: 15px;
+	}
+
+	.cardItem {
+		flex-basis: calc((100% - 15px * 2) / 3);
+	}
+}

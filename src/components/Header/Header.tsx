@@ -13,6 +13,7 @@ type PropsT = {
 };
 
 export const Header: React.FC<PropsT> = ({ themeHandler, isThemeLight }) => {
+	// TODO! Вынести isMobile и isModalvisible в глобальный стейт
 	const [isMobile, setIsMobile] = useState(false);
 
 	useEffect(() => {

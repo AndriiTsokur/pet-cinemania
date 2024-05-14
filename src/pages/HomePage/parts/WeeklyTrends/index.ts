@@ -1,0 +1,1 @@
+export { WeeklyTrends } from './WeeklyTrends';

@@ -21,6 +21,10 @@ button {
 	cursor: pointer;
 }
 
+img {
+	display: block;
+}
+
 li,
 ul {
 	padding: 0;

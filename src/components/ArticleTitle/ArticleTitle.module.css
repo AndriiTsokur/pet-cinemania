@@ -1,0 +1,9 @@
+@import '@/assets/styles/variables.css';
+
+.title {
+	color: var(--color-primary);
+	font-size: inherit;
+	font-weight: inherit;
+	line-height: inherit;
+	text-transform: uppercase;
+}
