@@ -1,1 +1,1 @@
-export { router } from './router';
+export { navData, router } from './router';

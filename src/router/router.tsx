@@ -17,11 +17,14 @@ const routes = [
 		children: [
 			{
 				index: true,
+				path: '',
 				element: <HomePage />,
+				linkText: 'Home',
 			},
 			{
 				path: 'catalogue',
 				element: <CataloguePage />,
+				linkText: 'Catalogue',
 				// lazy: () => import('@/pages/')
 				// children: [
 				// 	{
@@ -39,6 +42,7 @@ const routes = [
 			{
 				path: 'library',
 				element: <LibraryPage />,
+				linkText: 'My Library',
 				// children: [
 				// 	{
 				// 		path: ':movieId',
@@ -50,6 +54,8 @@ const routes = [
 		],
 	},
 ];
+
+export const navData = routes[0].children.filter((route) => route.linkText);
 
 export const router = createBrowserRouter(routes, {
 	basename: '/pet-cinemania/',

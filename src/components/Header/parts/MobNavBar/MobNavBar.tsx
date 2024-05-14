@@ -1,6 +1,6 @@
-import styles from './BurgerMenu.module.css';
+import styles from './MobNavBar.module.css';
 
-export const BurgerMenu: React.FC = () => {
+export const MobNavBar: React.FC = () => {
 	const handleMenu = () => {
 		console.log('MENU');
 	};

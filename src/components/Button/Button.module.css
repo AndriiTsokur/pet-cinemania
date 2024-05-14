@@ -1,0 +1,68 @@
+@import '@/assets/styles/variables.css';
+
+.container {
+	display: inline-block;
+	padding: 1px;
+	border-radius: 74px;
+	background: linear-gradient(
+		144.81deg,
+		rgb(255, 194, 38) 11.476%,
+		rgb(248, 65, 25) 82.306%
+	);
+}
+
+.container:hover .gradient {
+	background: var(--color-primary);
+}
+
+.button {
+	min-width: 118px;
+	padding: 12px 24px;
+	border: none;
+	border-radius: 74px;
+	font-size: 12px;
+	font-weight: 500;
+	line-height: calc(14 / 12);
+	transition:
+		background-color 250ms,
+		color 250ms;
+}
+
+.gradient {
+	border: none;
+	background: linear-gradient(
+		144.81deg,
+		rgb(255, 194, 38) 11.476%,
+		rgb(248, 65, 25) 82.306%
+	);
+	color: var(--btn-text);
+}
+
+.regular {
+	background-color: var(--bg-color);
+	color: var(--color-primary);
+}
+
+.gradient:hover,
+.regular:hover {
+	background-color: var(--color-primary);
+	color: var(--color-accent);
+}
+
+@media screen and (min-width: 768px) {
+	.button {
+		min-width: 130px;
+		padding: 10px 24px;
+		font-size: 14px;
+		line-height: calc(20 / 14);
+	}
+}
+
+@media screen and (min-width: 1280px) {
+	.button {
+		min-width: 140px;
+		padding: 12px 24px;
+		font-size: 16px;
+		line-height: calc(24 / 16);
+	}
+}

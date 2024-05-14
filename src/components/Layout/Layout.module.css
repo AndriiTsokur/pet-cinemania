@@ -1,7 +1,23 @@
-@import '@/assets/variables.css';
+@import '@/assets/styles/variables.css';
 
 .layout {
 	min-height: 100vh;
-	padding-inline: 20px;
 	background-color: var(--bg-color);
+}
+
+.main {
+	padding-top: 48px;
+}
+
+@media screen and (min-width: 768px) {
+	.main {
+		padding-top: 60px;
+	}
+}
+
+@media screen and (min-width: 1280px) {
+	.main {
+		width: 1280px;
+		margin-inline: auto;
+	}
 }

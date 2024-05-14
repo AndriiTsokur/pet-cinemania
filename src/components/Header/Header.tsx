@@ -5,7 +5,7 @@ import styles from './Header.module.css';
 import logo from '@/assets/images/logo.svg';
 import themeDark from '@/assets/images/theme-dark.svg';
 import themeLight from '@/assets/images/theme-light.svg';
-import { BurgerMenu, FullNavBar } from './parts';
+import { FullNavBar, MobNavBar } from './parts';
 
 type PropsT = {
 	themeHandler: () => void;
@@ -29,9 +29,11 @@ export const Header: React.FC<PropsT> = ({ themeHandler, isThemeLight }) => {
 			<Link to="/">
 				<div className={styles.logoWrapper}>
 					<img src={logo} className={styles.logo} alt="Cinemania Logo" />
+
+					{!isMobile && <p className={styles.logoText}>Cinemania</p>}
 				</div>
 			</Link>
-			{isMobile ? <BurgerMenu /> : <FullNavBar />}
+			{isMobile ? <MobNavBar /> : <FullNavBar />}
 
 			<img
 				className={styles.modeSwitcher}

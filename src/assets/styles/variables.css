@@ -3,6 +3,10 @@
 	--color-primary: #ffffff;
 	--color-secondary: #f8f8f8;
 	--color-gray: #b7b7b7;
+	--color-accent: #f87719;
+	--hero-title: #ffffff;
+	--hero-text: #f8f8f8;
+	--btn-text: #111111;
 }
 
 .lightMode {
