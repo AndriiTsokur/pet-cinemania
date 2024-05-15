@@ -30,7 +30,11 @@ export const Hero: React.FC = () => {
 				<Button isGradient={true} onClick={handleTrailerBtn}>
 					Watch trailer
 				</Button>
-				<Button isGradient={false} onClick={handleDetailsBtn}>
+				<Button
+					isGradient={false}
+					isOutOfColorMode={true}
+					onClick={handleDetailsBtn}
+				>
 					More details
 				</Button>
 			</div>

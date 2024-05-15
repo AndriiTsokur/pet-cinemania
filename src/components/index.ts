@@ -1,6 +1,7 @@
 export { App } from './App';
 export { ArticleTitle } from './ArticleTitle';
 export { Button } from './Button';
+export { Footer } from './Footer';
 export { Header } from './Header';
 export { Hero } from './Hero';
 export { Layout } from './Layout';

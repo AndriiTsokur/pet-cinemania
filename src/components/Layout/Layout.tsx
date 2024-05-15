@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Outlet, useNavigation } from 'react-router-dom';
 import styles from './Layout.module.css';
-import { Header } from '@/components';
+import { Footer, Header } from '@/components';
 
 export function Layout() {
 	const { state } = useNavigation();
@@ -21,7 +21,7 @@ export function Layout() {
 					<Outlet />
 				)}
 			</main>
-			<p>FOOTER</p>
+			<Footer />
 		</div>
 	);
 }

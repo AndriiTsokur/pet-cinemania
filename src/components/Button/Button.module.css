@@ -11,10 +11,6 @@
 	);
 }
 
-.container:hover .gradient {
-	background: var(--color-primary);
-}
-
 .button {
 	min-width: 118px;
 	padding: 12px 24px;
@@ -43,9 +39,19 @@
 	color: var(--color-primary);
 }
 
-.gradient:hover,
+.regularPermanent {
+	background-color: var(--btn-text);
+	color: var(--hero-title);
+}
+
 .regular:hover {
 	background-color: var(--color-primary);
+	color: var(--color-accent);
+}
+
+.gradient:hover,
+.regularPermanent:hover {
+	background: var(--hero-title);
 	color: var(--color-accent);
 }
 
