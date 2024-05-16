@@ -1,6 +1,11 @@
+// import axios from 'axios';
+
 import styles from './Hero.module.css';
 import heroPlug from '@/assets/images/hero-plug.jpg';
 import { Button } from '@/components/Button';
+
+const $TMDB_TOKEN = import.meta.env.VITE_TMDB_TOKEN;
+console.log($TMDB_TOKEN);
 
 export const Hero: React.FC = () => {
 	const heroBackground = {
