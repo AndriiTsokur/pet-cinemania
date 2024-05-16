@@ -9,10 +9,10 @@ import { FullNavBar, MobNavBar } from './parts';
 
 type PropsT = {
 	themeHandler: () => void;
-	isThemeLight: boolean;
+	isDarkMode: boolean;
 };
 
-export const Header: React.FC<PropsT> = ({ themeHandler, isThemeLight }) => {
+export const Header: React.FC<PropsT> = ({ themeHandler, isDarkMode }) => {
 	// TODO! Вынести isMobile и isModalvisible в глобальный стейт
 	const [isMobile, setIsMobile] = useState(false);
 
@@ -38,7 +38,7 @@ export const Header: React.FC<PropsT> = ({ themeHandler, isThemeLight }) => {
 
 			<img
 				className={styles.modeSwitcher}
-				src={isThemeLight ? themeLight : themeDark}
+				src={isDarkMode ? themeDark : themeLight}
 				onClick={themeHandler}
 				alt="Color mode switcher"
 			/>

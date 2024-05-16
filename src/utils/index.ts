@@ -1,1 +1,1 @@
-export { fetchMovieDetails } from './api';
+export * from './api';
