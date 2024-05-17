@@ -1,4 +1,6 @@
 export { apiInstance, requestParams } from './apiInstance';
+// export { fetchMovieDetails } from './_fetchMovieDetails';
 export { getApiConfig } from './getApiConfig';
-export { getTrendingMovies } from './getTrendingMovies';
-export { fetchMovieDetails } from './fetchMovieDetails';
+export { getGenres } from './getGenres';
+export { getTrending } from './getTrending';
+// export { getTrendingMovies } from './getTrendingMovies';

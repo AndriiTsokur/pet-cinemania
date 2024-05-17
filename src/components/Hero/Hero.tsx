@@ -1,8 +1,15 @@
+import { useSelector } from 'react-redux';
 import styles from './Hero.module.css';
 import heroPlug from '@/assets/images/hero-plug.jpg';
 import { Button } from '@/components/Button';
+import { selectTrendingDay } from '@/redux';
 
 export const Hero: React.FC = () => {
+	// const dispatch = useDispatch();
+	const trendingDayMovies = useSelector(selectTrendingDay);
+
+	console.log(trendingDayMovies);
+
 	const heroBackground = {
 		backgroundImage: `linear-gradient(68.84deg, rgb(17, 17, 17) 36.846%, rgba(17, 17, 17, 0) 60.047%), url(${heroPlug})`,
 	};

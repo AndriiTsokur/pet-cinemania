@@ -1,16 +1,21 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchApiConfigThunk } from '@/redux/operations';
+import { fetchApiConfigThunk, fetchGenresThunk } from '@/redux/operations';
+import { ServiceStateT } from '@/utils';
 
-const initialState = {
+const initialState: ServiceStateT = {
 	apiConfig: {
 		data: null,
-		isLoading: false,
-		error: null,
+		status: {
+			isLoading: false,
+			error: null,
+		},
 	},
 	genres: {
 		data: null,
-		isLoading: false,
-		error: null,
+		status: {
+			isLoading: false,
+			error: null,
+		},
 	},
 };
 
@@ -23,25 +28,44 @@ const fetchServiceSlice = createSlice({
 			// Fetching API Configuration Details
 			.addCase(fetchApiConfigThunk.pending, (state) => {
 				state.apiConfig.data = null;
-				state.apiConfig.isLoading = true;
-				state.apiConfig.error = null;
+				state.apiConfig.status.isLoading = true;
+				state.apiConfig.status.error = null;
 			})
 			.addCase(
 				fetchApiConfigThunk.fulfilled,
 				(state, action: { payload: any }) => {
 					state.apiConfig.data = action.payload;
-					state.apiConfig.isLoading = false;
+					state.apiConfig.status.isLoading = false;
 				},
 			)
 			.addCase(
 				fetchApiConfigThunk.rejected,
 				(state, action: { payload: any }) => {
-					state.apiConfig.isLoading = false;
-					state.apiConfig.error = action.payload;
+					state.apiConfig.status.isLoading = false;
+					state.apiConfig.status.error = action.payload;
 				},
-			);
+			)
+
+			// Fetching Genres
+			.addCase(fetchGenresThunk.pending, (state) => {
+				state.genres.data = null;
+				state.genres.status.isLoading = true;
+				state.genres.status.error = null;
+			})
+			.addCase(
+				fetchGenresThunk.fulfilled,
+				(state, action: { payload: any }) => {
+					state.genres.data = action.payload;
+					state.genres.status.isLoading = false;
+				},
+			)
+			.addCase(fetchGenresThunk.rejected, (state, action: { payload: any }) => {
+				state.genres.status.isLoading = false;
+				state.genres.status.error = action.payload;
+			});
 	},
 });
 
-export const selectService = (state: any) => state.service;
+export const selectService = (state: { service: ServiceStateT }) =>
+	state.service;
 export const serviceReducer = fetchServiceSlice.reducer;

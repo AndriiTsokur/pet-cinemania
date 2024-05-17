@@ -7,24 +7,34 @@ import {
 	selectLibrary,
 	selectService,
 	fetchApiConfigThunk,
+	fetchGenresThunk,
 	toggleColorMode,
+	fetchTrendingThunk,
 } from '@/redux';
 import { Footer, Header } from '@/components';
 
 export function Layout() {
 	const { state } = useNavigation();
-
 	const dispatch = useDispatch();
 	const { isDarkMode } = useSelector(selectLibrary);
 	const {
 		apiConfig: { data },
+		genres: { data: genres },
 	} = useSelector(selectService);
 
 	useEffect(() => {
 		if (data !== null) return;
 
 		dispatch<any>(fetchApiConfigThunk());
+		dispatch<any>(fetchGenresThunk());
 	}, []);
+
+	useEffect(() => {
+		if (genres === null) return;
+
+		dispatch<any>(fetchTrendingThunk('day'));
+		dispatch<any>(fetchTrendingThunk('week'));
+	}, [genres]);
 
 	const handleColorTheme = () => dispatch(toggleColorMode());
 

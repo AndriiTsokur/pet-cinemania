@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { getApiConfig } from '@/utils';
+import { getApiConfig, getGenres } from '@/utils';
 
 export const fetchApiConfigThunk = createAsyncThunk(
 	'apiConfig/fetchApiConfigThunk',
@@ -10,10 +10,25 @@ export const fetchApiConfigThunk = createAsyncThunk(
 					images: { base_url, secure_base_url, backdrop_sizes, poster_sizes },
 				},
 			} = await getApiConfig();
-			console.log({ base_url, secure_base_url, backdrop_sizes, poster_sizes });
 			return { base_url, secure_base_url, backdrop_sizes, poster_sizes };
 		} catch (error: any) {
-			return thunkApi.rejectWithValue(error.message);
+			return thunkApi.rejectWithValue(
+				`Failed to retrieve API Configuration data: ${error.message}`,
+			);
+		}
+	},
+);
+
+export const fetchGenresThunk = createAsyncThunk(
+	'genres/fetchGenresThunk',
+	async (_, thunkApi) => {
+		try {
+			const res = await getGenres();
+			return res.data.genres;
+		} catch (error: any) {
+			return thunkApi.rejectWithValue(
+				`Failed to retrieve Genres data: ${error.message}`,
+			);
 		}
 	},
 );

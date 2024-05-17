@@ -4,4 +4,6 @@ import { RouterProvider } from 'react-router-dom';
 import { router } from '@/router';
 import { Loader } from '@/components';
 
-export const App: React.FC = () => <RouterProvider router={router} fallbackElement={<Loader />} />;
+export const App: React.FC = () => {
+	return <RouterProvider router={router} fallbackElement={<Loader />} />;
+};

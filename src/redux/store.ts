@@ -11,7 +11,11 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
-import { libraryReducer, serviceReducer } from '@/redux/slices';
+import {
+	libraryReducer,
+	serviceReducer,
+	trendingReducer,
+} from '@/redux/slices';
 // import { fetchedIssuesReducer } from './fetchedIssuesSlice';
 
 const libraryPersistConfig = {
@@ -25,6 +29,7 @@ const persistedReducer = persistReducer(libraryPersistConfig, libraryReducer);
 const reducers = combineReducers({
 	library: persistedReducer,
 	service: serviceReducer,
+	trending: trendingReducer,
 	// fetchedIssues: fetchedIssuesReducer,
 });
 
