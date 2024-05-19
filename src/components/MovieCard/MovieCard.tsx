@@ -43,7 +43,8 @@ export const MovieCard: React.FC<PropsT> = ({ number }) => {
 				<h3 className={styles.movieTitle}>{movie![number].title}</h3>
 				<div className={styles.detailsWrapper}>
 					<p className={styles.details}>
-						{genresText.join(', ')} | {movie![number].release_date.slice(0, 4)}
+						{genresText.join(', ')}&nbsp;|{' '}
+						{movie![number].release_date.slice(0, 4)}
 					</p>
 					<div className={styles.starsWrapper}>
 						<img src={starsMockup} className={styles.stars} alt="Stars" />
