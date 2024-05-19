@@ -1,20 +1,15 @@
-import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import styles from './WeeklyTrends.module.css';
+import { selectService } from '@/redux';
 import { ArticleTitle, MovieCard } from '@/components';
 
 export const WeeklyTrends: React.FC = () => {
-	// TODO! Вынести isMobile и isModalvisible в глобальный стейт
-	const [isMobile, setIsMobile] = useState(false);
+	const {
+		screen: { deviceType },
+	} = useSelector(selectService);
 
-	useEffect(() => {
-		const handleResize = () => setIsMobile(window.innerWidth < 768);
-
-		window.addEventListener('resize', handleResize);
-		handleResize();
-
-		return () => window.removeEventListener('resize', handleResize);
-	}, []);
+	const isMobile = deviceType === 'mobile';
 
 	return (
 		<article className={styles.weeklyTrends}>

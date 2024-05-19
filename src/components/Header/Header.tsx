@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import styles from './Header.module.css';
+import { selectService } from '@/redux';
 import logo from '@/assets/images/logo.svg';
 import themeDark from '@/assets/images/theme-dark.svg';
 import themeLight from '@/assets/images/theme-light.svg';
@@ -13,17 +14,11 @@ type PropsT = {
 };
 
 export const Header: React.FC<PropsT> = ({ themeHandler, isDarkMode }) => {
-	// TODO! Вынести isMobile и isModalvisible в глобальный стейт
-	const [isMobile, setIsMobile] = useState(false);
+	const {
+		screen: { deviceType },
+	} = useSelector(selectService);
 
-	useEffect(() => {
-		const handleResize = () => setIsMobile(window.innerWidth < 768);
-
-		window.addEventListener('resize', handleResize);
-		handleResize();
-
-		return () => window.removeEventListener('resize', handleResize);
-	}, []);
+	const isMobile = deviceType === 'mobile';
 
 	return (
 		<header className={`${styles.header}`}>

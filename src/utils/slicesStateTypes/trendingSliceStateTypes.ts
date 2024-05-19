@@ -2,11 +2,14 @@ import { RequestStatusT } from './serviceSliceStateTypes';
 
 export type TrendingDataT = {
 	backdrop_path: string;
+	backdrop_url?: string;
 	id: number;
 	overview: string;
 	poster_path: string;
+	poster_url?: string;
 	title: string;
 	genre_ids: number[];
+	genres?: string[];
 	popularity: number;
 	vote_average: number;
 	vote_count: number;

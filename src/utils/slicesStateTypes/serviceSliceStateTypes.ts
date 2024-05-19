@@ -3,7 +3,7 @@ import { AxiosError } from 'axios';
 export type ApiConfigDataT = {
 	base_url: string;
 	secure_base_url: string;
-	backdrop_size: string[];
+	backdrop_sizes: string[];
 	poster_sizes: string[];
 };
 
@@ -27,5 +27,10 @@ export type ServiceStateT = {
 	genres: {
 		data: null | GenresDataT;
 		status: RequestStatusT;
+	};
+	screen: {
+		deviceType: 'mobile' | 'tablet' | 'desktop';
+		screenWidth: null | number;
+		movieCardHeight: string;
 	};
 };

@@ -17,12 +17,21 @@ const initialState: ServiceStateT = {
 			error: null,
 		},
 	},
+	screen: {
+		deviceType: 'desktop',
+		screenWidth: null,
+		movieCardHeight: '',
+	},
 };
 
 const fetchServiceSlice = createSlice({
 	name: 'service',
 	initialState,
-	reducers: {},
+	reducers: {
+		defineScreenParams(state, action) {
+			state.screen = { ...action.payload };
+		},
+	},
 	extraReducers(builder) {
 		builder
 			// Fetching API Configuration Details
@@ -68,4 +77,5 @@ const fetchServiceSlice = createSlice({
 
 export const selectService = (state: { service: ServiceStateT }) =>
 	state.service;
+export const { defineScreenParams } = fetchServiceSlice.actions;
 export const serviceReducer = fetchServiceSlice.reducer;
