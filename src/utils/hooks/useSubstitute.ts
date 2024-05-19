@@ -25,11 +25,11 @@ export const useSubstitute = () => {
 		};
 
 		if (deviceType === 'desktop') {
-			updated.backdrop = `${data?.base_url}${data?.backdrop_sizes[2]}${movie.backdrop_path}`;
-			updated.poster = `${data?.base_url}${data?.poster_sizes[4]}${movie.poster_path}`;
+			updated.backdrop = `${data?.secure_base_url}${data?.backdrop_sizes[2]}${movie.backdrop_path}`;
+			updated.poster = `${data?.secure_base_url}${data?.poster_sizes[4]}${movie.poster_path}`;
 		} else {
-			updated.backdrop = `${data?.base_url}${data?.backdrop_sizes[1]}${movie.backdrop_path}`;
-			updated.poster = `${data?.base_url}${data?.poster_sizes[3]}${movie.poster_path}`;
+			updated.backdrop = `${data?.secure_base_url}${data?.backdrop_sizes[1]}${movie.backdrop_path}`;
+			updated.poster = `${data?.secure_base_url}${data?.poster_sizes[3]}${movie.poster_path}`;
 		}
 
 		movie.genre_ids.map((id) => {

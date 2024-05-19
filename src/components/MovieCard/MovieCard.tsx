@@ -20,8 +20,8 @@ export const MovieCard: React.FC<PropsT> = ({ number }) => {
 
 	const poster =
 		deviceType === 'desktop'
-			? `${data?.base_url}${data?.poster_sizes[4]}${movie![number].poster_path}`
-			: `${data?.base_url}${data?.poster_sizes[3]}${movie![number].poster_path}`;
+			? `${data?.secure_base_url}${data?.poster_sizes[4]}${movie![number].poster_path}`
+			: `${data?.secure_base_url}${data?.poster_sizes[3]}${movie![number].poster_path}`;
 
 	movie![number].genre_ids.map((id) => {
 		const genre = genresArr?.find((item) => item.id === id);
