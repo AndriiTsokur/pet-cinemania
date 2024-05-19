@@ -1,15 +1,28 @@
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import styles from './WeeklyTrends.module.css';
-import { selectService } from '@/redux';
+import { selectService, selectTrendingWeek } from '@/redux';
 import { ArticleTitle, MovieCard } from '@/components';
 
 export const WeeklyTrends: React.FC = () => {
 	const {
 		screen: { deviceType },
 	} = useSelector(selectService);
+	const trendingWeek = useSelector(selectTrendingWeek);
 
 	const isMobile = deviceType === 'mobile';
+
+	const cardsNumber = isMobile ? 1 : 3;
+	const randomCardNumbers: number[] = [];
+
+	if (trendingWeek) {
+		while (randomCardNumbers.length < cardsNumber) {
+			const rnd = Math.round(Math.random() * (trendingWeek.length - 1));
+			if (!randomCardNumbers.includes(rnd)) {
+				randomCardNumbers.push(rnd);
+			}
+		}
+	}
 
 	return (
 		<article className={styles.weeklyTrends}>
@@ -22,7 +35,12 @@ export const WeeklyTrends: React.FC = () => {
 			</ArticleTitle>
 
 			<ul className={styles.cardsList}>
-				{isMobile ? (
+				{randomCardNumbers.map((number) => (
+					<li key={number} className={styles.cardItem}>
+						<MovieCard number={number} />
+					</li>
+				))}
+				{/* {isMobile ? (
 					<li className={styles.cardItem}>
 						<MovieCard />
 					</li>
@@ -38,7 +56,7 @@ export const WeeklyTrends: React.FC = () => {
 							<MovieCard />
 						</li>
 					</>
-				)}
+				)} */}
 			</ul>
 		</article>
 	);

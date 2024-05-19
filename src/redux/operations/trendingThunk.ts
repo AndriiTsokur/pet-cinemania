@@ -30,6 +30,7 @@ function processData(results: any[]): TrendingDataT[] {
 			title,
 			genre_ids,
 			popularity,
+			release_date,
 			vote_average,
 			vote_count,
 		}) => ({
@@ -40,6 +41,7 @@ function processData(results: any[]): TrendingDataT[] {
 			title,
 			genre_ids,
 			popularity,
+			release_date,
 			vote_average,
 			vote_count,
 		}),

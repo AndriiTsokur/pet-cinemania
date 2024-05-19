@@ -1,18 +1,36 @@
 import { useSelector } from 'react-redux';
 
 import styles from './MovieCard.module.css';
-import { selectService } from '@/redux';
+import { selectService, selectTrendingWeek } from '@/redux';
 import cardMockup from '@/assets/images/card-mockup.jpg';
 import starsMockup from '@/assets/images/stars-mockup.svg';
 
-export const MovieCard: React.FC = () => {
+type PropsT = {
+	number: number;
+};
+
+export const MovieCard: React.FC<PropsT> = ({ number }) => {
 	const {
-		screen: { movieCardHeight },
+		screen: { deviceType, movieCardHeight },
+		apiConfig: { data } = {},
+		genres: { data: genresArr } = {},
 	} = useSelector(selectService);
+	const movie = useSelector(selectTrendingWeek);
+	const genresText: string[] = [];
+
+	const poster =
+		deviceType === 'desktop'
+			? `${data?.base_url}${data?.poster_sizes[4]}${movie![number].poster_path}`
+			: `${data?.base_url}${data?.poster_sizes[3]}${movie![number].poster_path}`;
+
+	movie![number].genre_ids.map((id) => {
+		const genre = genresArr?.find((item) => item.id === id);
+		if (genre) genresText.push(genre.name);
+	});
 
 	const cardBackground = {
 		height: movieCardHeight,
-		backgroundImage: `linear-gradient(180.00deg, rgba(0, 0, 0, 0) 63.48%,rgba(0, 0, 0, 0.9) 92.161%), url(${cardMockup})`,
+		backgroundImage: `linear-gradient(180.00deg, rgba(0, 0, 0, 0) 63.48%,rgba(0, 0, 0, 0.9) 92.161%), url(${poster ? poster : cardMockup})`,
 	};
 
 	return (
@@ -22,9 +40,11 @@ export const MovieCard: React.FC = () => {
 			onClick={() => console.log('MODAL')}
 		>
 			<div className={styles.infoWrapper}>
-				<h3 className={styles.movieTitle}>Ghosted</h3>
+				<h3 className={styles.movieTitle}>{movie![number].title}</h3>
 				<div className={styles.detailsWrapper}>
-					<p className={styles.details}>Action, Thriller, Crime | 2023</p>
+					<p className={styles.details}>
+						{genresText.join(', ')} | {movie![number].release_date.slice(0, 4)}
+					</p>
 					<div className={styles.starsWrapper}>
 						<img src={starsMockup} className={styles.stars} alt="Stars" />
 					</div>

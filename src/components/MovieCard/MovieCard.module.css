@@ -19,10 +19,11 @@
 }
 
 .movieTitle {
+	margin-bottom: 10px;
 	color: var(--hero-title);
 	font-size: 12px;
 	font-weight: 500;
-	line-height: calc(20 / 12);
+	/* line-height: calc(20 / 12); */
 	text-transform: uppercase;
 }
 
