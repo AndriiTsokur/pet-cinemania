@@ -12,7 +12,7 @@ type PropsT = {
 export const MovieCard: React.FC<PropsT> = ({ index }) => {
 	const {
 		screen: { deviceType, movieCardHeight },
-		apiConfig: { data } = {},
+		apiConfig: { data: apiConfig } = {},
 		genres: { data: genresArr } = {},
 	} = useSelector(selectService);
 	const movie = useSelector(selectTrendingWeek);
@@ -20,8 +20,8 @@ export const MovieCard: React.FC<PropsT> = ({ index }) => {
 
 	const poster =
 		deviceType === 'desktop'
-			? `${data?.secure_base_url}${data?.poster_sizes[4]}${movie![index].poster_path}`
-			: `${data?.secure_base_url}${data?.poster_sizes[3]}${movie![index].poster_path}`;
+			? `${apiConfig?.secure_base_url}${apiConfig?.poster_sizes[4]}${movie![index].poster_path}`
+			: `${apiConfig?.secure_base_url}${apiConfig?.poster_sizes[3]}${movie![index].poster_path}`;
 
 	movie![index].genre_ids.map((id) => {
 		const genre = genresArr?.find((item) => item.id === id);

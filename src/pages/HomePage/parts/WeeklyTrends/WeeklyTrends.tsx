@@ -1,9 +1,10 @@
+import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+
 import styles from './WeeklyTrends.module.css';
 import { selectService, selectTrendingWeek } from '@/redux';
 import { ArticleTitle, MovieCard } from '@/components';
-import { useEffect, useState } from 'react';
 
 export const WeeklyTrends: React.FC = () => {
 	const [randomCardNumbers, setRandomCardNumbers] = useState<number[]>([]);

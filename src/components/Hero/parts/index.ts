@@ -1,0 +1,1 @@
+export { HeroPlug } from './HeroPlug';

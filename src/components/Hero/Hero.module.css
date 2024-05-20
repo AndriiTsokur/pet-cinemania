@@ -7,12 +7,21 @@
 	padding: 40px 20px 20px 20px;
 	background-repeat: no-repeat;
 	background-size: cover;
-	background-position-x: left;
+	background-position-x: center;
+}
+
+.container {
+	display: flex;
+	flex-direction: column;
+	row-gap: 20px;
+	justify-content: space-between;
+	height: 100%;
 }
 
 .textWrapper {
-	width: 200px;
-	margin-bottom: 20px;
+	width: 230px;
+	height: 250px;
+	overflow-y: auto;
 }
 
 .title {
@@ -27,6 +36,7 @@
 	color: var(--hero-text);
 	font-size: 14px;
 	line-height: calc(16 / 14);
+	text-overflow: clip;
 }
 
 .btnWrapper {
@@ -42,9 +52,13 @@
 		background-position-x: right;
 	}
 
+	.container {
+		row-gap: 32px;
+	}
+
 	.textWrapper {
 		width: 50%;
-		margin-bottom: 32px;
+		height: 210px;
 	}
 
 	.title {
@@ -62,6 +76,7 @@
 
 	.textWrapper {
 		width: auto;
+		height: 436px;
 	}
 
 	.title {
