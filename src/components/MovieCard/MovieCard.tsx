@@ -6,10 +6,10 @@ import cardMockup from '@/assets/images/card-mockup.jpg';
 import starsMockup from '@/assets/images/stars-mockup.svg';
 
 type PropsT = {
-	number: number;
+	index: number;
 };
 
-export const MovieCard: React.FC<PropsT> = ({ number }) => {
+export const MovieCard: React.FC<PropsT> = ({ index }) => {
 	const {
 		screen: { deviceType, movieCardHeight },
 		apiConfig: { data } = {},
@@ -20,10 +20,10 @@ export const MovieCard: React.FC<PropsT> = ({ number }) => {
 
 	const poster =
 		deviceType === 'desktop'
-			? `${data?.secure_base_url}${data?.poster_sizes[4]}${movie![number].poster_path}`
-			: `${data?.secure_base_url}${data?.poster_sizes[3]}${movie![number].poster_path}`;
+			? `${data?.secure_base_url}${data?.poster_sizes[4]}${movie![index].poster_path}`
+			: `${data?.secure_base_url}${data?.poster_sizes[3]}${movie![index].poster_path}`;
 
-	movie![number].genre_ids.map((id) => {
+	movie![index].genre_ids.map((id) => {
 		const genre = genresArr?.find((item) => item.id === id);
 		if (genre) genresText.push(genre.name);
 	});
@@ -40,11 +40,11 @@ export const MovieCard: React.FC<PropsT> = ({ number }) => {
 			onClick={() => console.log('MODAL')}
 		>
 			<div className={styles.infoWrapper}>
-				<h3 className={styles.movieTitle}>{movie![number].title}</h3>
+				<h3 className={styles.movieTitle}>{movie![index].title}</h3>
 				<div className={styles.detailsWrapper}>
 					<p className={styles.details}>
 						{genresText.join(', ')}&nbsp;|{' '}
-						{movie![number].release_date.slice(0, 4)}
+						{movie![index].release_date.slice(0, 4)}
 					</p>
 					<div className={styles.starsWrapper}>
 						<img src={starsMockup} className={styles.stars} alt="Stars" />

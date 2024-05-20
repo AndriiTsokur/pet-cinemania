@@ -14,13 +14,7 @@ const initialState: TrendingStateT = {
 const fetchTrendingSlice = createSlice({
 	name: 'trending',
 	initialState,
-	reducers: {
-		defineDirectURLs(state, action) {
-			state.day = action.payload.updatedDay;
-			state.week = action.payload.updatedWeek;
-			// console.log(action.payload.updatedDay);
-		},
-	},
+	reducers: {},
 	extraReducers(builder) {
 		builder
 			// Fetching Trending Day & Week data
@@ -60,5 +54,4 @@ export const selectTrendingWeek = (state: { trending: TrendingStateT }) =>
 	state.trending.week;
 export const selectTrendingAll = (state: { trending: TrendingStateT }) =>
 	state.trending;
-export const { defineDirectURLs } = fetchTrendingSlice.actions;
 export const trendingReducer = fetchTrendingSlice.reducer;

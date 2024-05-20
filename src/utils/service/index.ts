@@ -1,0 +1,1 @@
+export { handleScreenResize } from './handleScreenResize';

@@ -18,7 +18,7 @@ const initialState: ServiceStateT = {
 		},
 	},
 	screen: {
-		deviceType: 'desktop',
+		deviceType: null,
 		screenWidth: null,
 		movieCardHeight: '',
 	},

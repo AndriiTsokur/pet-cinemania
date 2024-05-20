@@ -3,26 +3,32 @@ import { useSelector } from 'react-redux';
 import styles from './WeeklyTrends.module.css';
 import { selectService, selectTrendingWeek } from '@/redux';
 import { ArticleTitle, MovieCard } from '@/components';
+import { useEffect, useState } from 'react';
 
 export const WeeklyTrends: React.FC = () => {
+	const [randomCardNumbers, setRandomCardNumbers] = useState<number[]>([]);
+
 	const {
 		screen: { deviceType },
 	} = useSelector(selectService);
 	const trendingWeek = useSelector(selectTrendingWeek);
 
-	const isMobile = deviceType === 'mobile';
+	useEffect(() => {
+		if (trendingWeek === null) return;
 
-	const cardsNumber = isMobile ? 1 : 3;
-	const randomCardNumbers: number[] = [];
+		const isMobile = deviceType === 'mobile';
+		const cardsQuantity = isMobile ? 1 : 3;
 
-	if (trendingWeek) {
-		while (randomCardNumbers.length < cardsNumber) {
+		const newRandomCardNumbers: number[] = [];
+
+		while (newRandomCardNumbers.length < cardsQuantity) {
 			const rnd = Math.round(Math.random() * (trendingWeek.length - 1));
-			if (!randomCardNumbers.includes(rnd)) {
-				randomCardNumbers.push(rnd);
+			if (!newRandomCardNumbers.includes(rnd)) {
+				newRandomCardNumbers.push(rnd);
 			}
 		}
-	}
+		setRandomCardNumbers(newRandomCardNumbers);
+	}, [deviceType, trendingWeek]);
 
 	return (
 		<article className={styles.weeklyTrends}>
@@ -37,26 +43,9 @@ export const WeeklyTrends: React.FC = () => {
 			<ul className={styles.cardsList}>
 				{randomCardNumbers.map((number) => (
 					<li key={number} className={styles.cardItem}>
-						<MovieCard number={number} />
+						<MovieCard index={number} />
 					</li>
 				))}
-				{/* {isMobile ? (
-					<li className={styles.cardItem}>
-						<MovieCard />
-					</li>
-				) : (
-					<>
-						<li className={styles.cardItem}>
-							<MovieCard />
-						</li>
-						<li className={styles.cardItem}>
-							<MovieCard />
-						</li>
-						<li className={styles.cardItem}>
-							<MovieCard />
-						</li>
-					</>
-				)} */}
 			</ul>
 		</article>
 	);

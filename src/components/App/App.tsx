@@ -1,11 +1,13 @@
 import { useEffect } from 'react';
 import { RouterProvider } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { useScreenResize } from '@/utils/hooks';
+import { handleScreenResize } from '@/utils/service';
 
 import { router } from '@/router';
 import {
+	defineScreenParams,
 	selectService,
+	selectTrendingAll,
 	fetchApiConfigThunk,
 	fetchGenresThunk,
 	fetchTrendingThunk,
@@ -16,27 +18,45 @@ export const App: React.FC = () => {
 	const dispatch = useDispatch();
 
 	const {
-		apiConfig: { data },
+		apiConfig: { data: apiConfig },
 		genres: { data: genres },
+		screen: { screenWidth },
 	} = useSelector(selectService);
+	const { day, week } = useSelector(selectTrendingAll);
 
-	// Custom hook for handling screen resize
-	useScreenResize(window.innerWidth);
+	// Handling screen resize
+	useEffect(() => {
+		const updateScreenParams = () => {
+			const updatedScreenParams = handleScreenResize(window.innerWidth);
+			dispatch(defineScreenParams(updatedScreenParams));
+		};
+
+		if (screenWidth === null) updateScreenParams();
+
+		window.addEventListener('resize', updateScreenParams);
+		return () => window.removeEventListener('resize', updateScreenParams);
+	}, [dispatch]);
 
 	// Initial fetch of Service Details and Home page data
 	useEffect(() => {
-		if (data !== null) return;
-
+		if (apiConfig !== null) return;
 		dispatch<any>(fetchApiConfigThunk());
-		dispatch<any>(fetchGenresThunk());
-	}, [data, dispatch]);
+	}, []);
 
 	useEffect(() => {
-		if (genres === null) return;
+		if (genres !== null) return;
+		dispatch<any>(fetchGenresThunk());
+	}, []);
 
+	useEffect(() => {
+		if (day !== null) return;
 		dispatch<any>(fetchTrendingThunk('day'));
+	}, []);
+
+	useEffect(() => {
+		if (week !== null) return;
 		dispatch<any>(fetchTrendingThunk('week'));
-	}, [genres, dispatch]);
+	}, []);
 
 	return <RouterProvider router={router} fallbackElement={<Loader />} />;
 };

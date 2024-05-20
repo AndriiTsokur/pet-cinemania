@@ -29,7 +29,7 @@ export type ServiceStateT = {
 		status: RequestStatusT;
 	};
 	screen: {
-		deviceType: 'mobile' | 'tablet' | 'desktop';
+		deviceType: null | 'mobile' | 'tablet' | 'desktop';
 		screenWidth: null | number;
 		movieCardHeight: string;
 	};
