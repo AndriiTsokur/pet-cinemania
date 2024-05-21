@@ -3,14 +3,14 @@ import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import styles from './WeeklyTrends.module.css';
-import { selectService, selectTrendingWeekUpdated } from '@/redux';
+import { selectService, selectTrendingAll } from '@/redux';
 import { ArticleTitle, MovieCard } from '@/components';
 
 export const WeeklyTrends: React.FC = () => {
 	const {
 		screen: { deviceType },
 	} = useSelector(selectService);
-	const movies = useSelector(selectTrendingWeekUpdated);
+	const { weekUpdated: movies } = useSelector(selectTrendingAll);
 
 	const [randomCardNumbers, setRandomCardNumbers] = useState<number[]>([]);
 

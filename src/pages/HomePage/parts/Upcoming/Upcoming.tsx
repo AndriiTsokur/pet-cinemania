@@ -66,22 +66,30 @@ export const Upcoming: React.FC = () => {
 										<p className={styles.releaseDate}>
 											{movies[idx].release_date}
 										</p>
-										<p>
-											<span className={styles.votes}>
-												{movies[idx].vote_average}
-											</span>{' '}
-											/{' '}
-											<span className={styles.votes}>
-												{movies[idx].vote_count}
-											</span>
-										</p>
+										{movies[idx].vote_count === 0 ? (
+											<p>No votes yet</p>
+										) : (
+											<p>
+												<span className={styles.votes}>
+													{movies[idx].vote_average}
+												</span>{' '}
+												/{' '}
+												<span className={styles.votes}>
+													{movies[idx].vote_count}
+												</span>
+											</p>
+										)}
 									</div>
 								</div>
 
 								<div className={styles.column}>
 									<div className={styles.parameterName}>
 										<p>Popularity</p>
-										<p>Genre</p>
+										{movies[idx].genres?.length === 1 ? (
+											<p>Genre</p>
+										) : (
+											<p>Genres</p>
+										)}
 									</div>
 									<div className={styles.data}>
 										<p>{movies[idx].popularity}</p>

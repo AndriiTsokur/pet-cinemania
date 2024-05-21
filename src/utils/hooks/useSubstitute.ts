@@ -24,6 +24,8 @@ export const useSubstitute = ({ selector, action, dependencies }: ParamsT) => {
 			backdrop: '',
 			poster: '',
 			genresText: [] as string[],
+			overview: '',
+			popularity: 0,
 		};
 
 		const backdropImage =
@@ -31,7 +33,11 @@ export const useSubstitute = ({ selector, action, dependencies }: ParamsT) => {
 		const posterImage =
 			movie.poster_path === null ? posterPlug : movie.poster_path;
 
-		if (deviceType === 'desktop') {
+		if (movie.backdrop_path === null) {
+			updatedData.backdrop = posterPlug;
+		} else if (movie.poster_path === null) {
+			updatedData.poster = posterPlug;
+		} else if (deviceType === 'desktop') {
 			updatedData.backdrop = `${apiConfig?.secure_base_url}${apiConfig?.backdrop_sizes[2]}${backdropImage}`;
 			updatedData.poster = `${apiConfig?.secure_base_url}${apiConfig?.poster_sizes[4]}${posterImage}`;
 		} else {
@@ -39,10 +45,20 @@ export const useSubstitute = ({ selector, action, dependencies }: ParamsT) => {
 			updatedData.poster = `${apiConfig?.secure_base_url}${apiConfig?.poster_sizes[3]}${posterImage}`;
 		}
 
-		movie.genre_ids.map((id) => {
-			const genre = genres?.find((item) => item.id === id);
-			if (genre) updatedData.genresText.push(genre.name);
-		});
+		if (movie.genre_ids.length === 0) {
+			updatedData.genresText.push('Not specified');
+		} else {
+			movie.genre_ids.map((id) => {
+				const genre = genres?.find((item) => item.id === id);
+				if (genre) updatedData.genresText.push(genre.name);
+			});
+		}
+
+		updatedData.overview = movie.overview
+			? movie.overview
+			: 'Overview not provided';
+
+		updatedData.popularity = Number(movie.popularity.toFixed(1));
 
 		return updatedData;
 	};
@@ -55,6 +71,8 @@ export const useSubstitute = ({ selector, action, dependencies }: ParamsT) => {
 				backdrop_url: updatedItem.backdrop,
 				poster_url: updatedItem.poster,
 				genres: updatedItem.genresText,
+				overview: updatedItem.overview,
+				popularity: updatedItem.popularity,
 			};
 		});
 	};

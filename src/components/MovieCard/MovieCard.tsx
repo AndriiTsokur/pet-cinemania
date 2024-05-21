@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 
 import styles from './MovieCard.module.css';
-import { selectService, selectTrendingWeekUpdated } from '@/redux';
+import { selectService, selectTrendingAll } from '@/redux';
 import starsMockup from '@/assets/images/stars-mockup.svg';
 
 type PropsT = {
@@ -12,7 +12,7 @@ export const MovieCard: React.FC<PropsT> = ({ index }) => {
 	const {
 		screen: { movieCardHeight },
 	} = useSelector(selectService);
-	const movies = useSelector(selectTrendingWeekUpdated);
+	const { weekUpdated: movies } = useSelector(selectTrendingAll);
 
 	let cardBg = {};
 	if (movies !== null) {

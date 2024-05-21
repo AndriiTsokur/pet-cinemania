@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import styles from './Hero.module.css';
-import { selectTrendingDayUpdated } from '@/redux';
+import { selectTrendingAll } from '@/redux';
 import { HeroPlug } from './parts';
 import { Button } from '@/components/Button';
 
 export const Hero: React.FC = () => {
-	const movies = useSelector(selectTrendingDayUpdated);
+	const { dayUpdated: movies } = useSelector(selectTrendingAll);
 	const [idx, setIdx] = useState(0);
 
 	useEffect(() => {
