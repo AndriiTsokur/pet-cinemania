@@ -3,33 +3,32 @@ import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import styles from './WeeklyTrends.module.css';
-import { selectService, selectTrendingWeek } from '@/redux';
+import { selectService, selectTrendingWeekUpdated } from '@/redux';
 import { ArticleTitle, MovieCard } from '@/components';
 
 export const WeeklyTrends: React.FC = () => {
-	const [randomCardNumbers, setRandomCardNumbers] = useState<number[]>([]);
-
 	const {
 		screen: { deviceType },
 	} = useSelector(selectService);
-	const trendingWeek = useSelector(selectTrendingWeek);
+	const movies = useSelector(selectTrendingWeekUpdated);
+
+	const [randomCardNumbers, setRandomCardNumbers] = useState<number[]>([]);
 
 	useEffect(() => {
-		if (trendingWeek === null) return;
+		if (movies === null) return;
 
-		const isMobile = deviceType === 'mobile';
-		const cardsQuantity = isMobile ? 1 : 3;
+		const cardsQuantity = deviceType === 'mobile' ? 1 : 3;
 
 		const newRandomCardNumbers: number[] = [];
 
 		while (newRandomCardNumbers.length < cardsQuantity) {
-			const rnd = Math.round(Math.random() * (trendingWeek.length - 1));
+			const rnd = Math.round(Math.random() * (movies.length - 1));
 			if (!newRandomCardNumbers.includes(rnd)) {
 				newRandomCardNumbers.push(rnd);
 			}
 		}
 		setRandomCardNumbers(newRandomCardNumbers);
-	}, [deviceType, trendingWeek]);
+	}, [deviceType, movies]);
 
 	return (
 		<article className={styles.weeklyTrends}>

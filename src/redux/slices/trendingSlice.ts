@@ -4,7 +4,9 @@ import { TrendingDataT, TrendingStateT } from '@/utils';
 
 const initialState: TrendingStateT = {
 	day: null,
+	dayUpdated: null,
 	week: null,
+	weekUpdated: null,
 	status: {
 		isLoading: false,
 		error: null,
@@ -14,7 +16,14 @@ const initialState: TrendingStateT = {
 const fetchTrendingSlice = createSlice({
 	name: 'trending',
 	initialState,
-	reducers: {},
+	reducers: {
+		substituteTrendingDay(state, action) {
+			state.dayUpdated = action.payload;
+		},
+		substituteTrendingWeek(state, action) {
+			state.weekUpdated = action.payload;
+		},
+	},
 	extraReducers(builder) {
 		builder
 			// Fetching Trending Day & Week data
@@ -50,8 +59,15 @@ const fetchTrendingSlice = createSlice({
 
 export const selectTrendingDay = (state: { trending: TrendingStateT }) =>
 	state.trending.day;
+export const selectTrendingDayUpdated = (state: { trending: TrendingStateT }) =>
+	state.trending.dayUpdated;
 export const selectTrendingWeek = (state: { trending: TrendingStateT }) =>
 	state.trending.week;
+export const selectTrendingWeekUpdated = (state: {
+	trending: TrendingStateT;
+}) => state.trending.weekUpdated;
 export const selectTrendingAll = (state: { trending: TrendingStateT }) =>
 	state.trending;
+export const { substituteTrendingDay, substituteTrendingWeek } =
+	fetchTrendingSlice.actions;
 export const trendingReducer = fetchTrendingSlice.reducer;

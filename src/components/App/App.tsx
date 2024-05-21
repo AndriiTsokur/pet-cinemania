@@ -1,18 +1,21 @@
 import { useEffect } from 'react';
 import { RouterProvider } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { handleScreenResize } from '@/utils/service';
+import { handleScreenResize, useSubstitute } from '@/utils';
 
 import { router } from '@/router';
 import {
 	defineScreenParams,
-	selectService,
-	selectTrendingAll,
-	selectUpcoming,
 	fetchApiConfigThunk,
 	fetchGenresThunk,
 	fetchTrendingThunk,
 	fetchUpcomingThunk,
+	selectService,
+	selectTrendingAll,
+	selectUpcoming,
+	substituteTrendingDay,
+	substituteTrendingWeek,
+	substituteUpcoming,
 } from '@/redux';
 import { Loader } from '@/components';
 
@@ -22,7 +25,7 @@ export const App: React.FC = () => {
 	const {
 		apiConfig: { data: apiConfig },
 		genres: { data: genres },
-		screen: { screenWidth },
+		screen: { deviceType, screenWidth },
 	} = useSelector(selectService);
 	const { day, week } = useSelector(selectTrendingAll);
 	const { data: upcoming } = useSelector(selectUpcoming);
@@ -65,6 +68,24 @@ export const App: React.FC = () => {
 		if (upcoming !== null) return;
 		dispatch<any>(fetchUpcomingThunk());
 	}, []);
+
+	useSubstitute({
+		selector: day,
+		action: substituteTrendingDay,
+		dependencies: [dispatch, deviceType, day],
+	});
+
+	useSubstitute({
+		selector: week,
+		action: substituteTrendingWeek,
+		dependencies: [dispatch, deviceType, week],
+	});
+
+	useSubstitute({
+		selector: upcoming,
+		action: substituteUpcoming,
+		dependencies: [dispatch, deviceType, upcoming],
+	});
 
 	return <RouterProvider router={router} fallbackElement={<Loader />} />;
 };

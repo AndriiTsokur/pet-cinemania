@@ -4,6 +4,7 @@ import { UpcomingDataT, UpcomingStateT } from '@/utils';
 
 const initialState: UpcomingStateT = {
 	data: null,
+	dataUpdated: null,
 	status: {
 		isLoading: false,
 		error: null,
@@ -13,7 +14,11 @@ const initialState: UpcomingStateT = {
 const fetchUpcomingSlice = createSlice({
 	name: 'upcoming',
 	initialState,
-	reducers: {},
+	reducers: {
+		substituteUpcoming(state, action) {
+			state.dataUpdated = action.payload;
+		},
+	},
 	extraReducers(builder) {
 		builder
 			// Fetching Upcoming data
@@ -41,4 +46,5 @@ const fetchUpcomingSlice = createSlice({
 
 export const selectUpcoming = (state: { upcoming: UpcomingStateT }) =>
 	state.upcoming;
+export const { substituteUpcoming } = fetchUpcomingSlice.actions;
 export const upcomingReducer = fetchUpcomingSlice.reducer;

@@ -1,0 +1,1 @@
+export { useSubstitute } from './useSubstitute';

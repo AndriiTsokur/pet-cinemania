@@ -2,35 +2,26 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import styles from './Hero.module.css';
-import { selectService, selectTrendingDay } from '@/redux';
+import { selectTrendingDayUpdated } from '@/redux';
 import { HeroPlug } from './parts';
 import { Button } from '@/components/Button';
 
 export const Hero: React.FC = () => {
-	const [movie, setMovie] = useState({ idx: 0, image: '' });
-
-	const {
-		screen: { deviceType },
-		apiConfig: { data: apiConfig } = {},
-	} = useSelector(selectService);
-	const trendingDay = useSelector(selectTrendingDay);
+	const movies = useSelector(selectTrendingDayUpdated);
+	const [idx, setIdx] = useState(0);
 
 	useEffect(() => {
-		if (trendingDay === null) return;
+		if (movies === null) return;
+		const index = Math.round(Math.random() * (movies.length - 1));
+		setIdx(index);
+	}, [movies]);
 
-		const index = Math.round(Math.random() * (trendingDay.length - 1));
-
-		const backdrop =
-			deviceType === 'desktop'
-				? `${apiConfig?.secure_base_url}${apiConfig?.backdrop_sizes[2]}${trendingDay![index].backdrop_path}`
-				: `${apiConfig?.secure_base_url}${apiConfig?.backdrop_sizes[1]}${trendingDay![index].backdrop_path}`;
-
-		setMovie((prev) => ({ ...prev, idx: index, image: backdrop }));
-	}, [deviceType, trendingDay]);
-
-	const heroBackground = {
-		backgroundImage: `linear-gradient(68.84deg, rgb(17, 17, 17) 36.846%, rgba(17, 17, 17, 0) 60.047%), url(${movie.image})`,
-	};
+	let heroBg = {};
+	if (movies !== null) {
+		heroBg = {
+			backgroundImage: `linear-gradient(68.84deg, rgb(17, 17, 17) 36.846%, rgba(17, 17, 17, 0) 60.047%), url(${movies[idx].backdrop_url})`,
+		};
+	}
 
 	const handleTrailerBtn = () => {
 		console.log('TRAILER');
@@ -42,12 +33,12 @@ export const Hero: React.FC = () => {
 
 	return (
 		<>
-			{trendingDay ? (
-				<article className={styles.hero} style={heroBackground}>
+			{movies ? (
+				<article className={styles.hero} style={heroBg}>
 					<div className={styles.container}>
 						<div className={styles.textWrapper}>
-							<h1 className={styles.title}>{trendingDay[movie.idx].title}</h1>
-							<p className={styles.text}>{trendingDay[movie.idx].overview}</p>
+							<h1 className={styles.title}>{movies[idx].title}</h1>
+							<p className={styles.text}>{movies[idx].overview}</p>
 						</div>
 
 						<div className={styles.btnWrapper}>
