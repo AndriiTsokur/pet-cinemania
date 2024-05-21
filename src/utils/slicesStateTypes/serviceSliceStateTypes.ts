@@ -16,7 +16,7 @@ export type GenresDataT = [
 
 export type RequestStatusT = {
 	isLoading: boolean;
-	error: null | AxiosError;
+	error: null | string | AxiosError;
 };
 
 export type ServiceStateT = {

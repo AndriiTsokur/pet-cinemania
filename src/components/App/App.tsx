@@ -8,9 +8,11 @@ import {
 	defineScreenParams,
 	selectService,
 	selectTrendingAll,
+	selectUpcoming,
 	fetchApiConfigThunk,
 	fetchGenresThunk,
 	fetchTrendingThunk,
+	fetchUpcomingThunk,
 } from '@/redux';
 import { Loader } from '@/components';
 
@@ -23,6 +25,7 @@ export const App: React.FC = () => {
 		screen: { screenWidth },
 	} = useSelector(selectService);
 	const { day, week } = useSelector(selectTrendingAll);
+	const { data: upcoming } = useSelector(selectUpcoming);
 
 	// Handling screen resize
 	useEffect(() => {
@@ -56,6 +59,11 @@ export const App: React.FC = () => {
 	useEffect(() => {
 		if (week !== null) return;
 		dispatch<any>(fetchTrendingThunk('week'));
+	}, []);
+
+	useEffect(() => {
+		if (upcoming !== null) return;
+		dispatch<any>(fetchUpcomingThunk());
 	}, []);
 
 	return <RouterProvider router={router} fallbackElement={<Loader />} />;

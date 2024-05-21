@@ -1,10 +1,10 @@
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import styles from './Hero.module.css';
+import { selectService, selectTrendingDay } from '@/redux';
 import { HeroPlug } from './parts';
 import { Button } from '@/components/Button';
-import { selectService, selectTrendingDay } from '@/redux';
-import { useEffect, useState } from 'react';
 
 export const Hero: React.FC = () => {
 	const [movie, setMovie] = useState({ idx: 0, image: '' });
@@ -18,14 +18,14 @@ export const Hero: React.FC = () => {
 	useEffect(() => {
 		if (trendingDay === null) return;
 
-		const rndIndex = Math.round(Math.random() * (trendingDay.length - 1));
+		const index = Math.round(Math.random() * (trendingDay.length - 1));
 
 		const backdrop =
 			deviceType === 'desktop'
-				? `${apiConfig?.secure_base_url}${apiConfig?.backdrop_sizes[2]}${trendingDay![rndIndex].backdrop_path}`
-				: `${apiConfig?.secure_base_url}${apiConfig?.backdrop_sizes[1]}${trendingDay![rndIndex].backdrop_path}`;
+				? `${apiConfig?.secure_base_url}${apiConfig?.backdrop_sizes[2]}${trendingDay![index].backdrop_path}`
+				: `${apiConfig?.secure_base_url}${apiConfig?.backdrop_sizes[1]}${trendingDay![index].backdrop_path}`;
 
-		setMovie((prev) => ({ ...prev, idx: rndIndex, image: backdrop }));
+		setMovie((prev) => ({ ...prev, idx: index, image: backdrop }));
 	}, [deviceType, trendingDay]);
 
 	const heroBackground = {

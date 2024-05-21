@@ -1,8 +1,51 @@
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+
 import styles from './Upcoming.module.css';
-import posterMockup from '@/assets/images/upcoming-mockup.jpg';
+import { selectService, selectUpcoming } from '@/redux';
 import { ArticleTitle, Button } from '@/components';
+// import posterPlug from '@/assets/images/poster-plug.jpg';
+
+type MovieStateT = {
+	idx: number;
+	image: string;
+	genresText: string[];
+};
 
 export const Upcoming: React.FC = () => {
+	const {
+		screen: { deviceType, movieCardHeight },
+		apiConfig: { data: apiConfig } = {},
+		genres: { data: genresArr } = {},
+	} = useSelector(selectService);
+	const { data: upcoming } = useSelector(selectUpcoming);
+
+	const [movie, setMovie] = useState<MovieStateT>({
+		idx: 0,
+		image: '',
+		genresText: [],
+	});
+
+	useEffect(() => {
+		if (upcoming === null || apiConfig === null || genresArr === null) return;
+
+		const index = Math.round(Math.random() * (upcoming.length - 1));
+
+		const image =
+			deviceType === 'mobile'
+				? `${apiConfig?.secure_base_url}${apiConfig?.poster_sizes[3]}${upcoming![index].poster_path}`
+				: `${apiConfig?.secure_base_url}${apiConfig?.backdrop_sizes[2]}${upcoming![index].backdrop_path}`;
+
+		const genresText: string[] = [];
+
+		upcoming[index].genre_ids.map((id) => {
+			const genre = genresArr?.find((item) => item.id === id);
+			if (genre) genresText.push(genre.name);
+		});
+
+		setMovie({ idx: index, image, genresText });
+	}, [deviceType, upcoming]);
+
 	const handleTrailerBtn = () => {
 		console.log('TRAILER');
 	};
@@ -11,20 +54,27 @@ export const Upcoming: React.FC = () => {
 		console.log('DETAILS');
 	};
 
+	if (upcoming === null) return null;
+
 	return (
 		<article className={styles.upcoming}>
 			<ArticleTitle title="Upcoming This Month" />
 			<div className={styles.container}>
-				<div className={styles.posterContainer}>
+				<div
+					style={deviceType === 'mobile' ? { height: movieCardHeight } : {}}
+					className={styles.posterContainer}
+				>
 					<img
-						src={posterMockup}
-						className={styles.poster}
-						alt="Upcoming movie poster"
+						src={movie.image}
+						className={
+							deviceType === 'mobile' ? styles.poster : styles.backdrop
+						}
+						alt={upcoming![movie.idx].title}
 					/>
 				</div>
 
 				<div className={styles.infoContainer}>
-					<h3 className={styles.title}>The Lost City</h3>
+					<h3 className={styles.title}>{upcoming![movie.idx].title}</h3>
 					<div className={styles.detailsWrapper}>
 						<div className={styles.column}>
 							<div className={styles.parameterName}>
@@ -32,10 +82,17 @@ export const Upcoming: React.FC = () => {
 								<p>Vote / Votes</p>
 							</div>
 							<div className={styles.data}>
-								<p className={styles.releaseDate}>03.03.2023</p>
+								<p className={styles.releaseDate}>
+									{upcoming![movie.idx].release_date}
+								</p>
 								<p>
-									<span className={styles.votes}>7.3</span> /{' '}
-									<span className={styles.votes}>1260</span>
+									<span className={styles.votes}>
+										{upcoming![movie.idx].vote_average}
+									</span>{' '}
+									/{' '}
+									<span className={styles.votes}>
+										{upcoming![movie.idx].vote_count}
+									</span>
 								</p>
 							</div>
 						</div>
@@ -46,29 +103,21 @@ export const Upcoming: React.FC = () => {
 								<p>Genre</p>
 							</div>
 							<div className={styles.data}>
-								<p>99.9</p>
-								<p>Comedy, Action</p>
+								<p>{upcoming![movie.idx].popularity}</p>
+								<p>{movie.genresText.join(', ')}</p>
 							</div>
 						</div>
 					</div>
 
 					<h4 className={styles.aboutTitle}>About</h4>
-					<p className={styles.aboutText}>
-						Reclusive author Loretta Sage writes about exotic places
-						in her popular adventure novels that feature a handsome cover model
-						named Alan. While on tour promoting her new book with Alan, Loretta
-						gets kidnapped by an eccentric billionaire who hopes she can lead
-						him to an ancient city's lost treasure from her latest story.
-						Determined to prove he can be a hero in real life and not just on
-						the pages of her books, Alan sets off to rescue her.
-					</p>
+					<p className={styles.aboutText}>{upcoming![movie.idx].overview}</p>
 
 					<div className={styles.btnWrapper}>
 						<Button isGradient={true} onClick={handleTrailerBtn}>
 							Watch trailer
 						</Button>
 						<Button isGradient={false} onClick={handleDetailsBtn}>
-							More details
+							Add to my Library
 						</Button>
 					</div>
 				</div>

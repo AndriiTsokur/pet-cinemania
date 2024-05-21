@@ -15,8 +15,8 @@ import {
 	libraryReducer,
 	serviceReducer,
 	trendingReducer,
+	upcomingReducer,
 } from '@/redux/slices';
-// import { fetchedIssuesReducer } from './fetchedIssuesSlice';
 
 const libraryPersistConfig = {
 	key: 'cinemania',
@@ -30,7 +30,7 @@ const reducers = combineReducers({
 	library: persistedReducer,
 	service: serviceReducer,
 	trending: trendingReducer,
-	// fetchedIssues: fetchedIssuesReducer,
+	upcoming: upcomingReducer,
 });
 
 export const store = configureStore({

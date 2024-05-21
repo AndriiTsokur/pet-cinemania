@@ -1,12 +1,4 @@
-// import { useEffect } from 'react';
-// import { useDispatch } from 'react-redux';
-// import { defineScreenParams } from '@/redux';
-
-// export const handleScreenResize = (dispatch: any) => {
-// const dispatch = useDispatch();
-
 export const handleScreenResize = (screenWidth: number) => {
-	// const screenWidth = window.innerWidth;
 	let deviceType = 'desktop';
 	let movieCardHeight = '';
 
@@ -21,13 +13,4 @@ export const handleScreenResize = (screenWidth: number) => {
 	}
 
 	return { deviceType, screenWidth, movieCardHeight };
-
-	// dispatch(defineScreenParams({ deviceType, screenWidth, movieCardHeight }));
 };
-
-// useEffect(() => {
-// 	handleResize();
-// 	window.addEventListener('resize', handleResize);
-// 	return () => window.removeEventListener('resize', handleResize);
-// }, [dispatch, window.innerWidth]);
-// };
