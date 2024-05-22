@@ -5,6 +5,7 @@ export type TrendingDataT = {
 	backdrop_url?: string;
 	id: number;
 	overview: string;
+	overview_brief?: string;
 	poster_path: string;
 	poster_url?: string;
 	title: string;

@@ -99,14 +99,18 @@ export const Upcoming: React.FC = () => {
 							</div>
 
 							<h4 className={styles.aboutTitle}>About</h4>
-							<p className={styles.aboutText}>{movies[idx].overview}</p>
+							<p className={styles.aboutText}>
+								{deviceType === 'desktop' && movies[idx].overview_brief
+									? movies[idx].overview_brief
+									: movies[idx].overview}
+							</p>
 
 							<div className={styles.btnWrapper}>
 								<Button isGradient={true} onClick={handleTrailerBtn}>
 									Watch trailer
 								</Button>
 								<Button isGradient={false} onClick={handleDetailsBtn}>
-									Add to my Library
+									More details
 								</Button>
 							</div>
 						</div>

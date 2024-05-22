@@ -5,6 +5,7 @@ import styles from './Hero.module.css';
 import { selectTrendingAll } from '@/redux';
 import { HeroPlug } from './parts';
 import { Button } from '@/components/Button';
+import starsMockup from '@/assets/images/stars-mockup.svg';
 
 export const Hero: React.FC = () => {
 	const { dayUpdated: movies } = useSelector(selectTrendingAll);
@@ -37,8 +38,15 @@ export const Hero: React.FC = () => {
 				<article className={styles.hero} style={heroBg}>
 					<div className={styles.container}>
 						<div className={styles.textWrapper}>
-							<h1 className={styles.title}>{movies[idx].title}</h1>
-							<p className={styles.text}>{movies[idx].overview}</p>
+							<h1 className={styles.titleStars}>{movies[idx].title}</h1>
+							<div className={styles.starsWrapper}>
+								<img src={starsMockup} className={styles.stars} alt="Stars" />
+							</div>
+							<p className={styles.text}>
+								{movies[idx].overview_brief
+									? movies[idx].overview_brief
+									: movies[idx].overview}
+							</p>
 						</div>
 
 						<div className={styles.btnWrapper}>
