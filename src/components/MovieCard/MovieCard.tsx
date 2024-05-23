@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 
 import styles from './MovieCard.module.css';
 import { selectService, selectTrendingAll } from '@/redux';
-import starsMockup from '@/assets/images/stars-mockup.svg';
+import { StarsRating } from '@/components';
 
 type PropsT = {
 	index: number;
@@ -38,7 +38,7 @@ export const MovieCard: React.FC<PropsT> = ({ index }) => {
 								{movies[index].release_date.slice(0, 4)}
 							</p>
 							<div className={styles.starsWrapper}>
-								<img src={starsMockup} className={styles.stars} alt="Stars" />
+								<StarsRating idx={index} />
 							</div>
 						</div>
 					</div>

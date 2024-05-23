@@ -20,8 +20,8 @@ export const substituteMovieData = ({
 		genresText: [] as string[],
 		overview: '',
 		overview_brief: '',
-		popularity: 0,
-		vote_average: 0,
+		popularity: '',
+		vote_average: '',
 	};
 
 	const { backdrop, poster } = processImages({ movie, deviceType, apiConfig });
@@ -35,8 +35,8 @@ export const substituteMovieData = ({
 	updatedData.overview = overview;
 	updatedData.overview_brief = overview_brief;
 
-	updatedData.popularity = Number(movie.popularity.toFixed(1));
-	updatedData.vote_average = Number(movie.vote_average.toFixed(1));
+	updatedData.popularity = movie.popularity.toFixed(1);
+	updatedData.vote_average = movie.vote_average.toFixed(1);
 
 	return updatedData;
 };

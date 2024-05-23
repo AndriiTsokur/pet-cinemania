@@ -40,6 +40,11 @@
 	font-weight: 500;
 }
 
+.starsWrapper {
+	display: flex;
+	justify-content: flex-end;
+}
+
 .stars {
 	width: 86px;
 	height: 14px;

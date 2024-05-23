@@ -4,6 +4,8 @@ import { useSelector } from 'react-redux';
 import styles from './Upcoming.module.css';
 import { selectService, selectUpcoming } from '@/redux';
 import { ArticleTitle, Button } from '@/components';
+import { randomizer } from '@/utils';
+import posterPlug from '@/assets/images/poster-plug.jpg';
 
 export const Upcoming: React.FC = () => {
 	const {
@@ -15,7 +17,7 @@ export const Upcoming: React.FC = () => {
 	useEffect(() => {
 		if (movies === null) return;
 
-		const index = Math.round(Math.random() * (movies.length - 1));
+		const index = randomizer({ min: 0, max: movies.length });
 		setIdx(index);
 	}, [movies]);
 
@@ -46,7 +48,7 @@ export const Upcoming: React.FC = () => {
 							className={styles.posterContainer}
 						>
 							<img
-								src={image}
+								src={image ? image : posterPlug}
 								className={
 									deviceType === 'mobile' ? styles.poster : styles.backdrop
 								}

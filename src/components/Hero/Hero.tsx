@@ -4,16 +4,17 @@ import { useSelector } from 'react-redux';
 import styles from './Hero.module.css';
 import { selectTrendingAll } from '@/redux';
 import { HeroPlug } from './parts';
-import { Button } from '@/components/Button';
-import starsMockup from '@/assets/images/stars-mockup.svg';
+import { Button, StarsRating } from '@/components';
+import { randomizer } from '@/utils';
 
 export const Hero: React.FC = () => {
 	const { dayUpdated: movies } = useSelector(selectTrendingAll);
+
 	const [idx, setIdx] = useState(0);
 
 	useEffect(() => {
 		if (movies === null) return;
-		const index = Math.round(Math.random() * (movies.length - 1));
+		const index = randomizer({ min: 0, max: movies.length });
 		setIdx(index);
 	}, [movies]);
 
@@ -40,7 +41,7 @@ export const Hero: React.FC = () => {
 						<div className={styles.textWrapper}>
 							<h1 className={styles.titleStars}>{movies[idx].title}</h1>
 							<div className={styles.starsWrapper}>
-								<img src={starsMockup} className={styles.stars} alt="Stars" />
+								<StarsRating idx={idx} />
 							</div>
 							<p className={styles.text}>
 								{movies[idx].overview_brief

@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import styles from './WeeklyTrends.module.css';
 import { selectService, selectTrendingAll } from '@/redux';
 import { ArticleTitle, MovieCard } from '@/components';
+import { randomizer } from '@/utils';
 
 export const WeeklyTrends: React.FC = () => {
 	const {
@@ -22,7 +23,7 @@ export const WeeklyTrends: React.FC = () => {
 		const newRandomCardNumbers: number[] = [];
 
 		while (newRandomCardNumbers.length < cardsQuantity) {
-			const rnd = Math.round(Math.random() * (movies.length - 1));
+			const rnd = randomizer({ min: 0, max: movies.length });
 			if (!newRandomCardNumbers.includes(rnd)) {
 				newRandomCardNumbers.push(rnd);
 			}

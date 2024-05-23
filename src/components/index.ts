@@ -7,3 +7,4 @@ export { Hero } from './Hero';
 export { Layout } from './Layout';
 export { Loader } from './Loader';
 export { MovieCard } from './MovieCard';
+export { StarsRating } from './StarsRating';
