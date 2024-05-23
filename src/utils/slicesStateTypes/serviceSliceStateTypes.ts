@@ -32,5 +32,6 @@ export type ServiceStateT = {
 		deviceType: null | 'mobile' | 'tablet' | 'desktop';
 		screenWidth: null | number;
 		movieCardHeight: string;
+		modalIsOpen: boolean;
 	};
 };

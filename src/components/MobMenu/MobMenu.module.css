@@ -1,0 +1,30 @@
+@import '@/assets/styles/variables.css';
+
+.nav {
+	position: relative;
+	top: 48px;
+	left: 0;
+	width: 200px;
+	height: 100vh;
+	padding: 40px 20px 20px 20px;
+	background-color: var(--bg-color);
+	z-index: 10;
+}
+
+.navList {
+	display: flex;
+	flex-direction: column;
+	row-gap: 24px;
+}
+
+.navItem {
+	color: var(--color-primary);
+	font-size: 14px;
+	font-weight: 400;
+	line-height: calc(16 / 14);
+	text-transform: uppercase;
+}
+
+.active {
+	color: var(--color-accent);
+}

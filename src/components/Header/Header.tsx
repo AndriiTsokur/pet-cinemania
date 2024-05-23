@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './Header.module.css';
-import { selectService } from '@/redux';
+import { selectService, toggleModal } from '@/redux';
 import logo from '@/assets/images/logo.svg';
 import themeDark from '@/assets/images/theme-dark.svg';
 import themeLight from '@/assets/images/theme-light.svg';
@@ -14,15 +14,20 @@ type PropsT = {
 };
 
 export const Header: React.FC<PropsT> = ({ themeHandler, isDarkMode }) => {
+	const dispatch = useDispatch();
 	const {
-		screen: { deviceType },
+		screen: { deviceType, modalIsOpen },
 	} = useSelector(selectService);
 
 	const isMobile = deviceType === 'mobile';
 
+	const handleClickLogo = () => {
+		if (modalIsOpen) dispatch(toggleModal());
+	};
+
 	return (
 		<header className={`${styles.header}`}>
-			<Link to="/">
+			<Link to="/" onClick={handleClickLogo}>
 				<div className={styles.logoWrapper}>
 					<img src={logo} className={styles.logo} alt="Cinemania Logo" />
 

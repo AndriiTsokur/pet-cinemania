@@ -1,11 +1,15 @@
+import { useDispatch } from 'react-redux';
 import styles from './MobNavBar.module.css';
+import { toggleModal } from '@/redux';
 
 export const MobNavBar: React.FC = () => {
-	const handleMenu = () => {
-		console.log('MENU');
-	};
+	const dispatch = useDispatch();
+
+	// const handleMenu = () => {
+	// 	console.log('MENU');
+	// };
 	return (
-		<p onClick={handleMenu} className={styles.menu}>
+		<p onClick={() => dispatch(toggleModal())} className={styles.menu}>
 			Menu
 		</p>
 	);
