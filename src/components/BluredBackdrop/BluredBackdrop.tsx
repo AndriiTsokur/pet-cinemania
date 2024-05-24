@@ -26,7 +26,6 @@ export const BluredBackdrop: React.FC<PropsT> = ({ children }) => {
 	useEffect(() => {
 		const handleEsc = (e: KeyboardEvent) => {
 			if (e.code === 'Escape' && mobileMenuIsOpen) {
-				console.log(e.code);
 				dispatch(toggleMobileMenu());
 			}
 		};
