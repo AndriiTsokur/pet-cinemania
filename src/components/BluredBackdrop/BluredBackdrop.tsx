@@ -40,13 +40,13 @@ export const BluredBackdrop: React.FC<PropsT> = ({ children }) => {
 		};
 	}, [mobileMenuIsOpen, modalIsOpen]);
 
-	let styleOptions = `${styles.backdrop}`;
+	// let styleOptions = `${styles.backdrop}`;
 
-	if (mobileMenuIsOpen) {
-		styleOptions = `${styles.backdrop} ${styles.visible}`;
-	} else if (modalIsOpen) {
-		styleOptions = `${styles.backdrop} ${styles.visible} ${styles.overTopMenu}`;
-	}
+	// if (mobileMenuIsOpen) {
+	// 	styleOptions = `${styles.backdrop} ${styles.visible}`;
+	// } else if (modalIsOpen) {
+	// 	styleOptions = `${styles.backdrop} ${styles.visible} ${styles.overTopMenu}`;
+	// }
 
 	useLockBodyScroll();
 
