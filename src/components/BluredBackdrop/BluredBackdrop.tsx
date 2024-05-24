@@ -17,20 +17,37 @@ export const BluredBackdrop: React.FC<PropsT> = ({ children }) => {
 
 	useLockBodyScroll();
 
+	const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+		if (mobileMenuIsOpen && e.target === e.currentTarget) {
+			dispatch(toggleMobileMenu());
+		}
+	};
+
 	useEffect(() => {
 		const handleEsc = (e: KeyboardEvent) => {
 			if (e.code === 'Escape' && mobileMenuIsOpen) {
+				console.log(e.code);
 				dispatch(toggleMobileMenu());
-				document.removeEventListener('keydown', handleEsc);
 			}
 		};
 
-		document.addEventListener('keydown', handleEsc);
+		mobileMenuIsOpen && document.addEventListener('keydown', handleEsc);
 
 		return () => {
 			document.removeEventListener('keydown', handleEsc);
 		};
-	}, []);
+	}, [mobileMenuIsOpen]);
 
-	return <div className={styles.backdrop}>{children}</div>;
+	return (
+		<div
+			className={
+				mobileMenuIsOpen
+					? `${styles.backdrop} ${styles.visible}`
+					: styles.backdrop
+			}
+			onClick={handleClick}
+		>
+			{children}
+		</div>
+	);
 };
