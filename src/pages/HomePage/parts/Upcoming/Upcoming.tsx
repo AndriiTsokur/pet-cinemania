@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './Upcoming.module.css';
 import { selectService, selectUpcoming } from '@/redux';
 import { ArticleTitle, Button } from '@/components';
-import { randomizer } from '@/utils';
+import { randomizer, showDetails } from '@/utils';
 import posterPlug from '@/assets/images/poster-plug.jpg';
 
 export const Upcoming: React.FC = () => {
+	const dispatch = useDispatch();
 	const {
 		screen: { deviceType, movieCardHeight },
 	} = useSelector(selectService);
@@ -31,10 +32,6 @@ export const Upcoming: React.FC = () => {
 
 	const handleTrailerBtn = () => {
 		console.log('TRAILER');
-	};
-
-	const handleDetailsBtn = () => {
-		console.log('DETAILS');
 	};
 
 	return (
@@ -111,7 +108,16 @@ export const Upcoming: React.FC = () => {
 								<Button isGradient={true} onClick={handleTrailerBtn}>
 									Watch trailer
 								</Button>
-								<Button isGradient={false} onClick={handleDetailsBtn}>
+								<Button
+									isGradient={false}
+									onClick={() =>
+										showDetails({
+											modalType: 'details',
+											movieId: movies[idx].id,
+											dispatch,
+										})
+									}
+								>
 									More details
 								</Button>
 							</div>

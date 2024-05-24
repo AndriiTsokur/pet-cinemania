@@ -1,14 +1,16 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './MovieCard.module.css';
 import { selectService, selectTrendingAll } from '@/redux';
 import { StarsRating } from '@/components';
+import { showDetails } from '@/utils';
 
 type PropsT = {
 	index: number;
 };
 
 export const MovieCard: React.FC<PropsT> = ({ index }) => {
+	const dispatch = useDispatch();
 	const {
 		screen: { movieCardHeight },
 	} = useSelector(selectService);
@@ -28,7 +30,13 @@ export const MovieCard: React.FC<PropsT> = ({ index }) => {
 				<section
 					className={styles.section}
 					style={cardBg}
-					onClick={() => console.log('MODAL')}
+					onClick={() =>
+						showDetails({
+							modalType: 'details',
+							movieId: movies[index].id,
+							dispatch,
+						})
+					}
 				>
 					<div className={styles.infoWrapper}>
 						<h3 className={styles.movieTitle}>{movies[index].title}</h3>
