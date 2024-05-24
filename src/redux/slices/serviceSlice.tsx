@@ -17,11 +17,14 @@ const initialState: ServiceStateT = {
 			error: null,
 		},
 	},
+	modal: {
+		mobileMenuIsOpen: false,
+		modalIsOpen: false,
+	},
 	screen: {
 		deviceType: null,
 		screenWidth: null,
 		movieCardHeight: '',
-		modalIsOpen: false,
 	},
 };
 
@@ -32,8 +35,8 @@ const fetchServiceSlice = createSlice({
 		defineScreenParams(state, action) {
 			state.screen = { ...state.screen, ...action.payload };
 		},
-		toggleModal(state) {
-			state.screen.modalIsOpen = !state.screen.modalIsOpen;
+		toggleMobileMenu(state) {
+			state.modal.mobileMenuIsOpen = !state.modal.mobileMenuIsOpen;
 		},
 	},
 	extraReducers(builder) {
@@ -81,5 +84,6 @@ const fetchServiceSlice = createSlice({
 
 export const selectService = (state: { service: ServiceStateT }) =>
 	state.service;
-export const { defineScreenParams, toggleModal } = fetchServiceSlice.actions;
+export const { defineScreenParams, toggleMobileMenu } =
+	fetchServiceSlice.actions;
 export const serviceReducer = fetchServiceSlice.reducer;

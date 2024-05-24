@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './Header.module.css';
-import { selectService, toggleModal } from '@/redux';
+import { selectService, toggleMobileMenu } from '@/redux';
 import logo from '@/assets/images/logo.svg';
 import themeDark from '@/assets/images/theme-dark.svg';
 import themeLight from '@/assets/images/theme-light.svg';
@@ -16,13 +16,14 @@ type PropsT = {
 export const Header: React.FC<PropsT> = ({ themeHandler, isDarkMode }) => {
 	const dispatch = useDispatch();
 	const {
-		screen: { deviceType, modalIsOpen },
+		modal: { mobileMenuIsOpen },
+		screen: { deviceType },
 	} = useSelector(selectService);
 
 	const isMobile = deviceType === 'mobile';
 
 	const handleClickLogo = () => {
-		if (modalIsOpen) dispatch(toggleModal());
+		if (mobileMenuIsOpen) dispatch(toggleMobileMenu());
 	};
 
 	return (

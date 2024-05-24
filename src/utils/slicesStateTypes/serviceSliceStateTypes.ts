@@ -28,10 +28,13 @@ export type ServiceStateT = {
 		data: null | GenresDataT;
 		status: RequestStatusT;
 	};
+	modal: {
+		mobileMenuIsOpen: boolean;
+		modalIsOpen: boolean;
+	};
 	screen: {
 		deviceType: null | 'mobile' | 'tablet' | 'desktop';
 		screenWidth: null | number;
 		movieCardHeight: string;
-		modalIsOpen: boolean;
 	};
 };

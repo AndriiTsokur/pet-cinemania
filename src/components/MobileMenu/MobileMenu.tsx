@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 
 import styles from './MobileMenu.module.css';
 import { navData } from '@/router';
-import { toggleModal } from '@/redux';
+import { toggleMobileMenu } from '@/redux';
 
 export const MobileMenu: React.FC = () => {
 	const dispatch = useDispatch();
@@ -18,7 +18,7 @@ export const MobileMenu: React.FC = () => {
 							className={({ isActive }) =>
 								isActive ? `${styles.navItem} ${styles.active}` : styles.navItem
 							}
-							onClick={() => dispatch(toggleModal())}
+							onClick={() => dispatch(toggleMobileMenu())}
 						>
 							{linkText}
 						</NavLink>

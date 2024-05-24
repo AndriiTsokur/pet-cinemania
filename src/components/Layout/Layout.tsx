@@ -10,7 +10,7 @@ export function Layout() {
 	const dispatch = useDispatch();
 	const { isDarkMode } = useSelector(selectLibrary);
 	const {
-		screen: { modalIsOpen },
+		modal: { mobileMenuIsOpen },
 	} = useSelector(selectService);
 
 	const handleColorTheme = () => dispatch(toggleColorMode());
@@ -19,7 +19,7 @@ export function Layout() {
 		<div className={`${styles.layout} ${!isDarkMode && styles.lightMode}`}>
 			<Header isDarkMode={isDarkMode} themeHandler={handleColorTheme} />
 
-			{modalIsOpen && (
+			{mobileMenuIsOpen && (
 				<BluredBackdrop>
 					<MobileMenu />
 				</BluredBackdrop>

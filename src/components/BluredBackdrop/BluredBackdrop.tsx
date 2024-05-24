@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './BluredBackdrop.module.css';
 import { useLockBodyScroll } from '@/utils';
-import { selectService, toggleModal } from '@/redux';
+import { selectService, toggleMobileMenu } from '@/redux';
 
 type PropsT = {
 	children?: ReactElement;
@@ -12,15 +12,15 @@ type PropsT = {
 export const BluredBackdrop: React.FC<PropsT> = ({ children }) => {
 	const dispatch = useDispatch();
 	const {
-		screen: { modalIsOpen },
+		modal: { mobileMenuIsOpen },
 	} = useSelector(selectService);
 
 	useLockBodyScroll();
 
 	useEffect(() => {
 		const handleEsc = (e: KeyboardEvent) => {
-			if (e.code === 'Escape' && modalIsOpen) {
-				dispatch(toggleModal());
+			if (e.code === 'Escape' && mobileMenuIsOpen) {
+				dispatch(toggleMobileMenu());
 				document.removeEventListener('keydown', handleEsc);
 			}
 		};
