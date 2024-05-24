@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './Hero.module.css';
-import { fetchDetailsThunk, selectTrendingAll, toggleModal } from '@/redux';
+import { selectTrendingAll } from '@/redux';
 import { HeroPlug } from './parts';
 import { Button, StarsRating } from '@/components';
-import { randomizer } from '@/utils';
+import { randomizer, showDetails } from '@/utils';
 
 export const Hero: React.FC = () => {
 	const dispatch = useDispatch();
@@ -28,11 +28,6 @@ export const Hero: React.FC = () => {
 
 	const handleTrailerBtn = () => {
 		console.log('TRAILER');
-	};
-
-	const handleDetailsBtn = () => {
-		dispatch<any>(fetchDetailsThunk(movies![idx].id));
-		dispatch(toggleModal({ modalType: 'details', movieId: movies![idx].id }));
 	};
 
 	return (
@@ -59,7 +54,13 @@ export const Hero: React.FC = () => {
 							<Button
 								isGradient={false}
 								isOutOfColorMode={true}
-								onClick={handleDetailsBtn}
+								onClick={() =>
+									showDetails({
+										modalType: 'details',
+										movieId: movies![idx].id,
+										dispatch,
+									})
+								}
 							>
 								More details
 							</Button>
