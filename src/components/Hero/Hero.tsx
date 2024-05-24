@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './Hero.module.css';
-import { selectTrendingAll } from '@/redux';
+import { fetchDetailsThunk, selectTrendingAll, toggleModal } from '@/redux';
 import { HeroPlug } from './parts';
 import { Button, StarsRating } from '@/components';
 import { randomizer } from '@/utils';
 
 export const Hero: React.FC = () => {
+	const dispatch = useDispatch();
 	const { dayUpdated: movies } = useSelector(selectTrendingAll);
 
 	const [idx, setIdx] = useState(0);
@@ -30,7 +31,8 @@ export const Hero: React.FC = () => {
 	};
 
 	const handleDetailsBtn = () => {
-		console.log('DETAILS');
+		dispatch<any>(fetchDetailsThunk(movies![idx].id));
+		dispatch(toggleModal({ modalType: 'details', movieId: movies![idx].id }));
 	};
 
 	return (

@@ -4,7 +4,7 @@ import { selectService } from '@/redux';
 
 export const useLockBodyScroll = () => {
 	const {
-		modal: { mobileMenuIsOpen },
+		modal: { mobileMenuIsOpen, modalIsOpen },
 	} = useSelector(selectService);
 
 	useLayoutEffect(() => {
@@ -13,7 +13,7 @@ export const useLockBodyScroll = () => {
 		const originalStyle = window.getComputedStyle(document.body).overflow;
 		const originalPaddingRight = document.body.style.paddingRight;
 
-		if (mobileMenuIsOpen) {
+		if (mobileMenuIsOpen || modalIsOpen) {
 			document.body.style.overflow = 'hidden';
 			document.body.style.paddingRight = `${scrollBarWidth}px`;
 		}
@@ -22,5 +22,5 @@ export const useLockBodyScroll = () => {
 			document.body.style.overflow = originalStyle;
 			document.body.style.paddingRight = originalPaddingRight;
 		};
-	}, [mobileMenuIsOpen]);
+	}, []);
 };

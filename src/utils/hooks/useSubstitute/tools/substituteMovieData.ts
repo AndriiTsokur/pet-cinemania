@@ -1,4 +1,10 @@
-import { processGenres, processImages, processOverview } from '../tools';
+import {
+	processGenres,
+	processImages,
+	processOverview,
+	processPopularity,
+	processVoteAverage,
+} from '../tools';
 import { ApiConfigDataT, GenresDataT, TrendingDataT } from '@/utils';
 
 type ParamsT = {
@@ -35,8 +41,8 @@ export const substituteMovieData = ({
 	updatedData.overview = overview;
 	updatedData.overview_brief = overview_brief;
 
-	updatedData.popularity = movie.popularity.toFixed(1);
-	updatedData.vote_average = movie.vote_average.toFixed(1);
+	updatedData.popularity = processPopularity(movie.popularity);
+	updatedData.vote_average = processVoteAverage(movie.vote_average);
 
 	return updatedData;
 };

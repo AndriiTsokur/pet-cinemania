@@ -1,8 +1,8 @@
-import { ApiConfigDataT, TrendingDataT } from '@/utils';
+import { ApiConfigDataT, DetailsDataT, TrendingDataT } from '@/utils';
 import posterPlug from '@/assets/images/poster-plug.jpg';
 
 type ParamsT = {
-	movie: TrendingDataT;
+	movie: TrendingDataT | DetailsDataT;
 	deviceType: string | null | undefined;
 	apiConfig: ApiConfigDataT | null | undefined;
 };
@@ -13,21 +13,22 @@ export const processImages = ({ movie, deviceType, apiConfig }: ParamsT) => {
 		poster: '',
 	};
 
-	const backdropImage =
-		movie.backdrop_path === null ? posterPlug : movie.backdrop_path;
-	const posterImage =
-		movie.poster_path === null ? posterPlug : movie.poster_path;
-
-	if (movie.backdrop_path === null) {
+	// Processing backdrop image
+	if (!movie.backdrop_path) {
 		updatedData.backdrop = posterPlug;
-	} else if (movie.poster_path === null) {
+	} else if (deviceType === 'desktop') {
+		updatedData.backdrop = `${apiConfig?.secure_base_url}${apiConfig?.backdrop_sizes[2]}${movie.backdrop_path}`;
+	} else {
+		updatedData.backdrop = `${apiConfig?.secure_base_url}${apiConfig?.backdrop_sizes[1]}${movie.backdrop_path}`;
+	}
+
+	// Processing poster image
+	if (!movie.poster_path) {
 		updatedData.poster = posterPlug;
 	} else if (deviceType === 'desktop') {
-		updatedData.backdrop = `${apiConfig?.secure_base_url}${apiConfig?.backdrop_sizes[2]}${backdropImage}`;
-		updatedData.poster = `${apiConfig?.secure_base_url}${apiConfig?.poster_sizes[4]}${posterImage}`;
+		updatedData.poster = `${apiConfig?.secure_base_url}${apiConfig?.poster_sizes[4]}${movie.poster_path}`;
 	} else {
-		updatedData.backdrop = `${apiConfig?.secure_base_url}${apiConfig?.backdrop_sizes[1]}${backdropImage}`;
-		updatedData.poster = `${apiConfig?.secure_base_url}${apiConfig?.poster_sizes[3]}${posterImage}`;
+		updatedData.poster = `${apiConfig?.secure_base_url}${apiConfig?.poster_sizes[3]}${movie.poster_path}`;
 	}
 
 	return updatedData;

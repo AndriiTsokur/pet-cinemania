@@ -16,13 +16,11 @@ export const MobileMenu: React.FC = () => {
 		mobileMenuIsOpen && dispatch(toggleMobileMenu());
 	};
 
+	if (!mobileMenuIsOpen) return null;
+
 	return (
 		<BluredBackdrop>
-			<nav
-				className={
-					mobileMenuIsOpen ? `${styles.nav} ${styles.visible}` : styles.nav
-				}
-			>
+			<nav className={styles.nav}>
 				<ul className={styles.navList}>
 					{navData.map(({ path, linkText }) => (
 						<li key={linkText}>

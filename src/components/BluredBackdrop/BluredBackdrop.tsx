@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './BluredBackdrop.module.css';
 import { useLockBodyScroll } from '@/utils';
-import { selectService, toggleMobileMenu } from '@/redux';
+import { selectService, toggleMobileMenu, toggleModal } from '@/redux';
 
 type PropsT = {
 	children?: ReactElement;
@@ -12,14 +12,14 @@ type PropsT = {
 export const BluredBackdrop: React.FC<PropsT> = ({ children }) => {
 	const dispatch = useDispatch();
 	const {
-		modal: { mobileMenuIsOpen },
+		modal: { mobileMenuIsOpen, modalIsOpen },
 	} = useSelector(selectService);
-
-	useLockBodyScroll();
 
 	const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
 		if (mobileMenuIsOpen && e.target === e.currentTarget) {
 			dispatch(toggleMobileMenu());
+		} else if (modalIsOpen && e.target === e.currentTarget) {
+			dispatch(toggleModal({}));
 		}
 	};
 
@@ -27,21 +27,34 @@ export const BluredBackdrop: React.FC<PropsT> = ({ children }) => {
 		const handleEsc = (e: KeyboardEvent) => {
 			if (e.code === 'Escape' && mobileMenuIsOpen) {
 				dispatch(toggleMobileMenu());
+			} else if (e.code === 'Escape' && modalIsOpen) {
+				dispatch(toggleModal({}));
 			}
 		};
 
-		mobileMenuIsOpen && document.addEventListener('keydown', handleEsc);
+		(mobileMenuIsOpen || modalIsOpen) &&
+			document.addEventListener('keydown', handleEsc);
 
 		return () => {
 			document.removeEventListener('keydown', handleEsc);
 		};
-	}, [mobileMenuIsOpen]);
+	}, [mobileMenuIsOpen, modalIsOpen]);
+
+	let styleOptions = `${styles.backdrop}`;
+
+	if (mobileMenuIsOpen) {
+		styleOptions = `${styles.backdrop} ${styles.visible}`;
+	} else if (modalIsOpen) {
+		styleOptions = `${styles.backdrop} ${styles.visible} ${styles.overTopMenu}`;
+	}
+
+	useLockBodyScroll();
 
 	return (
 		<div
 			className={
-				mobileMenuIsOpen
-					? `${styles.backdrop} ${styles.visible}`
+				modalIsOpen
+					? `${styles.backdrop} ${styles.overTopMenu}`
 					: styles.backdrop
 			}
 			onClick={handleClick}

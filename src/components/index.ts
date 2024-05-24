@@ -8,5 +8,6 @@ export { Hero } from './Hero';
 export { Layout } from './Layout';
 export { Loader } from './Loader';
 export { MobileMenu } from './MobileMenu';
+export { Modal } from './Modal';
 export { MovieCard } from './MovieCard';
 export { StarsRating } from './StarsRating';
