@@ -1,10 +1,11 @@
 import { NavLink } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import styles from './MobMenu.module.css';
+
+import styles from './MobileMenu.module.css';
 import { navData } from '@/router';
 import { toggleModal } from '@/redux';
 
-export const MobMenu: React.FC = () => {
+export const MobileMenu: React.FC = () => {
 	const dispatch = useDispatch();
 
 	return (

@@ -7,6 +7,6 @@ export { Header } from './Header';
 export { Hero } from './Hero';
 export { Layout } from './Layout';
 export { Loader } from './Loader';
-export { MobMenu } from './MobMenu';
+export { MobileMenu } from './MobileMenu';
 export { MovieCard } from './MovieCard';
 export { StarsRating } from './StarsRating';

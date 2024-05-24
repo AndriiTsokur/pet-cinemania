@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './Layout.module.css';
 import { selectLibrary, selectService, toggleColorMode } from '@/redux';
-import { BluredBackdrop, Footer, Header, MobMenu } from '@/components';
+import { BluredBackdrop, Footer, Header, MobileMenu } from '@/components';
 
 export function Layout() {
 	const { state } = useNavigation();
@@ -21,7 +21,7 @@ export function Layout() {
 
 			{modalIsOpen && (
 				<BluredBackdrop>
-					<MobMenu />
+					<MobileMenu />
 				</BluredBackdrop>
 			)}
 
