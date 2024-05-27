@@ -2,14 +2,14 @@ import { Outlet, useNavigation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './Layout.module.css';
-import { selectLibrary, selectService, toggleColorMode } from '@/redux';
+import { selectLocal, selectService, toggleColorMode } from '@/redux';
 import { MovieDetailsPage } from '@/pages';
 import { Footer, Header, MobileMenu } from '@/components';
 
 export function Layout() {
 	const { state } = useNavigation();
 	const dispatch = useDispatch();
-	const { isDarkMode } = useSelector(selectLibrary);
+	const { isDarkMode } = useSelector(selectLocal);
 	const {
 		modal: { modalIsOpen },
 	} = useSelector(selectService);

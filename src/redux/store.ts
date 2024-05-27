@@ -13,7 +13,7 @@ import storage from 'redux-persist/lib/storage';
 
 import {
 	detailsReducer,
-	libraryReducer,
+	localReducer,
 	serviceReducer,
 	trendingReducer,
 	upcomingReducer,
@@ -22,14 +22,14 @@ import {
 const libraryPersistConfig = {
 	key: 'cinemania',
 	storage,
-	whitelist: ['isDarkMode', 'libraryState'],
+	whitelist: ['isDarkMode', 'movies'],
 };
 
-const persistedReducer = persistReducer(libraryPersistConfig, libraryReducer);
+const persistedReducer = persistReducer(libraryPersistConfig, localReducer);
 
 const reducers = combineReducers({
 	details: detailsReducer,
-	library: persistedReducer,
+	local: persistedReducer,
 	service: serviceReducer,
 	trending: trendingReducer,
 	upcoming: upcomingReducer,
