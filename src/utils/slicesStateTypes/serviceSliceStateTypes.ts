@@ -35,8 +35,11 @@ export type ServiceStateT = {
 		movieId: number;
 	};
 	screen: {
-		deviceType: null | 'mobile' | 'tablet' | 'desktop';
-		screenWidth: null | number;
+		deviceType: '' | 'mobile' | 'tablet' | 'desktop';
+		cardsInRow: number;
+		screenWidth: number;
 		movieCardHeight: string;
+		fetchBackdropURL: string;
+		fetchPosterURL: string;
 	};
 };

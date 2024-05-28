@@ -1,6 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { fetchApiConfigThunk, fetchGenresThunk } from '@/redux/operations';
-import { ServiceStateT } from '@/utils';
+import { ApiConfigDataT, ServiceStateT } from '@/utils';
+import { defineImagesFetchURL } from '@/utils';
 
 const initialState: ServiceStateT = {
 	apiConfig: {
@@ -24,9 +25,12 @@ const initialState: ServiceStateT = {
 		movieId: 0,
 	},
 	screen: {
-		deviceType: null,
-		screenWidth: null,
+		deviceType: '',
+		cardsInRow: 1,
+		screenWidth: 0,
 		movieCardHeight: '',
+		fetchBackdropURL: '',
+		fetchPosterURL: '',
 	},
 };
 
@@ -36,11 +40,20 @@ const fetchServiceSlice = createSlice({
 	reducers: {
 		defineScreenParams(state, action) {
 			state.screen = { ...state.screen, ...action.payload };
+			if (state.apiConfig.data !== null) {
+				defineImagesFetchURL(state);
+			}
 		},
 		toggleMobileMenu(state) {
 			state.modal.mobileMenuIsOpen = !state.modal.mobileMenuIsOpen;
 		},
-		toggleModal(state, action) {
+		toggleModal(
+			state,
+			action: PayloadAction<{
+				modalType: 'details' | 'video';
+				movieId: number;
+			}>,
+		) {
 			state.modal.modalIsOpen = !state.modal.modalIsOpen;
 			state.modal = state.modal.modalIsOpen
 				? {
@@ -65,9 +78,10 @@ const fetchServiceSlice = createSlice({
 			})
 			.addCase(
 				fetchApiConfigThunk.fulfilled,
-				(state, action: { payload: any }) => {
+				(state, action: PayloadAction<ApiConfigDataT>) => {
 					state.apiConfig.data = action.payload;
 					state.apiConfig.status.isLoading = false;
+					defineImagesFetchURL(state);
 				},
 			)
 			.addCase(

@@ -1,16 +1,24 @@
-export const handleScreenResize = (screenWidth: number) => {
-	let deviceType = 'desktop';
-	let movieCardHeight = '';
+import { screenConfig } from '@/utils';
 
-	if (screenWidth < 768) {
-		deviceType = 'mobile';
-		movieCardHeight = `${Math.round((screenWidth / 320) * 406)}px`;
-	} else if (screenWidth < 1280) {
-		deviceType = 'tablet';
-		movieCardHeight = `${Math.round((screenWidth / 768) * 325)}px`;
-	} else {
-		movieCardHeight = '574px';
+export const handleScreenResize = (screenWidth: number) => {
+	const actualScreen = {
+		deviceType: '',
+		cardsInRow: 1,
+		screenWidth: 0,
+		movieCardHeight: '',
+		fetchBackdropURL: '',
+		fetchPosterURL: '',
+	};
+
+	for (let i = 0; i < screenConfig.length; i++) {
+		if (screenWidth >= screenConfig[i].minScreenWidth) {
+			actualScreen.deviceType = screenConfig[i].deviceType;
+			actualScreen.screenWidth = screenWidth;
+			actualScreen.movieCardHeight = `${Math.round((screenWidth / screenConfig[i].minScreenWidth) * screenConfig[i].minCardHeight)}px`;
+
+			break;
+		}
 	}
 
-	return { deviceType, screenWidth, movieCardHeight };
+	return actualScreen;
 };
