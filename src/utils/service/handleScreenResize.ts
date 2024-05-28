@@ -14,7 +14,12 @@ export const handleScreenResize = (screenWidth: number) => {
 		if (screenWidth >= screenConfig[i].minScreenWidth) {
 			actualScreen.deviceType = screenConfig[i].deviceType;
 			actualScreen.screenWidth = screenWidth;
-			actualScreen.movieCardHeight = `${Math.round((screenWidth / screenConfig[i].minScreenWidth) * screenConfig[i].minCardHeight)}px`;
+
+			if (actualScreen.deviceType === 'desktop') {
+				actualScreen.movieCardHeight = `${screenConfig[i].minCardHeight}px`;
+			} else {
+				actualScreen.movieCardHeight = `${Math.round((screenWidth / screenConfig[i].minScreenWidth) * screenConfig[i].minCardHeight)}px`;
+			}
 
 			break;
 		}

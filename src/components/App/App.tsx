@@ -8,11 +8,7 @@ import {
 	defineScreenParams,
 	fetchApiConfigThunk,
 	fetchGenresThunk,
-	fetchTrendingThunk,
-	fetchUpcomingThunk,
 	selectService,
-	selectTrendingAll,
-	selectUpcoming,
 } from '@/redux';
 import { Loader } from '@/components';
 
@@ -24,8 +20,6 @@ export const App: React.FC = () => {
 		genres: { data: genres },
 		screen: { screenWidth },
 	} = useSelector(selectService);
-	const { day, week } = useSelector(selectTrendingAll);
-	const { data: upcoming } = useSelector(selectUpcoming);
 
 	// Handling screen resize
 	useEffect(() => {
@@ -40,7 +34,7 @@ export const App: React.FC = () => {
 		return () => window.removeEventListener('resize', updateScreenParams);
 	}, [dispatch]);
 
-	// Initial fetch of Service Details and Home page data
+	// Initial fetch of Service Details data
 	useEffect(() => {
 		if (apiConfig !== null) return;
 		dispatch<any>(fetchApiConfigThunk());
@@ -49,21 +43,6 @@ export const App: React.FC = () => {
 	useEffect(() => {
 		if (genres !== null) return;
 		dispatch<any>(fetchGenresThunk());
-	}, []);
-
-	useEffect(() => {
-		if (day !== null) return;
-		dispatch<any>(fetchTrendingThunk('day'));
-	}, []);
-
-	useEffect(() => {
-		if (week !== null) return;
-		dispatch<any>(fetchTrendingThunk('week'));
-	}, []);
-
-	useEffect(() => {
-		if (upcoming !== null) return;
-		dispatch<any>(fetchUpcomingThunk());
 	}, []);
 
 	return <RouterProvider router={router} fallbackElement={<Loader />} />;

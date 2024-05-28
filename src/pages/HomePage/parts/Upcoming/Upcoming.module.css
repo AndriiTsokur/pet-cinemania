@@ -104,7 +104,9 @@
 
 .btnWrapper {
 	display: flex;
-	column-gap: 8px;
+	flex-direction: column;
+	gap: 8px;
+	align-items: center;
 }
 
 @media screen and (min-width: 768px) {
@@ -142,6 +144,12 @@
 
 	.aboutText {
 		margin-bottom: 20px;
+	}
+
+	.btnWrapper {
+		display: flex;
+		flex-direction: row;
+		gap: 8px;
 	}
 }
 

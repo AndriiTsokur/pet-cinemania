@@ -47,13 +47,7 @@ const fetchServiceSlice = createSlice({
 		toggleMobileMenu(state) {
 			state.modal.mobileMenuIsOpen = !state.modal.mobileMenuIsOpen;
 		},
-		toggleModal(
-			state,
-			action: PayloadAction<{
-				modalType: 'details' | 'video';
-				movieId: number;
-			}>,
-		) {
+		toggleModal(state, action) {
 			state.modal.modalIsOpen = !state.modal.modalIsOpen;
 			state.modal = state.modal.modalIsOpen
 				? {

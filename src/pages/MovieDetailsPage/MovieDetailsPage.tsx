@@ -34,13 +34,7 @@ export const MovieDetailsPage: React.FC = () => {
 					style={deviceType === 'mobile' ? { height: movieCardHeight } : {}}
 					className={styles.posterContainer}
 				>
-					<img
-						src={image}
-						className={
-							deviceType === 'mobile' ? styles.poster : styles.backdrop
-						}
-						alt={movie.title}
-					/>
+					<img src={image} className={styles.poster} alt={movie.title} />
 				</div>
 
 				<div className={styles.infoContainer}>
