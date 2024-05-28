@@ -46,7 +46,7 @@ export const MovieCard: React.FC<PropsT> = ({ index }) => {
 								{movies[index].release_date.slice(0, 4)}
 							</p>
 							<div className={styles.starsWrapper}>
-								<StarsRating idx={index} />
+								<StarsRating value={movies[index].vote_average} />
 							</div>
 						</div>
 					</div>
