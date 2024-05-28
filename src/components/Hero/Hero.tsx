@@ -1,28 +1,61 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './Hero.module.css';
-import { selectTrendingAll } from '@/redux';
+import {
+	fetchTrendingThunk,
+	selectService,
+	selectTrendingAll,
+	substituteTrendingDay,
+} from '@/redux';
 import { HeroPlug } from './parts';
 import { Button, StarsRating } from '@/components';
-import { randomizer, showDetails } from '@/utils';
+import {
+	processFetchedImages,
+	processOverview,
+	randomizer,
+	showDetails,
+} from '@/utils';
 
 export const Hero: React.FC = () => {
 	const dispatch = useDispatch();
-	const { dayUpdated: movies } = useSelector(selectTrendingAll);
-
-	const [idx, setIdx] = useState(0);
+	const { screen } = useSelector(selectService);
+	const { day, dayUpdated } = useSelector(selectTrendingAll);
 
 	useEffect(() => {
-		if (movies === null) return;
-		const index = randomizer({ min: 0, max: movies.length });
-		setIdx(index);
-	}, [movies]);
+		if (!day) dispatch<any>(fetchTrendingThunk('day'));
+	}, [dispatch, day]);
+
+	useEffect(() => {
+		if (day) {
+			const randomIndex = randomizer({ min: 0, max: day.length });
+
+			const { backdrop, poster } = processFetchedImages({
+				screen,
+				movie: day[randomIndex],
+			});
+
+			const { overview, overview_brief } = processOverview({
+				movie: day[randomIndex],
+				deviceType: screen.deviceType,
+			});
+
+			const update = {
+				...day[randomIndex],
+				backdrop_url: backdrop,
+				poster_url: poster,
+				overview,
+				overview_brief,
+			};
+
+			dispatch(substituteTrendingDay(update));
+		}
+	}, [screen.deviceType, day, dispatch]);
 
 	let heroBg = {};
-	if (movies !== null) {
+	if (dayUpdated) {
 		heroBg = {
-			backgroundImage: `linear-gradient(68.84deg, rgb(17, 17, 17) 36.846%, rgba(17, 17, 17, 0) 60.047%), url(${movies[idx].backdrop_url})`,
+			backgroundImage: `linear-gradient(68.84deg, rgb(17, 17, 17) 36.846%, rgba(17, 17, 17, 0) 60.047%), url(${dayUpdated.backdrop_url})`,
 		};
 	}
 
@@ -32,18 +65,18 @@ export const Hero: React.FC = () => {
 
 	return (
 		<>
-			{movies ? (
+			{dayUpdated ? (
 				<article className={styles.hero} style={heroBg}>
 					<div className={styles.container}>
 						<div className={styles.textWrapper}>
-							<h1 className={styles.titleStars}>{movies[idx].title}</h1>
+							<h1 className={styles.titleStars}>{dayUpdated.title}</h1>
 							<div className={styles.starsWrapper}>
-								<StarsRating idx={idx} />
+								<StarsRating value={dayUpdated.vote_average} />
 							</div>
 							<p className={styles.text}>
-								{movies[idx].overview_brief
-									? movies[idx].overview_brief
-									: movies[idx].overview}
+								{dayUpdated.overview_brief
+									? dayUpdated.overview_brief
+									: dayUpdated.overview}
 							</p>
 						</div>
 
@@ -57,7 +90,7 @@ export const Hero: React.FC = () => {
 								onClick={() =>
 									showDetails({
 										modalType: 'details',
-										movieId: movies![idx].id,
+										movieId: dayUpdated.id,
 										dispatch,
 									})
 								}

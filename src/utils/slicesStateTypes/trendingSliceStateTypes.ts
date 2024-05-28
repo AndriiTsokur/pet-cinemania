@@ -19,7 +19,7 @@ export type TrendingDataT = {
 
 export type TrendingStateT = {
 	day: null | TrendingDataT[];
-	dayUpdated: null | TrendingDataT[];
+	dayUpdated: null | TrendingDataT;
 	week: null | TrendingDataT[];
 	weekUpdated: null | TrendingDataT[];
 	status: RequestStatusT;

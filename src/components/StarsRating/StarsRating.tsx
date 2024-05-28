@@ -13,10 +13,10 @@ const Stars = styled(Rating)({
 });
 
 type PropsT = {
-	idx: number;
+	value: number;
 };
 
-export const StarsRating: React.FC<PropsT> = ({ idx }) => {
+export const StarsRating: React.FC<PropsT> = ({ value }) => {
 	const { dayUpdated: movies } = useSelector(selectTrendingAll);
 	const {
 		screen: { deviceType },
@@ -25,7 +25,7 @@ export const StarsRating: React.FC<PropsT> = ({ idx }) => {
 	if (movies === null) return;
 
 	const starsSize = deviceType === 'desktop' ? 'medium' : 'small';
-	const starsValue = movies[idx].vote_average / 2;
+	const starsValue = value / 2;
 
 	return (
 		<Stars

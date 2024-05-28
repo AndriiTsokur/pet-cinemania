@@ -13,7 +13,11 @@ const initialState: DetailsStateT = {
 const fetchDetailsSlice = createSlice({
 	name: 'details',
 	initialState,
-	reducers: {},
+	reducers: {
+		uploadDetails(state, action) {
+			state.data = action.payload;
+		},
+	},
 	extraReducers(builder) {
 		builder
 			// Fetching Details data

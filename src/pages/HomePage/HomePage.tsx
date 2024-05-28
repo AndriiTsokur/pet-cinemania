@@ -10,7 +10,6 @@ import {
 	selectService,
 	selectTrendingAll,
 	selectUpcoming,
-	substituteTrendingDay,
 	substituteTrendingWeek,
 	substituteUpcoming,
 } from '@/redux';
@@ -21,13 +20,8 @@ export const HomePage: React.FC = () => {
 	const {
 		screen: { deviceType },
 	} = useSelector(selectService);
-	const { day, week } = useSelector(selectTrendingAll);
+	const { week } = useSelector(selectTrendingAll);
 	const { data: upcoming } = useSelector(selectUpcoming);
-
-	useEffect(() => {
-		if (day !== null) return;
-		dispatch<any>(fetchTrendingThunk('day'));
-	}, []);
 
 	useEffect(() => {
 		if (week !== null) return;
@@ -38,12 +32,6 @@ export const HomePage: React.FC = () => {
 		if (upcoming !== null) return;
 		dispatch<any>(fetchUpcomingThunk());
 	}, []);
-
-	useSubstitute({
-		selector: day,
-		action: substituteTrendingDay,
-		dependencies: [dispatch, deviceType, day],
-	});
 
 	useSubstitute({
 		selector: week,

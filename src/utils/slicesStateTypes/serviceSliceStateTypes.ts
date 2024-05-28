@@ -14,6 +14,15 @@ export type GenresDataT = [
 	},
 ];
 
+export type ScreenDataT = {
+	deviceType: '' | 'mobile' | 'tablet' | 'desktop';
+	cardsInRow: number;
+	screenWidth: number;
+	movieCardHeight: string;
+	fetchBackdropURL: string;
+	fetchPosterURL: string;
+};
+
 export type RequestStatusT = {
 	isLoading: boolean;
 	error: null | string | AxiosError;
@@ -34,12 +43,5 @@ export type ServiceStateT = {
 		modalType: '' | 'details' | 'video';
 		movieId: number;
 	};
-	screen: {
-		deviceType: '' | 'mobile' | 'tablet' | 'desktop';
-		cardsInRow: number;
-		screenWidth: number;
-		movieCardHeight: string;
-		fetchBackdropURL: string;
-		fetchPosterURL: string;
-	};
+	screen: ScreenDataT;
 };
