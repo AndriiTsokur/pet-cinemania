@@ -1,16 +1,15 @@
-import { ReactElement } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './Modal.module.css';
-import { toggleModal } from '@/redux';
-import { BluredBackdrop } from '../BluredBackdrop';
+import { selectService, toggleModal } from '@/redux';
+import { MovieDetailsPage, MovieTrailerPage } from '@/pages';
+import { BluredBackdrop } from '@/components';
 
-type PropsT = {
-	children?: ReactElement;
-};
-
-export const Modal: React.FC<PropsT> = ({ children }) => {
+export const Modal: React.FC = () => {
 	const dispatch = useDispatch();
+	const {
+		modal: { modalType },
+	} = useSelector(selectService);
 
 	const handleCloseModal = () => dispatch(toggleModal({}));
 
@@ -22,7 +21,13 @@ export const Modal: React.FC<PropsT> = ({ children }) => {
 					className={styles.btnClose}
 					onClick={handleCloseModal}
 				/>
-				<div className={styles.modalWrapper}>{children}</div>
+				<div className={styles.modalWrapper}>
+					{modalType === 'details' ? (
+						<MovieDetailsPage />
+					) : (
+						<MovieTrailerPage />
+					)}
+				</div>
 			</article>
 		</BluredBackdrop>
 	);

@@ -1,7 +1,7 @@
 export { App } from './App';
 export { ArticleTitle } from './ArticleTitle';
 export { BluredBackdrop } from './BluredBackdrop';
-export { Button } from './Button';
+export { Button, ButtonWatchTrailer } from './Buttons';
 export { Footer } from './Footer';
 export { Header } from './Header';
 export { Hero } from './Hero';

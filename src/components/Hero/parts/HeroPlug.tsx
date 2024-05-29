@@ -1,6 +1,6 @@
 import styles from '../Hero.module.css';
 import heroPlug from '@/assets/images/hero-plug.jpg';
-import { Button } from '@/components/Button';
+import { Button } from '@/components/Buttons';
 import { useNavigate } from 'react-router-dom';
 
 export const HeroPlug: React.FC = () => {

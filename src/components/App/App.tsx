@@ -52,15 +52,15 @@ export const App: React.FC = () => {
 	// Initial fetch of Movies Details data
 	useEffect(() => {
 		if (!day) dispatch<any>(fetchTrendingThunk('day'));
-	}, [dispatch, day]);
+	}, []);
 
 	useEffect(() => {
 		if (!week) dispatch<any>(fetchTrendingThunk('week'));
-	}, [dispatch, week]);
+	}, []);
 
 	useEffect(() => {
 		if (!upcoming) dispatch<any>(fetchUpcomingThunk());
-	}, [dispatch, upcoming]);
+	}, []);
 
 	return <RouterProvider router={router} fallbackElement={<Loader />} />;
 };

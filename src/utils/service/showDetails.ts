@@ -9,5 +9,6 @@ type ParamsT = {
 
 export const showDetails = ({ modalType, movie, dispatch }: ParamsT) => {
 	dispatch(uploadDetails(movie));
-	dispatch(toggleModal({ modalType, movieId: movie.id }));
+	dispatch(toggleModal(modalType));
+	// dispatch(toggleModal({ modalType, movieId: movie.id }));
 };

@@ -8,7 +8,7 @@ import {
 	substituteTrendingDay,
 } from '@/redux';
 import { HeroPlug } from './parts';
-import { Button, StarsRating } from '@/components';
+import { Button, ButtonWatchTrailer, StarsRating } from '@/components';
 import { processAll, showDetails } from '@/utils';
 
 export const Hero: React.FC = () => {
@@ -39,10 +39,6 @@ export const Hero: React.FC = () => {
 		};
 	}
 
-	const handleTrailerBtn = () => {
-		console.log('TRAILER');
-	};
-
 	return (
 		<>
 			{dayUpdated ? (
@@ -61,9 +57,7 @@ export const Hero: React.FC = () => {
 						</div>
 
 						<div className={styles.btnWrapper}>
-							<Button isGradient={true} onClick={handleTrailerBtn}>
-								Watch trailer
-							</Button>
+							<ButtonWatchTrailer movieId={dayUpdated.id} />
 							<Button
 								isGradient={false}
 								isOutOfColorMode={true}

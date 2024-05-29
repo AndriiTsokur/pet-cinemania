@@ -1,9 +1,10 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { fetchTrailersThunk } from '@/redux/operations';
-import { DetailsDataT, DetailsStateT } from '@/utils';
+import { DetailsStateT } from '@/utils';
 
 const initialState: DetailsStateT = {
 	data: null,
+	trailers: null,
 	status: {
 		isLoading: false,
 		error: null,
@@ -22,17 +23,19 @@ const detailsSlice = createSlice({
 		builder
 			// Fetching Details data
 			.addCase(fetchTrailersThunk.pending, (state) => {
-				state.data = null;
+				state.trailers = null;
 				state.status.isLoading = true;
 				state.status.error = null;
 			})
-			.addCase(
-				fetchTrailersThunk.fulfilled,
-				(state, action: PayloadAction<DetailsDataT>) => {
-					state.data = action.payload;
-					state.status.isLoading = false;
-				},
-			)
+			.addCase(fetchTrailersThunk.fulfilled, (state, action) => {
+				state.trailers = action.payload.filter(
+					(item: any) =>
+						item.official &&
+						item.site.toLowerCase() === 'youtube' &&
+						item.type.toLowerCase() === 'trailer',
+				);
+				state.status.isLoading = false;
+			})
 			.addCase(
 				fetchTrailersThunk.rejected,
 				(state, action: { payload: any }) => {

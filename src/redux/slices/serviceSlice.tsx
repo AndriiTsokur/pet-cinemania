@@ -21,8 +21,7 @@ const initialState: ServiceStateT = {
 	modal: {
 		mobileMenuIsOpen: false,
 		modalIsOpen: false,
-		modalType: 'details',
-		movieId: 0,
+		modalType: '',
 	},
 	screen: {
 		deviceType: '',
@@ -52,14 +51,17 @@ const fetchServiceSlice = createSlice({
 			state.modal = state.modal.modalIsOpen
 				? {
 						...state.modal,
-						modalType: action.payload.modalType,
-						movieId: action.payload.movieId,
+						modalType: action.payload,
+						// movieId: action.payload.movieId,
 					}
 				: {
 						...state.modal,
-						modalType: 'details',
-						movieId: 0,
+						modalType: '',
+						// movieId: 0,
 					};
+		},
+		changeModalType(state, action) {
+			state.modal = { ...state.modal, modalType: action.payload };
 		},
 	},
 	extraReducers(builder) {
@@ -108,6 +110,10 @@ const fetchServiceSlice = createSlice({
 
 export const selectService = (state: { service: ServiceStateT }) =>
 	state.service;
-export const { defineScreenParams, toggleMobileMenu, toggleModal } =
-	fetchServiceSlice.actions;
+export const {
+	defineScreenParams,
+	toggleMobileMenu,
+	toggleModal,
+	changeModalType,
+} = fetchServiceSlice.actions;
 export const serviceReducer = fetchServiceSlice.reducer;

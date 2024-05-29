@@ -1,0 +1,1 @@
+export { ButtonWatchTrailer } from './ButtonWatchTrailer';

@@ -3,8 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './Layout.module.css';
 import { selectLocal, selectService, toggleColorMode } from '@/redux';
-import { MovieDetailsPage } from '@/pages';
-import { Footer, Header, MobileMenu } from '@/components';
+import { Footer, Header, MobileMenu, Modal } from '@/components';
 
 export function Layout() {
 	const { state } = useNavigation();
@@ -29,7 +28,7 @@ export function Layout() {
 			<Footer />
 
 			<MobileMenu />
-			{modalIsOpen && <MovieDetailsPage />}
+			{modalIsOpen && <Modal />}
 		</div>
 	);
 }
