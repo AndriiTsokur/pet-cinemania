@@ -21,22 +21,31 @@ type CommonCalculationsT = ParamsT & {
 	index: number;
 };
 
+type UpdatedTrendingDataT = TrendingDataT & {
+	backdrop_url: string;
+	poster_url: string;
+	overview_brief: string;
+	genres: string[];
+	popularity: string;
+	vote_average: string;
+};
+
 export const processAll = ({
 	categoryName,
 	categoryData,
 	screen,
 	genres,
 	dayUpdated,
-}: ProcessAllT) => {
+}: ProcessAllT): UpdatedTrendingDataT | UpdatedTrendingDataT[] => {
 	let index = 0;
-	let result: any;
+	let result: UpdatedTrendingDataT | UpdatedTrendingDataT[];
 
 	if (categoryName !== 'week') {
 		index = randomizer({ min: 0, max: categoryData.length });
 		result = commonCalculations({ index, categoryData, screen, genres });
 	} else {
 		const tempRandomCardIndexes: number[] = [];
-		const randomUpdatedMovies: TrendingDataT[] = [];
+		const randomUpdatedMovies: UpdatedTrendingDataT[] = [];
 
 		while (tempRandomCardIndexes.length < screen.cardsInRow) {
 			const randomIndex = randomizer({ min: 0, max: categoryData.length });
@@ -69,7 +78,7 @@ function commonCalculations({
 	categoryData,
 	screen,
 	genres,
-}: CommonCalculationsT) {
+}: CommonCalculationsT): UpdatedTrendingDataT {
 	const { backdrop, poster } = processFetchedImages({
 		screen,
 		movie: categoryData[index],
@@ -87,7 +96,7 @@ function commonCalculations({
 	const popularity = Number(categoryData[index].popularity).toFixed(1);
 	const vote_average = Number(categoryData[index].vote_average).toFixed(1);
 
-	const update = {
+	const update: UpdatedTrendingDataT = {
 		...categoryData[index],
 		backdrop_url: backdrop,
 		poster_url: poster,
