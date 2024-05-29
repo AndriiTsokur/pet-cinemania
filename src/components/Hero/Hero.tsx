@@ -9,13 +9,7 @@ import {
 } from '@/redux';
 import { HeroPlug } from './parts';
 import { Button, StarsRating } from '@/components';
-import {
-	processFetchedImages,
-	processGenres,
-	processOverview,
-	randomizer,
-	showDetails,
-} from '@/utils';
+import { processAll, showDetails } from '@/utils';
 
 export const Hero: React.FC = () => {
 	const dispatch = useDispatch();
@@ -26,36 +20,13 @@ export const Hero: React.FC = () => {
 	const { day, dayUpdated } = useSelector(selectTrendingAll);
 
 	useEffect(() => {
-		if (day) {
-			const randomIndex = randomizer({ min: 0, max: day.length });
-
-			const { backdrop, poster } = processFetchedImages({
+		if (day && genres) {
+			const update = processAll({
+				categoryName: 'day',
+				categoryData: day,
 				screen,
-				movie: day[randomIndex],
-			});
-
-			const { overview, overview_brief } = processOverview({
-				movie: day[randomIndex],
-				deviceType: screen.deviceType,
-			});
-
-			const genresArray = processGenres({
 				genres,
-				movie: day[randomIndex],
 			});
-			const popularity = Number(day[randomIndex].popularity).toFixed(1);
-			const vote_average = Number(day[randomIndex].vote_average).toFixed(1);
-
-			const update = {
-				...day[randomIndex],
-				backdrop_url: backdrop,
-				poster_url: poster,
-				overview,
-				overview_brief,
-				genres: genresArray,
-				popularity,
-				vote_average,
-			};
 
 			dispatch(substituteTrendingDay(update));
 		}

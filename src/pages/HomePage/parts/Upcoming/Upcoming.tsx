@@ -4,13 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import styles from './Upcoming.module.css';
 import { selectService, selectUpcoming, substituteUpcoming } from '@/redux';
 import { ArticleTitle, Button } from '@/components';
-import {
-	processFetchedImages,
-	processGenres,
-	processOverview,
-	randomizer,
-	showDetails,
-} from '@/utils';
+import { processAll, showDetails } from '@/utils';
 
 export const Upcoming: React.FC = () => {
 	const dispatch = useDispatch();
@@ -22,38 +16,13 @@ export const Upcoming: React.FC = () => {
 		useSelector(selectUpcoming);
 
 	useEffect(() => {
-		if (upcoming) {
-			const randomIndex = randomizer({ min: 0, max: upcoming.length });
-
-			const { backdrop, poster } = processFetchedImages({
+		if (upcoming && genres) {
+			const update = processAll({
+				categoryName: 'upcoming',
+				categoryData: upcoming,
 				screen,
-				movie: upcoming[randomIndex],
-			});
-
-			const { overview, overview_brief } = processOverview({
-				movie: upcoming[randomIndex],
-				deviceType: screen.deviceType,
-			});
-
-			const genresArray = processGenres({
 				genres,
-				movie: upcoming[randomIndex],
 			});
-			const popularity = Number(upcoming[randomIndex].popularity).toFixed(1);
-			const vote_average = Number(upcoming[randomIndex].vote_average).toFixed(
-				1,
-			);
-
-			const update = {
-				...upcoming[randomIndex],
-				backdrop_url: backdrop,
-				poster_url: poster,
-				overview,
-				overview_brief,
-				genres: genresArray,
-				popularity,
-				vote_average,
-			};
 
 			dispatch(substituteUpcoming(update));
 		}
