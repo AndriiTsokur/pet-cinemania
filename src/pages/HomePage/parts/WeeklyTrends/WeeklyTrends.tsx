@@ -1,35 +1,71 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './WeeklyTrends.module.css';
-import { selectService, selectTrendingAll } from '@/redux';
+import {
+	selectService,
+	selectTrendingAll,
+	substituteTrendingWeek,
+} from '@/redux';
 import { ArticleTitle, MovieCard } from '@/components';
-import { randomizer } from '@/utils';
+import {
+	processFetchedImages,
+	processGenres,
+	randomizer,
+	TrendingDataT,
+} from '@/utils';
 
 export const WeeklyTrends: React.FC = () => {
+	const dispatch = useDispatch();
 	const {
-		screen: { deviceType },
+		screen,
+		genres: { data: genres },
 	} = useSelector(selectService);
-	const { weekUpdated: movies } = useSelector(selectTrendingAll);
-
-	const [randomCardNumbers, setRandomCardNumbers] = useState<number[]>([]);
+	const { week, weekUpdated, dayUpdated } = useSelector(selectTrendingAll);
 
 	useEffect(() => {
-		if (movies === null) return;
+		if (week) {
+			const tempRandomCardIndexes: number[] = [];
+			const randomUpdatedMovies: TrendingDataT[] = [];
 
-		const cardsQuantity = deviceType === 'mobile' ? 1 : 3;
-
-		const newRandomCardNumbers: number[] = [];
-
-		while (newRandomCardNumbers.length < cardsQuantity) {
-			const rnd = randomizer({ min: 0, max: movies.length });
-			if (!newRandomCardNumbers.includes(rnd)) {
-				newRandomCardNumbers.push(rnd);
+			while (tempRandomCardIndexes.length < screen.cardsInRow) {
+				const randomIndex = randomizer({ min: 0, max: week.length });
+				if (
+					!tempRandomCardIndexes.includes(randomIndex) &&
+					week[randomIndex].id !== dayUpdated?.id
+				) {
+					tempRandomCardIndexes.push(randomIndex);
+				}
 			}
+
+			tempRandomCardIndexes.map((index) => {
+				const { backdrop, poster } = processFetchedImages({
+					screen,
+					movie: week[index],
+				});
+
+				const genresArray = processGenres({ genres, movie: week[index] });
+				const popularity = Number(week[index].popularity).toFixed(1);
+				const vote_average = Number(week[index].vote_average).toFixed(1);
+
+				const update: TrendingDataT = {
+					...week[index],
+					backdrop_url: backdrop,
+					poster_url: poster,
+					genres: genresArray,
+					popularity,
+					vote_average,
+				};
+
+				randomUpdatedMovies.push(update);
+			});
+
+			dispatch(substituteTrendingWeek(randomUpdatedMovies));
 		}
-		setRandomCardNumbers(newRandomCardNumbers);
-	}, [deviceType, movies]);
+	}, [screen.deviceType, week, dispatch]);
+
+	if (!weekUpdated) return;
 
 	return (
 		<article className={styles.weeklyTrends}>
@@ -42,9 +78,9 @@ export const WeeklyTrends: React.FC = () => {
 			</ArticleTitle>
 
 			<ul className={styles.cardsList}>
-				{randomCardNumbers.map((number) => (
-					<li key={number} className={styles.cardItem}>
-						<MovieCard index={number} />
+				{weekUpdated.map((movie) => (
+					<li key={movie.id} className={styles.cardItem}>
+						<MovieCard movie={movie} />
 					</li>
 				))}
 			</ul>

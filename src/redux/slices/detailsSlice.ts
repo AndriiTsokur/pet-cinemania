@@ -3,7 +3,7 @@ import { fetchDetailsThunk } from '@/redux/operations';
 import { DetailsDataT, DetailsStateT } from '@/utils';
 
 const initialState: DetailsStateT = {
-	data: {},
+	data: null,
 	status: {
 		isLoading: false,
 		error: null,
@@ -22,7 +22,7 @@ const fetchDetailsSlice = createSlice({
 		builder
 			// Fetching Details data
 			.addCase(fetchDetailsThunk.pending, (state) => {
-				state.data = {};
+				state.data = null;
 				state.status.isLoading = true;
 				state.status.error = null;
 			})
@@ -45,4 +45,5 @@ const fetchDetailsSlice = createSlice({
 
 export const selectDetails = (state: { details: DetailsStateT }) =>
 	state.details;
+export const { uploadDetails } = fetchDetailsSlice.actions;
 export const detailsReducer = fetchDetailsSlice.reducer;

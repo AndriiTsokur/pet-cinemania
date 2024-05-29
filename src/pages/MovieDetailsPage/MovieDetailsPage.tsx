@@ -3,26 +3,14 @@ import { useSelector } from 'react-redux';
 import styles from './MovieDetailsPage.module.css';
 import { selectDetails, selectService } from '@/redux';
 import { Button, Modal } from '@/components';
-import {
-	processImages,
-	processPopularity,
-	processVoteAverage,
-} from '@/utils/hooks/useSubstitute/tools';
-import { GenresT } from '@/utils';
 
 export const MovieDetailsPage: React.FC = () => {
 	const {
-		apiConfig: { data: apiConfig },
 		screen: { deviceType, movieCardHeight },
 	} = useSelector(selectService);
 	const { data: movie } = useSelector(selectDetails);
 
-	if (Object.keys(movie).length === 0) return;
-
-	const { poster: image } = processImages({ movie, deviceType, apiConfig });
-	const popularity = processPopularity(movie?.popularity);
-	const voteAverage = processVoteAverage(movie?.vote_average);
-	const genres = movie?.genres.map((genre: GenresT) => genre.name).join(', ');
+	if (!movie) return;
 
 	const handleTrailerBtn = () => console.log('Trailer');
 	const handleAddBtn = () => console.log('Add');
@@ -34,7 +22,11 @@ export const MovieDetailsPage: React.FC = () => {
 					style={deviceType === 'mobile' ? { height: movieCardHeight } : {}}
 					className={styles.posterContainer}
 				>
-					<img src={image} className={styles.poster} alt={movie.title} />
+					<img
+						src={movie.poster_url}
+						className={styles.poster}
+						alt={movie.title}
+					/>
 				</div>
 
 				<div className={styles.infoContainer}>
@@ -44,7 +36,7 @@ export const MovieDetailsPage: React.FC = () => {
 							<p>Release date</p>
 							<p>Vote / Votes</p>
 							<p>Popularity</p>
-							{movie.genres.length === 1 ? <p>Genre</p> : <p>Genres</p>}
+							{movie.genres?.length === 1 ? <p>Genre</p> : <p>Genres</p>}
 						</div>
 						<div className={styles.data}>
 							<p className={styles.releaseDate}>{movie.release_date}</p>
@@ -52,12 +44,12 @@ export const MovieDetailsPage: React.FC = () => {
 								<p>No votes yet</p>
 							) : (
 								<p>
-									<span className={styles.votes}>{voteAverage}</span> /{' '}
+									<span className={styles.votes}>{movie.vote_average}</span> /{' '}
 									<span className={styles.votes}>{movie.vote_count}</span>
 								</p>
 							)}
-							<p>{popularity}</p>
-							<p>{genres}</p>
+							<p>{movie.popularity}</p>
+							<p>{movie.genres?.join(', ')}</p>
 						</div>
 					</div>
 

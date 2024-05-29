@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './Hero.module.css';
 import {
-	fetchTrendingThunk,
 	selectService,
 	selectTrendingAll,
 	substituteTrendingDay,
@@ -12,6 +11,7 @@ import { HeroPlug } from './parts';
 import { Button, StarsRating } from '@/components';
 import {
 	processFetchedImages,
+	processGenres,
 	processOverview,
 	randomizer,
 	showDetails,
@@ -19,12 +19,11 @@ import {
 
 export const Hero: React.FC = () => {
 	const dispatch = useDispatch();
-	const { screen } = useSelector(selectService);
+	const {
+		screen,
+		genres: { data: genres },
+	} = useSelector(selectService);
 	const { day, dayUpdated } = useSelector(selectTrendingAll);
-
-	useEffect(() => {
-		if (!day) dispatch<any>(fetchTrendingThunk('day'));
-	}, [dispatch, day]);
 
 	useEffect(() => {
 		if (day) {
@@ -40,12 +39,22 @@ export const Hero: React.FC = () => {
 				deviceType: screen.deviceType,
 			});
 
+			const genresArray = processGenres({
+				genres,
+				movie: day[randomIndex],
+			});
+			const popularity = Number(day[randomIndex].popularity).toFixed(1);
+			const vote_average = Number(day[randomIndex].vote_average).toFixed(1);
+
 			const update = {
 				...day[randomIndex],
 				backdrop_url: backdrop,
 				poster_url: poster,
 				overview,
 				overview_brief,
+				genres: genresArray,
+				popularity,
+				vote_average,
 			};
 
 			dispatch(substituteTrendingDay(update));
@@ -90,7 +99,7 @@ export const Hero: React.FC = () => {
 								onClick={() =>
 									showDetails({
 										modalType: 'details',
-										movieId: dayUpdated.id,
+										movie: dayUpdated,
 										dispatch,
 									})
 								}

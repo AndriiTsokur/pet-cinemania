@@ -3,13 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import styles from './MovieCard.module.css';
 import { selectService, selectTrendingAll } from '@/redux';
 import { StarsRating } from '@/components';
-import { showDetails } from '@/utils';
+import { showDetails, TrendingDataT } from '@/utils';
 
 type PropsT = {
-	index: number;
+	movie: TrendingDataT;
 };
 
-export const MovieCard: React.FC<PropsT> = ({ index }) => {
+export const MovieCard: React.FC<PropsT> = ({ movie }) => {
 	const dispatch = useDispatch();
 	const {
 		screen: { movieCardHeight },
@@ -20,7 +20,7 @@ export const MovieCard: React.FC<PropsT> = ({ index }) => {
 	if (movies !== null) {
 		cardBg = {
 			height: movieCardHeight,
-			backgroundImage: `linear-gradient(180.00deg, rgba(0, 0, 0, 0) 63.48%,rgba(0, 0, 0, 0.9) 92.161%), url(${movies[index].poster_url})`,
+			backgroundImage: `linear-gradient(180.00deg, rgba(0, 0, 0, 0) 63.48%,rgba(0, 0, 0, 0.9) 92.161%), url(${movie.poster_url})`,
 		};
 	}
 
@@ -33,20 +33,20 @@ export const MovieCard: React.FC<PropsT> = ({ index }) => {
 					onClick={() =>
 						showDetails({
 							modalType: 'details',
-							movieId: movies[index].id,
+							movie,
 							dispatch,
 						})
 					}
 				>
 					<div className={styles.infoWrapper}>
-						<h3 className={styles.movieTitle}>{movies[index].title}</h3>
+						<h3 className={styles.movieTitle}>{movie.title}</h3>
 						<div className={styles.detailsWrapper}>
 							<p className={styles.details}>
-								{movies[index].genres?.join(', ')}&nbsp;|{' '}
-								{movies[index].release_date.slice(0, 4)}
+								{movie.genres?.join(', ')}&nbsp;|{' '}
+								{movie.release_date.slice(0, 4)}
 							</p>
 							<div className={styles.starsWrapper}>
-								<StarsRating value={movies[index].vote_average} />
+								<StarsRating value={movie.vote_average} />
 							</div>
 						</div>
 					</div>

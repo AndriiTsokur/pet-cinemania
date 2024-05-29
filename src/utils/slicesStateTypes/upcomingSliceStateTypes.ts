@@ -5,6 +5,6 @@ export type UpcomingDataT = TrendingDataT;
 
 export type UpcomingStateT = {
 	data: null | TrendingDataT[];
-	dataUpdated: null | TrendingDataT[];
+	dataUpdated: null | TrendingDataT;
 	status: RequestStatusT;
 };

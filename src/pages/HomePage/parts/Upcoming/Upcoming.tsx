@@ -1,130 +1,169 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './Upcoming.module.css';
-import { selectService, selectUpcoming } from '@/redux';
+import { selectService, selectUpcoming, substituteUpcoming } from '@/redux';
 import { ArticleTitle, Button } from '@/components';
-import { randomizer, showDetails } from '@/utils';
-import posterPlug from '@/assets/images/poster-plug.jpg';
+import {
+	processFetchedImages,
+	processGenres,
+	processOverview,
+	randomizer,
+	showDetails,
+} from '@/utils';
 
 export const Upcoming: React.FC = () => {
 	const dispatch = useDispatch();
 	const {
-		screen: { deviceType, movieCardHeight },
+		screen,
+		genres: { data: genres },
 	} = useSelector(selectService);
-	const { dataUpdated: movies } = useSelector(selectUpcoming);
-	const [idx, setIdx] = useState(0);
+	const { data: upcoming, dataUpdated: upcomingUpdated } =
+		useSelector(selectUpcoming);
 
 	useEffect(() => {
-		if (movies === null) return;
+		if (upcoming) {
+			const randomIndex = randomizer({ min: 0, max: upcoming.length });
 
-		const index = randomizer({ min: 0, max: movies.length });
-		setIdx(index);
-	}, [movies]);
+			const { backdrop, poster } = processFetchedImages({
+				screen,
+				movie: upcoming[randomIndex],
+			});
 
-	let image: string | undefined;
-	if (movies !== null) {
+			const { overview, overview_brief } = processOverview({
+				movie: upcoming[randomIndex],
+				deviceType: screen.deviceType,
+			});
+
+			const genresArray = processGenres({
+				genres,
+				movie: upcoming[randomIndex],
+			});
+			const popularity = Number(upcoming[randomIndex].popularity).toFixed(1);
+			const vote_average = Number(upcoming[randomIndex].vote_average).toFixed(
+				1,
+			);
+
+			const update = {
+				...upcoming[randomIndex],
+				backdrop_url: backdrop,
+				poster_url: poster,
+				overview,
+				overview_brief,
+				genres: genresArray,
+				popularity,
+				vote_average,
+			};
+
+			dispatch(substituteUpcoming(update));
+		}
+	}, [screen.deviceType, upcoming, dispatch]);
+
+	let image = '';
+	if (upcomingUpdated) {
 		image =
-			deviceType === 'mobile'
-				? movies[idx].poster_url
-				: movies[idx].backdrop_url;
+			screen.deviceType === 'mobile'
+				? upcomingUpdated.poster_url || ''
+				: upcomingUpdated.backdrop_url || '';
 	}
 
 	const handleTrailerBtn = () => {
 		console.log('TRAILER');
 	};
 
+	if (!upcomingUpdated) return;
+
 	return (
-		<>
-			{movies && (
-				<article className={styles.upcoming}>
-					<ArticleTitle title="Upcoming This Month" />
-					<div className={styles.container}>
-						<div
-							style={deviceType === 'mobile' ? { height: movieCardHeight } : {}}
-							className={styles.posterContainer}
-						>
-							<img
-								src={image ? image : posterPlug}
-								className={
-									deviceType === 'mobile' ? styles.poster : styles.backdrop
-								}
-								alt={movies[idx].title}
-							/>
+		<article className={styles.upcoming}>
+			<ArticleTitle title="Upcoming This Month" />
+			<div className={styles.container}>
+				<div
+					style={
+						screen.deviceType === 'mobile'
+							? { height: screen.movieCardHeight }
+							: {}
+					}
+					className={styles.posterContainer}
+				>
+					<img
+						src={image}
+						className={
+							screen.deviceType === 'mobile' ? styles.poster : styles.backdrop
+						}
+						alt={upcomingUpdated.title}
+					/>
+				</div>
+
+				<div className={styles.infoContainer}>
+					<h3 className={styles.title}>{upcomingUpdated.title}</h3>
+					<div className={styles.detailsWrapper}>
+						<div className={styles.column}>
+							<div className={styles.parameterName}>
+								<p>Release date</p>
+								<p>Vote / Votes</p>
+							</div>
+							<div className={styles.data}>
+								<p className={styles.releaseDate}>
+									{upcomingUpdated.release_date}
+								</p>
+								{upcomingUpdated.vote_count === 0 ? (
+									<p>No votes yet</p>
+								) : (
+									<p>
+										<span className={styles.votes}>
+											{upcomingUpdated.vote_average}
+										</span>{' '}
+										/{' '}
+										<span className={styles.votes}>
+											{upcomingUpdated.vote_count}
+										</span>
+									</p>
+								)}
+							</div>
 						</div>
 
-						<div className={styles.infoContainer}>
-							<h3 className={styles.title}>{movies[idx].title}</h3>
-							<div className={styles.detailsWrapper}>
-								<div className={styles.column}>
-									<div className={styles.parameterName}>
-										<p>Release date</p>
-										<p>Vote / Votes</p>
-									</div>
-									<div className={styles.data}>
-										<p className={styles.releaseDate}>
-											{movies[idx].release_date}
-										</p>
-										{movies[idx].vote_count === 0 ? (
-											<p>No votes yet</p>
-										) : (
-											<p>
-												<span className={styles.votes}>
-													{movies[idx].vote_average}
-												</span>{' '}
-												/{' '}
-												<span className={styles.votes}>
-													{movies[idx].vote_count}
-												</span>
-											</p>
-										)}
-									</div>
-								</div>
-
-								<div className={styles.column}>
-									<div className={styles.parameterName}>
-										<p>Popularity</p>
-										{movies[idx].genres?.length === 1 ? (
-											<p>Genre</p>
-										) : (
-											<p>Genres</p>
-										)}
-									</div>
-									<div className={styles.data}>
-										<p>{movies[idx].popularity}</p>
-										<p>{movies[idx].genres?.join(', ')}</p>
-									</div>
-								</div>
+						<div className={styles.column}>
+							<div className={styles.parameterName}>
+								<p>Popularity</p>
+								{upcomingUpdated.genres?.length === 1 ? (
+									<p>Genre</p>
+								) : (
+									<p>Genres</p>
+								)}
 							</div>
-
-							<h4 className={styles.aboutTitle}>About</h4>
-							<p className={styles.aboutText}>
-								{deviceType === 'desktop' && movies[idx].overview_brief
-									? movies[idx].overview_brief
-									: movies[idx].overview}
-							</p>
-
-							<div className={styles.btnWrapper}>
-								<Button isGradient={true} onClick={handleTrailerBtn}>
-									Watch trailer
-								</Button>
-								<Button
-									isGradient={false}
-									onClick={() =>
-										showDetails({
-											modalType: 'details',
-											movieId: movies[idx].id,
-											dispatch,
-										})
-									}
-								>
-									More details
-								</Button>
+							<div className={styles.data}>
+								<p>{upcomingUpdated.popularity}</p>
+								<p>{upcomingUpdated.genres?.join(', ')}</p>
 							</div>
 						</div>
 					</div>
-				</article>
-			)}
-		</>
+
+					<h4 className={styles.aboutTitle}>About</h4>
+					<p className={styles.aboutText}>
+						{screen.deviceType === 'desktop' && upcomingUpdated.overview_brief
+							? upcomingUpdated.overview_brief
+							: upcomingUpdated.overview}
+					</p>
+
+					<div className={styles.btnWrapper}>
+						<Button isGradient={true} onClick={handleTrailerBtn}>
+							Watch trailer
+						</Button>
+						<Button
+							isGradient={false}
+							onClick={() =>
+								showDetails({
+									modalType: 'details',
+									movie: upcomingUpdated,
+									dispatch,
+								})
+							}
+						>
+							More details
+						</Button>
+					</div>
+				</div>
+			</div>
+		</article>
 	);
 };

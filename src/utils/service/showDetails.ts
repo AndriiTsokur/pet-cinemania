@@ -1,12 +1,13 @@
-import { fetchDetailsThunk, toggleModal } from '@/redux';
+import { toggleModal, uploadDetails } from '@/redux';
+import { TrendingDataT } from '@/utils';
 
 type ParamsT = {
 	modalType: string;
-	movieId: number;
+	movie: TrendingDataT;
 	dispatch: any;
 };
 
-export const showDetails = ({ modalType, movieId, dispatch }: ParamsT) => {
-	dispatch(fetchDetailsThunk(movieId));
-	dispatch(toggleModal({ modalType, movieId }));
+export const showDetails = ({ modalType, movie, dispatch }: ParamsT) => {
+	dispatch(uploadDetails(movie));
+	dispatch(toggleModal({ modalType, movieId: movie.id }));
 };

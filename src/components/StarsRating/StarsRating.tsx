@@ -13,7 +13,7 @@ const Stars = styled(Rating)({
 });
 
 type PropsT = {
-	value: number;
+	value: string | number;
 };
 
 export const StarsRating: React.FC<PropsT> = ({ value }) => {
@@ -25,7 +25,7 @@ export const StarsRating: React.FC<PropsT> = ({ value }) => {
 	if (movies === null) return;
 
 	const starsSize = deviceType === 'desktop' ? 'medium' : 'small';
-	const starsValue = value / 2;
+	const starsValue = Number(value) / 2;
 
 	return (
 		<Stars

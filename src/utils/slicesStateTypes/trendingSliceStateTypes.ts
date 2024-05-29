@@ -11,9 +11,9 @@ export type TrendingDataT = {
 	title: string;
 	genre_ids: number[];
 	genres?: string[];
-	popularity: number;
+	popularity: number | string;
 	release_date: string;
-	vote_average: number;
+	vote_average: number | string;
 	vote_count: number;
 };
 
