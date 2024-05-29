@@ -1,10 +1,5 @@
-import { RequestStatusT } from './serviceSliceStateTypes';
 import { TrendingDataT } from './trendingSliceStateTypes';
-
-// export type GenresT = {
-// 	id: number;
-// 	name: string;
-// };
+import { RequestStatusT } from './serviceSliceStateTypes';
 
 export type DetailsDataT = TrendingDataT;
 
