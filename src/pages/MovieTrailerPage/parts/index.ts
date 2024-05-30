@@ -1,0 +1,1 @@
+export { MovieTrailerPlug } from './MovieTrailerPlug';

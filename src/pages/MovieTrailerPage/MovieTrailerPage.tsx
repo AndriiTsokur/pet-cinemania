@@ -5,7 +5,7 @@ import styles from './MovieTrailerPage.module.css';
 import { selectDetails, selectService } from '@/redux';
 import { randomizer } from '@/utils';
 import { ButtonBackToDetails } from '@/components';
-import { MovieTrailerPlug } from './parts/MovieTrailerPlug';
+import { MovieTrailerPlug } from './parts';
 
 export const MovieTrailerPage: React.FC = () => {
 	const { trailers } = useSelector(selectDetails);

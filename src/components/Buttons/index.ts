@@ -1,2 +1,6 @@
 export { Button } from './Button';
-export { ButtonBackToDetails, ButtonWatchTrailer } from './variations';
+export {
+	ButtonBackToDetails,
+	ButtonHandleLibrary,
+	ButtonWatchTrailer,
+} from './variations';

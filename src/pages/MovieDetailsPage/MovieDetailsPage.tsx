@@ -2,15 +2,13 @@ import { useSelector } from 'react-redux';
 
 import styles from './MovieDetailsPage.module.css';
 import { selectDetails, selectService } from '@/redux';
-import { Button, ButtonWatchTrailer } from '@/components';
+import { ButtonHandleLibrary, ButtonWatchTrailer } from '@/components';
 
 export const MovieDetailsPage: React.FC = () => {
 	const {
 		screen: { deviceType, movieCardHeight },
 	} = useSelector(selectService);
 	const { data: movie } = useSelector(selectDetails);
-
-	const handleAddBtn = () => console.log('Add');
 
 	if (!movie) return;
 
@@ -56,9 +54,7 @@ export const MovieDetailsPage: React.FC = () => {
 
 				<div className={styles.btnWrapper}>
 					<ButtonWatchTrailer movieId={movie.id} />
-					<Button isGradient={false} onClick={handleAddBtn}>
-						Add to my library
-					</Button>
+					<ButtonHandleLibrary movie={movie} isGradient={false} />
 				</div>
 			</div>
 		</div>

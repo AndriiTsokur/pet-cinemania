@@ -3,8 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './Upcoming.module.css';
 import { selectService, selectUpcoming, substituteUpcoming } from '@/redux';
-import { ArticleTitle, Button, ButtonWatchTrailer } from '@/components';
-import { processAll, showDetails } from '@/utils';
+import {
+	ArticleTitle,
+	ButtonHandleLibrary,
+	ButtonWatchTrailer,
+} from '@/components';
+import { processAll } from '@/utils';
 
 export const Upcoming: React.FC = () => {
 	const dispatch = useDispatch();
@@ -112,18 +116,7 @@ export const Upcoming: React.FC = () => {
 
 					<div className={styles.btnWrapper}>
 						<ButtonWatchTrailer movieId={upcomingUpdated.id} />
-						<Button
-							isGradient={false}
-							onClick={() =>
-								showDetails({
-									modalType: 'details',
-									movie: upcomingUpdated,
-									dispatch,
-								})
-							}
-						>
-							More details
-						</Button>
+						<ButtonHandleLibrary movie={upcomingUpdated} isGradient={false} />
 					</div>
 				</div>
 			</div>
