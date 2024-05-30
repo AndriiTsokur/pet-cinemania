@@ -1,3 +1,3 @@
 export const Loader: React.FC = () => {
-	return <p>Performing initial data "load". LOADING...</p>;
+	return <p>Loading... Loading... Loading...</p>;
 };

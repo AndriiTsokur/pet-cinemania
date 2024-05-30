@@ -4,12 +4,14 @@ import styles from './MovieCard.module.css';
 import { selectService, selectTrendingAll } from '@/redux';
 import { StarsRating } from '@/components';
 import { showDetails, TrendingDataT } from '@/utils';
+import posterPlug from '@/assets/images/poster-plug.jpg';
 
 type PropsT = {
 	movie: TrendingDataT;
+	source: 'library' | 'week';
 };
 
-export const MovieCard: React.FC<PropsT> = ({ movie }) => {
+export const MovieCard: React.FC<PropsT> = ({ movie, source }) => {
 	const dispatch = useDispatch();
 	const {
 		screen: { movieCardHeight },
@@ -17,16 +19,21 @@ export const MovieCard: React.FC<PropsT> = ({ movie }) => {
 	const { weekUpdated: movies } = useSelector(selectTrendingAll);
 
 	let cardBg = {};
-	if (movies !== null) {
+	if ((source === 'week' && movies) || source === 'library') {
 		cardBg = {
 			height: movieCardHeight,
 			backgroundImage: `linear-gradient(180.00deg, rgba(0, 0, 0, 0) 63.48%,rgba(0, 0, 0, 0.9) 92.161%), url(${movie.poster_url})`,
+		};
+	} else {
+		cardBg = {
+			height: movieCardHeight,
+			backgroundImage: `linear-gradient(180.00deg, rgba(0, 0, 0, 0) 63.48%,rgba(0, 0, 0, 0.9) 92.161%), url(${posterPlug})`,
 		};
 	}
 
 	return (
 		<>
-			{movies && (
+			{((source === 'week' && movies) || source === 'library') && (
 				<section
 					className={styles.section}
 					style={cardBg}

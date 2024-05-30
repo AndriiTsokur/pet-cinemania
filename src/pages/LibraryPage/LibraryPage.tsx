@@ -29,7 +29,7 @@ export const LibraryPage: React.FC = () => {
 					<ul className={styles.cardsList}>
 						{movies.map((movie) => (
 							<li key={movie.id} className={styles.cardItem}>
-								<MovieCard movie={movie} />
+								<MovieCard movie={movie} source="library" />
 							</li>
 						))}
 					</ul>

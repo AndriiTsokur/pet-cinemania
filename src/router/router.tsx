@@ -1,13 +1,21 @@
+import { lazy } from 'react';
 import { Layout } from '@/components';
 import { createBrowserRouter } from 'react-router-dom';
+import { ErrorPage } from '@/pages';
 
-import {
-	CataloguePage,
-	ErrorPage,
-	HomePage,
-	LibraryPage,
-	MovieDetailsPage,
-} from '@/pages';
+const HomePage = lazy(() =>
+	import('@/pages/HomePage').then((module) => ({ default: module.HomePage })),
+);
+const CataloguePage = lazy(() =>
+	import('@/pages/CataloguePage').then((module) => ({
+		default: module.CataloguePage,
+	})),
+);
+const LibraryPage = lazy(() =>
+	import('@/pages/LibraryPage').then((module) => ({
+		default: module.LibraryPage,
+	})),
+);
 
 const routes = [
 	{
@@ -25,31 +33,11 @@ const routes = [
 				path: 'catalogue',
 				element: <CataloguePage />,
 				linkText: 'Catalogue',
-				// lazy: () => import('@/pages/')
-				// children: [
-				// 	{
-				// 		path: ':movieId',
-				// 		element: <MovieDetails />,
-				// 		loader: fetchMovieDetails,
-				// 	},
-				// ],
-			},
-			{
-				path: '/catalogue/:movieId',
-				element: <MovieDetailsPage />,
-				// loader: fetchMovieDetails,
 			},
 			{
 				path: 'library',
 				element: <LibraryPage />,
 				linkText: 'My Library',
-				// children: [
-				// 	{
-				// 		path: ':movieId',
-				// 		Component: MovieDetails,
-				// 		loader: fetchMovieDetails,
-				// 	},
-				// ],
 			},
 		],
 	},

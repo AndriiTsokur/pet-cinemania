@@ -4,11 +4,13 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './WeeklyTrends.module.css';
 import {
+	fetchGenresThunk,
+	fetchTrendingThunk,
 	selectService,
 	selectTrendingAll,
 	substituteTrendingWeek,
 } from '@/redux';
-import { ArticleTitle, MovieCard } from '@/components';
+import { ArticleTitle, MovieCard, Loader } from '@/components';
 import { processAll } from '@/utils';
 
 export const WeeklyTrends: React.FC = () => {
@@ -18,6 +20,11 @@ export const WeeklyTrends: React.FC = () => {
 		genres: { data: genres },
 	} = useSelector(selectService);
 	const { week, weekUpdated, dayUpdated } = useSelector(selectTrendingAll);
+
+	useEffect(() => {
+		if (!genres) dispatch<any>(fetchGenresThunk());
+		if (!week) dispatch<any>(fetchTrendingThunk('week'));
+	}, [dispatch, genres, week]);
 
 	useEffect(() => {
 		if (week && genres && dayUpdated) {
@@ -31,9 +38,9 @@ export const WeeklyTrends: React.FC = () => {
 
 			dispatch(substituteTrendingWeek(update));
 		}
-	}, [screen.deviceType, week, dispatch]);
+	}, [dispatch, screen, week, genres, dayUpdated]);
 
-	if (!weekUpdated) return;
+	if (!weekUpdated) return <Loader />;
 
 	return (
 		<article className={styles.weeklyTrends}>
@@ -48,7 +55,7 @@ export const WeeklyTrends: React.FC = () => {
 			<ul className={styles.cardsList}>
 				{weekUpdated.map((movie) => (
 					<li key={movie.id} className={styles.cardItem}>
-						<MovieCard movie={movie} />
+						<MovieCard movie={movie} source="week" />
 					</li>
 				))}
 			</ul>
