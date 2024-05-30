@@ -1,2 +1,2 @@
 export { Button } from './Button';
-export { ButtonWatchTrailer } from './variations';
+export { ButtonBackToDetails, ButtonWatchTrailer } from './variations';

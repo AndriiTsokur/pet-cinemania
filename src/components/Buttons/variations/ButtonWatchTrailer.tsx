@@ -24,7 +24,7 @@ export const ButtonWatchTrailer: React.FC<PropsT> = ({ movieId }) => {
 		if (modalIsOpen) {
 			dispatch(changeModalType('video'));
 		} else {
-			dispatch(toggleModal('video'));
+			dispatch(toggleModal({ modalType: 'video', movieId: 0 }));
 		}
 	};
 	return (

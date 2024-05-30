@@ -41,6 +41,7 @@ export type ServiceStateT = {
 		mobileMenuIsOpen: boolean;
 		modalIsOpen: boolean;
 		modalType: '' | 'details' | 'video';
+		movieId: number;
 	};
 	screen: ScreenDataT;
 };

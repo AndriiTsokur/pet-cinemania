@@ -22,6 +22,7 @@ const initialState: ServiceStateT = {
 		mobileMenuIsOpen: false,
 		modalIsOpen: false,
 		modalType: '',
+		movieId: 0,
 	},
 	screen: {
 		deviceType: '',
@@ -51,13 +52,13 @@ const fetchServiceSlice = createSlice({
 			state.modal = state.modal.modalIsOpen
 				? {
 						...state.modal,
-						modalType: action.payload,
-						// movieId: action.payload.movieId,
+						modalType: action.payload.modalType,
+						movieId: action.payload.movieId,
 					}
 				: {
 						...state.modal,
 						modalType: '',
-						// movieId: 0,
+						movieId: 0,
 					};
 		},
 		changeModalType(state, action) {
