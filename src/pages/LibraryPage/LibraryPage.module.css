@@ -49,6 +49,10 @@
 	flex-basis: 100%;
 }
 
+/* .select {
+	border: 1px solid var(--color-primary) !important;
+} */
+
 @media screen and (min-width: 768px) {
 	.hero {
 		margin-bottom: 80px;

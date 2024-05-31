@@ -38,7 +38,7 @@ export const WeeklyTrends: React.FC = () => {
 
 			dispatch(substituteTrendingWeek(update));
 		}
-	}, [dispatch, screen, week, genres, dayUpdated]);
+	}, [dispatch, week, genres, dayUpdated]);
 
 	if (!weekUpdated) return <Loader />;
 

@@ -10,7 +10,7 @@ export type TrendingDataT = {
 	poster_url?: string;
 	title: string;
 	genre_ids: number[];
-	genres?: string[];
+	genres?: string[] | undefined;
 	popularity: number | string;
 	release_date: string;
 	vote_average: number | string;

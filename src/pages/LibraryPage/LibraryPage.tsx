@@ -1,12 +1,36 @@
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { SelectChangeEvent } from '@mui/material';
 
 import styles from './LibraryPage.module.css';
 import { selectLocal } from '@/redux';
-import { MovieCard } from '@/components';
+import { MovieCard, SelectAltered } from '@/components';
 import { LibraryPlug } from './parts';
 
 export const LibraryPage: React.FC = () => {
+	const [selectedGenre, setSelectedGenre] = useState('');
 	const { movies } = useSelector(selectLocal);
+
+	const handleChange = (e: SelectChangeEvent) => {
+		setSelectedGenre(e.target.value);
+	};
+
+	const actualGenres = movies
+		.reduce<string[]>((prev, movie) => {
+			if (movie.genres) {
+				movie.genres.forEach((genre) => {
+					if (!prev.includes(genre)) {
+						prev.push(genre);
+					}
+				});
+			}
+			return prev;
+		}, [])
+		.sort((a, b) => a.localeCompare(b));
+
+	const filteredMovies = selectedGenre
+		? movies.filter((movie) => movie.genres?.includes(selectedGenre))
+		: [...movies];
 
 	return (
 		<article>
@@ -22,12 +46,19 @@ export const LibraryPage: React.FC = () => {
 				</div>
 			</div>
 
+			<SelectAltered
+				list={actualGenres}
+				label="All genres"
+				onChange={handleChange}
+				value={selectedGenre}
+			/>
+
 			<div className={styles.container}>
 				{movies.length === 0 ? (
 					<LibraryPlug />
 				) : (
 					<ul className={styles.cardsList}>
-						{movies.map((movie) => (
+						{filteredMovies.map((movie) => (
 							<li key={movie.id} className={styles.cardItem}>
 								<MovieCard movie={movie} source="library" />
 							</li>
