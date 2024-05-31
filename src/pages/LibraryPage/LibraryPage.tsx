@@ -33,7 +33,7 @@ export const LibraryPage: React.FC = () => {
 		: [...movies];
 
 	return (
-		<article className={styles.article}>
+		<article>
 			<div className={styles.hero}>
 				<div className={styles.textWrapper}>
 					<h1 className={styles.title}>Create Your Dream Cinema</h1>
@@ -46,12 +46,14 @@ export const LibraryPage: React.FC = () => {
 				</div>
 			</div>
 
-			<SelectAltered
-				list={actualGenres}
-				label="All genres"
-				onChange={handleChange}
-				value={selectedGenre}
-			/>
+			<div className={styles.selectWrapper}>
+				<SelectAltered
+					list={actualGenres}
+					label="All genres"
+					onChange={handleChange}
+					value={selectedGenre}
+				/>
+			</div>
 
 			<div className={styles.container}>
 				{movies.length === 0 ? (

@@ -56,6 +56,7 @@ export const SelectAltered: React.FC<PropsT> = ({
 					},
 				}}
 				MenuProps={{
+					disableScrollLock: true,
 					PaperProps: {
 						sx: {
 							backgroundColor: bgColor,
