@@ -27,7 +27,7 @@ export const ButtonHandleLibrary: React.FC<PropsT> = ({
 
 	return (
 		<Button isGradient={isGradient} onClick={handleClick}>
-			{isPresent ? 'Delete from library' : 'Add to my library'}
+			{isPresent ? 'Remove' : 'Add to my library'}
 		</Button>
 	);
 };
