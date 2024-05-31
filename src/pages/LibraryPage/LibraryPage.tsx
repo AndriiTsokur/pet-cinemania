@@ -33,7 +33,7 @@ export const LibraryPage: React.FC = () => {
 		: [...movies];
 
 	return (
-		<article>
+		<article className={styles.article}>
 			<div className={styles.hero}>
 				<div className={styles.textWrapper}>
 					<h1 className={styles.title}>Create Your Dream Cinema</h1>

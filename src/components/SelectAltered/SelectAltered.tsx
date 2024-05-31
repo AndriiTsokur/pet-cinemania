@@ -30,7 +30,7 @@ export const SelectAltered: React.FC<PropsT> = ({
 	const colorAccent = '#f87719';
 
 	return (
-		<FormControl sx={{ mb: 3, ml: 3, minWidth: 200 }} size="small">
+		<FormControl sx={{ mb: 3, minWidth: 200 }} size="small">
 			<Select
 				value={value}
 				onChange={onChange}
