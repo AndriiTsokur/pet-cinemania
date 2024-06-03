@@ -1,0 +1,1 @@
+import{u as r,r as t,i as a,j as s}from"./index-B-pcK2rJ.js";import{H as o}from"./Hero-Ci1rTu7z.js";import"./showDetails-D7ZRgE5V.js";const c={},n=()=>{const e=r();return t.useEffect(()=>{e(a({query:"dune"}))},[e]),s.jsxs("article",{children:[s.jsx(o,{}),s.jsx("div",{className:c.selectWrapper})]})};export{n as CataloguePage};

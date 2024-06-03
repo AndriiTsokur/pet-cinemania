@@ -1,0 +1,1 @@
+import{a1 as t,a2 as e}from"./index-B-pcK2rJ.js";const l="/pet-cinemania/assets/poster-plug-BFaOWO5G.jpg",g=({modalType:o,movie:s,dispatch:a})=>{a(t(s)),a(e({modalType:o,movieId:s.id}))};export{l as p,g as s};
