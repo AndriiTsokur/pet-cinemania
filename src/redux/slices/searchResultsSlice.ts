@@ -5,9 +5,6 @@ import { SearchResultsStateT } from '@/utils';
 const initialState: SearchResultsStateT = {
 	data: null,
 	dataUpdated: null,
-	page: 1,
-	total_pages: 0,
-	total_results: 0,
 	status: {
 		isLoading: false,
 		error: null,
@@ -27,9 +24,6 @@ const searchResultsSlice = createSlice({
 			// Fetching Upcoming data
 			.addCase(searchMoviesThunk.pending, (state) => {
 				state.data = null;
-				state.page = 1;
-				state.total_pages = 0;
-				state.total_results = 0;
 				state.status.isLoading = true;
 				state.status.error = null;
 			})
