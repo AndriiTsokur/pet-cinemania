@@ -13,7 +13,11 @@ import {
 import { ArticleTitle, MovieCard, Loader } from '@/components';
 import { processAll } from '@/utils';
 
-export const WeeklyTrends: React.FC = () => {
+type PropsT = {
+	isCatalogue?: boolean;
+};
+
+export const WeeklyTrends: React.FC<PropsT> = ({ isCatalogue }) => {
 	const dispatch = useDispatch();
 	const {
 		screen,
@@ -34,6 +38,7 @@ export const WeeklyTrends: React.FC = () => {
 				screen,
 				genres,
 				dayUpdated,
+				isCatalogue,
 			});
 
 			dispatch(substituteTrendingWeek(update));
@@ -44,13 +49,15 @@ export const WeeklyTrends: React.FC = () => {
 
 	return (
 		<article className={styles.weeklyTrends}>
-			<ArticleTitle title="Weekly Trends">
-				<p>
-					<NavLink to="/catalogue" className={styles.link}>
-						See all
-					</NavLink>
-				</p>
-			</ArticleTitle>
+			{!isCatalogue && (
+				<ArticleTitle title="Weekly Trends">
+					<p>
+						<NavLink to="/catalogue" className={styles.link}>
+							See all
+						</NavLink>
+					</p>
+				</ArticleTitle>
+			)}
 
 			<ul className={styles.cardsList}>
 				{weekUpdated.map((movie) => (

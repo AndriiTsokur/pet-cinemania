@@ -18,9 +18,9 @@ const searchResultsSlice = createSlice({
 	name: 'searchResults',
 	initialState,
 	reducers: {
-		// substituteUpcoming(state, action) {
-		// 	state.dataUpdated = action.payload;
-		// },
+		substituteSearchResults(state, action) {
+			state.dataUpdated = action.payload;
+		},
 	},
 	extraReducers(builder) {
 		builder
@@ -50,5 +50,5 @@ const searchResultsSlice = createSlice({
 export const selectSearchResults = (state: {
 	searchResults: SearchResultsStateT;
 }) => state.searchResults;
-// export const { substituteSearchResults } = searchResultsSlice.actions;
+export const { substituteSearchResults } = searchResultsSlice.actions;
 export const searchResultsReducer = searchResultsSlice.reducer;

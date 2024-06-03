@@ -17,3 +17,4 @@ export { Modal } from './Modal';
 export { MovieCard } from './MovieCard';
 export { SelectAltered } from './SelectAltered';
 export { StarsRating } from './StarsRating';
+export { WeeklyTrends } from './WeeklyTrends';

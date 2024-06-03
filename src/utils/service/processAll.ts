@@ -15,6 +15,7 @@ type ParamsT = {
 type ProcessAllT = ParamsT & {
 	categoryName: string;
 	dayUpdated?: TrendingDataT;
+	isCatalogue?: boolean;
 };
 
 type CommonCalculationsT = ParamsT & {
@@ -36,6 +37,7 @@ export const processAll = ({
 	screen,
 	genres,
 	dayUpdated,
+	isCatalogue,
 }: ProcessAllT): UpdatedTrendingDataT | UpdatedTrendingDataT[] => {
 	let index = 0;
 	let result: UpdatedTrendingDataT | UpdatedTrendingDataT[];
@@ -47,13 +49,21 @@ export const processAll = ({
 		const tempRandomCardIndexes: number[] = [];
 		const randomUpdatedMovies: UpdatedTrendingDataT[] = [];
 
-		while (tempRandomCardIndexes.length < screen.cardsInRow) {
-			const randomIndex = randomizer({ min: 0, max: categoryData.length });
-			if (
-				!tempRandomCardIndexes.includes(randomIndex) &&
-				categoryData[randomIndex].id !== dayUpdated?.id
-			) {
-				tempRandomCardIndexes.push(randomIndex);
+		if (isCatalogue) {
+			// We use plain Weekly Trends results flow for the Catalogue
+			for (let i = 0; i < 20; i++) {
+				tempRandomCardIndexes.push(i);
+			}
+		} else {
+			// While the Weekly Trends section of the Home Page randomly selects from 1 to 3 movies
+			while (tempRandomCardIndexes.length < screen.cardsInRow) {
+				const randomIndex = randomizer({ min: 0, max: categoryData.length });
+				if (
+					!tempRandomCardIndexes.includes(randomIndex) &&
+					categoryData[randomIndex].id !== dayUpdated?.id
+				) {
+					tempRandomCardIndexes.push(randomIndex);
+				}
 			}
 		}
 

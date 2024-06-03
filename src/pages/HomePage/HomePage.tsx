@@ -1,5 +1,5 @@
-import { Hero } from '@/components';
-import { Upcoming, WeeklyTrends } from './parts';
+import { Hero, WeeklyTrends } from '@/components';
+import { Upcoming } from './parts';
 
 export const HomePage: React.FC = () => {
 	return (

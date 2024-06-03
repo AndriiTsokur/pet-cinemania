@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import styles from './CataloguePage.module.css';
-import { Hero } from '@/components';
+import { Hero, WeeklyTrends } from '@/components';
 
 import { searchMoviesThunk } from '@/redux';
 
@@ -26,7 +26,7 @@ export const CataloguePage: React.FC = () => {
 				/> */}
 			</div>
 
-			{/* <WeeklyTrends /> */}
+			<WeeklyTrends isCatalogue={true} />
 		</article>
 	);
 };

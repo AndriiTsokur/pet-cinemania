@@ -11,6 +11,9 @@
 
 .cardsList {
 	display: flex;
+	flex-wrap: wrap;
+	gap: 16px;
+	justify-content: center;
 }
 
 .cardItem {
@@ -21,10 +24,6 @@
 	.weeklyTrends {
 		margin-bottom: 44px;
 		padding-inline: 32px;
-	}
-
-	.cardsList {
-		column-gap: 16px;
 	}
 
 	.cardItem {
@@ -38,7 +37,7 @@
 	}
 
 	.cardsList {
-		column-gap: 15px;
+		gap: 15px;
 	}
 
 	.cardItem {
