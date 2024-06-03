@@ -1,20 +1,32 @@
-import { NavLink } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import styles from './CataloguePage.module.css';
+import { Hero } from '@/components';
+
+import { searchMoviesThunk } from '@/redux';
 
 export const CataloguePage: React.FC = () => {
+	const dispatch = useDispatch();
+	// const { data: searchResults } = useSelector(selectSearchResults);
+
+	useEffect(() => {
+		dispatch<any>(searchMoviesThunk({ query: 'dune' }));
+	}, [dispatch]);
+
 	return (
-		<>
-			<h2>Catalogue Page</h2>
-			<ul>
-				<li>
-					<NavLink to="/catalogue/1">The Lord Of The Rings</NavLink>
-				</li>
-				<li>
-					<NavLink to="/catalogue/2">The Matrix</NavLink>
-				</li>
-				<li>
-					<NavLink to="/catalogue/3">Dune</NavLink>
-				</li>
-			</ul>
-		</>
+		<article>
+			<Hero />
+
+			<div className={styles.selectWrapper}>
+				{/* <SelectAltered
+					list={actualGenres}
+					label="All genres"
+					onChange={handleChange}
+					value={selectedGenre}
+				/> */}
+			</div>
+
+			{/* <WeeklyTrends /> */}
+		</article>
 	);
 };

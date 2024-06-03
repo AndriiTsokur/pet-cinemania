@@ -28,7 +28,6 @@ export const requestParams = {
 			include_adult: false,
 			language: 'en-US',
 			page: 1,
-			year: '',
 		},
 	},
 

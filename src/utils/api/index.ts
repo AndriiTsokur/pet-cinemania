@@ -4,3 +4,4 @@ export { getGenres } from './getGenres';
 export { getTrailers } from './getTrailers';
 export { getTrending } from './getTrending';
 export { getUpcoming } from './getUpcoming';
+export { searchMovies } from './searchMovies';
