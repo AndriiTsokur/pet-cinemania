@@ -1,1 +1,0 @@
-import{u as r,r as t,e as a,j as s}from"./index-BtCj7mMn.js";import{H as o,W as c}from"./WeeklyTrends-4d2JjvC8.js";import"./MovieCard-LGC2DY9D.js";const i={},l=()=>{const e=r();return t.useEffect(()=>{e(a({query:"dune"}))},[e]),s.jsxs("article",{children:[s.jsx(o,{}),s.jsx("div",{className:i.selectWrapper}),s.jsx(c,{isCatalogue:!0})]})};export{l as CataloguePage};
