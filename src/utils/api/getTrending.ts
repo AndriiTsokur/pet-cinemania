@@ -1,9 +1,16 @@
 import { apiInstance, requestParams } from './apiInstance';
 
-export const getTrending = async (period: 'day' | 'week') => {
+type ParamsT = {
+	period: 'day' | 'week';
+	page?: number;
+};
+
+export const getTrending = async ({ period, page = 1 }: ParamsT) => {
 	const {
 		trendingMovies: { url, params },
 	} = requestParams;
 
-	return await apiInstance(`${url}/${period}`, { params });
+	const finalParams = { ...params, page };
+
+	return await apiInstance(`${url}/${period}`, { params: finalParams });
 };

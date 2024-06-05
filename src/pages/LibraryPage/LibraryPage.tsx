@@ -18,7 +18,7 @@ export const LibraryPage: React.FC = () => {
 	const actualGenres = movies
 		.reduce<string[]>((prev, movie) => {
 			if (movie.genres) {
-				movie.genres.forEach((genre) => {
+				movie.genres.forEach((genre: string) => {
 					if (!prev.includes(genre)) {
 						prev.push(genre);
 					}

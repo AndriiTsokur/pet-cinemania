@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { fetchUpcomingThunk } from '@/redux/operations';
-import { UpcomingDataT, UpcomingStateT } from '@/utils';
+import { MoviesDataT, UpcomingStateT } from '@/utils';
 
 const initialState: UpcomingStateT = {
 	data: null,
@@ -29,7 +29,7 @@ const fetchUpcomingSlice = createSlice({
 			})
 			.addCase(
 				fetchUpcomingThunk.fulfilled,
-				(state, action: PayloadAction<UpcomingDataT[]>) => {
+				(state, action: PayloadAction<MoviesDataT>) => {
 					state.data = action.payload;
 					state.status.isLoading = false;
 				},

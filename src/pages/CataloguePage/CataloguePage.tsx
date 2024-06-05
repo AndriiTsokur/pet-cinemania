@@ -1,22 +1,45 @@
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { Pagination } from '@mui/material';
 import styles from './CataloguePage.module.css';
-import { Hero, WeeklyTrends } from '@/components';
+import { Hero, Loader, WeeklyTrends } from '@/components';
 
-import { searchMoviesThunk } from '@/redux';
+import {
+	fetchTrendingThunk,
+	// searchMoviesThunk,
+	selectTrendingAll,
+} from '@/redux';
 
 export const CataloguePage: React.FC = () => {
+	const navigate = useNavigate();
 	const dispatch = useDispatch();
+	const { page: pageAddress } = useParams<{ page: string }>();
+	const { dayUpdated, weekUpdated } = useSelector(selectTrendingAll);
 	// const { data: searchResults } = useSelector(selectSearchResults);
 
-	useEffect(() => {
-		dispatch<any>(searchMoviesThunk({ query: 'dune' }));
-	}, [dispatch]);
+	const initialPage = pageAddress ? Number(pageAddress) : 1;
+	const [currentPage, setCurrentPage] = useState(initialPage);
 
-	const handlePagination = (e: any) => {
-		console.log(typeof e.target.innerText);
+	// useEffect(() => {
+	// 	dispatch<any>(searchMoviesThunk({ query: 'dune' }));
+	// }, [dispatch]);
+
+	const handlePagination = (_: any, page: number) => {
+		navigate(page === 1 ? '/catalogue' : `/catalogue/${page}`);
 	};
+
+	useEffect(() => {
+		if (pageAddress && currentPage !== Number(pageAddress)) {
+			setCurrentPage(Number(pageAddress));
+			console.log(`Fetch page ${pageAddress}`);
+			dispatch<any>(
+				fetchTrendingThunk({ period: 'week', page: Number(pageAddress) }),
+			);
+		}
+	}, [dispatch, pageAddress]);
+
+	if (!dayUpdated || !weekUpdated) return <Loader />;
 
 	return (
 		<article>
@@ -35,10 +58,12 @@ export const CataloguePage: React.FC = () => {
 
 			<div className={styles.paginationWrapper}>
 				<Pagination
-					count={10}
+					count={weekUpdated?.total_pages}
 					variant="outlined"
 					color="primary"
-					onClick={(e) => handlePagination(e)}
+					disabled={!weekUpdated || weekUpdated.total_pages <= 1}
+					onChange={handlePagination}
+					page={currentPage}
 				/>
 			</div>
 		</article>

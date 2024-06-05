@@ -7,6 +7,7 @@ import {
 	ArticleTitle,
 	ButtonHandleLibrary,
 	ButtonWatchTrailer,
+	Loader,
 } from '@/components';
 import { processAll } from '@/utils';
 
@@ -23,14 +24,14 @@ export const Upcoming: React.FC = () => {
 		if (upcoming && genres) {
 			const update = processAll({
 				categoryName: 'upcoming',
-				categoryData: upcoming,
+				categoryResults: upcoming.results,
 				screen,
 				genres,
 			});
 
 			dispatch(substituteUpcoming(update));
 		}
-	}, [screen.deviceType, upcoming, dispatch]);
+	}, [dispatch, upcoming, genres]);
 
 	let image = '';
 	if (upcomingUpdated) {
@@ -40,7 +41,7 @@ export const Upcoming: React.FC = () => {
 				: upcomingUpdated.backdrop_url || '';
 	}
 
-	if (!upcomingUpdated) return;
+	if (!upcomingUpdated) return <Loader />;
 
 	return (
 		<article className={styles.upcoming}>

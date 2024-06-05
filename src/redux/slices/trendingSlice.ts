@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { fetchTrendingThunk } from '@/redux/operations';
-import { TrendingDataT, TrendingStateT } from '@/utils';
+import { MoviesDataT, TrendingStateT } from '@/utils';
 
 const initialState: TrendingStateT = {
 	day: null,
@@ -21,7 +21,13 @@ const fetchTrendingSlice = createSlice({
 			state.dayUpdated = action.payload;
 		},
 		substituteTrendingWeek(state, action) {
-			state.weekUpdated = action.payload;
+			state.weekUpdated = {
+				...state.week,
+				results: action.payload,
+				page: state.week ? state.week.page : 1,
+				total_pages: state.week ? state.week.total_pages : 1,
+				total_results: state.week ? state.week.total_results : 1,
+			};
 		},
 	},
 	extraReducers(builder) {
@@ -38,12 +44,12 @@ const fetchTrendingSlice = createSlice({
 				(
 					state,
 					action: PayloadAction<{
-						selectedResults: TrendingDataT[];
+						data: MoviesDataT;
 						period: 'day' | 'week';
 					}>,
 				) => {
-					const { selectedResults, period } = action.payload;
-					state[period] = selectedResults;
+					const { data, period } = action.payload;
+					state[period] = data;
 					state.status.isLoading = false;
 				},
 			)

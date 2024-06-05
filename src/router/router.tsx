@@ -33,6 +33,12 @@ const routes = [
 				path: 'catalogue',
 				element: <CataloguePage />,
 				linkText: 'Catalogue',
+				children: [
+					{
+						path: ':page',
+						element: <CataloguePage />,
+					},
+				],
 			},
 			{
 				path: 'library',

@@ -1,4 +1,5 @@
 export type * from './detailsSliceStateTypes';
+export type * from './moviesDataTypes';
 export type * from './searchMoviesSliceStateTypes';
 export type * from './serviceSliceStateTypes';
 export type * from './trendingSliceStateTypes';

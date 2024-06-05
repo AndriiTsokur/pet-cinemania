@@ -4,17 +4,17 @@ import {
 	processOverview,
 	randomizer,
 } from '@/utils';
-import { GenresDataT, TrendingDataT, ScreenDataT } from '@/utils';
+import { GenresDataT, MoviesResultsT, ScreenDataT } from '@/utils';
 
 type ParamsT = {
-	categoryData: TrendingDataT[];
+	categoryResults: MoviesResultsT[];
 	screen: ScreenDataT;
 	genres: GenresDataT;
 };
 
 type ProcessAllT = ParamsT & {
 	categoryName: string;
-	dayUpdated?: TrendingDataT;
+	dayUpdated?: MoviesResultsT;
 	isCatalogue?: boolean;
 };
 
@@ -22,32 +22,23 @@ type CommonCalculationsT = ParamsT & {
 	index: number;
 };
 
-type UpdatedTrendingDataT = TrendingDataT & {
-	backdrop_url: string;
-	poster_url: string;
-	overview_brief: string;
-	genres: string[];
-	popularity: string;
-	vote_average: string;
-};
-
 export const processAll = ({
 	categoryName,
-	categoryData,
+	categoryResults,
 	screen,
 	genres,
 	dayUpdated,
 	isCatalogue,
-}: ProcessAllT): UpdatedTrendingDataT | UpdatedTrendingDataT[] => {
+}: ProcessAllT): MoviesResultsT | MoviesResultsT[] => {
 	let index = 0;
-	let result: UpdatedTrendingDataT | UpdatedTrendingDataT[];
+	let result: MoviesResultsT | MoviesResultsT[];
 
 	if (categoryName !== 'week') {
-		index = randomizer({ min: 0, max: categoryData.length });
-		result = commonCalculations({ index, categoryData, screen, genres });
+		index = randomizer({ min: 0, max: categoryResults.length });
+		result = commonCalculations({ index, categoryResults, screen, genres });
 	} else {
 		const tempRandomCardIndexes: number[] = [];
-		const randomUpdatedMovies: UpdatedTrendingDataT[] = [];
+		const randomUpdatedMovies: MoviesResultsT[] = [];
 
 		if (isCatalogue) {
 			// We use plain Weekly Trends results flow for the Catalogue
@@ -57,10 +48,10 @@ export const processAll = ({
 		} else {
 			// While the Weekly Trends section of the Home Page randomly selects from 1 to 3 movies
 			while (tempRandomCardIndexes.length < screen.cardsInRow) {
-				const randomIndex = randomizer({ min: 0, max: categoryData.length });
+				const randomIndex = randomizer({ min: 0, max: categoryResults.length });
 				if (
 					!tempRandomCardIndexes.includes(randomIndex) &&
-					categoryData[randomIndex].id !== dayUpdated?.id
+					categoryResults[randomIndex].id !== dayUpdated?.id
 				) {
 					tempRandomCardIndexes.push(randomIndex);
 				}
@@ -70,7 +61,7 @@ export const processAll = ({
 		tempRandomCardIndexes.map((index) => {
 			const update = commonCalculations({
 				index,
-				categoryData,
+				categoryResults,
 				screen,
 				genres,
 			});
@@ -85,29 +76,29 @@ export const processAll = ({
 
 function commonCalculations({
 	index,
-	categoryData,
+	categoryResults,
 	screen,
 	genres,
-}: CommonCalculationsT): UpdatedTrendingDataT {
+}: CommonCalculationsT): MoviesResultsT {
 	const { backdrop, poster } = processFetchedImages({
 		screen,
-		movie: categoryData[index],
+		movie: categoryResults[index],
 	});
 
 	const { overview, overview_brief } = processOverview({
-		movie: categoryData[index],
+		movie: categoryResults[index],
 		deviceType: screen.deviceType,
 	});
 
 	const genresArray = processGenres({
 		genres,
-		movie: categoryData[index],
+		movie: categoryResults[index],
 	});
-	const popularity = Number(categoryData[index].popularity).toFixed(1);
-	const vote_average = Number(categoryData[index].vote_average).toFixed(1);
+	const popularity = Number(categoryResults[index].popularity).toFixed(1);
+	const vote_average = Number(categoryResults[index].vote_average).toFixed(1);
 
-	const update: UpdatedTrendingDataT = {
-		...categoryData[index],
+	const update: MoviesResultsT = {
+		...categoryResults[index],
 		backdrop_url: backdrop,
 		poster_url: poster,
 		overview,

@@ -1,49 +1,18 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { getUpcoming } from '@/utils';
-import { UpcomingDataT } from '@/utils';
+import { MoviesDataT } from '@/utils';
 
 export const fetchUpcomingThunk = createAsyncThunk<
-	UpcomingDataT[],
+	MoviesDataT,
 	void,
 	{ rejectValue: string }
 >('upcoming/fetchUpcomingThunk', async (_, thunkApi) => {
 	try {
-		const {
-			data: { results },
-		} = await getUpcoming();
-		const selectedResults = processData(results);
-		return selectedResults;
+		const { data } = await getUpcoming();
+		return data;
 	} catch (error: any) {
 		return thunkApi.rejectWithValue(
 			`Failed to retrieve Upcoming data: ${error.message}`,
 		);
 	}
 });
-
-function processData(results: any[]): UpcomingDataT[] {
-	return results.map(
-		({
-			backdrop_path,
-			id,
-			overview,
-			poster_path,
-			title,
-			genre_ids,
-			popularity,
-			release_date,
-			vote_average,
-			vote_count,
-		}) => ({
-			backdrop_path,
-			id,
-			overview,
-			poster_path,
-			title,
-			genre_ids,
-			popularity,
-			release_date,
-			vote_average,
-			vote_count,
-		}),
-	);
-}

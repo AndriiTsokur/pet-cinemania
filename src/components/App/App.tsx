@@ -52,11 +52,11 @@ export const App: React.FC = () => {
 
 	// Initial fetch of Movies Details data
 	useEffect(() => {
-		if (!day) dispatch<any>(fetchTrendingThunk('day'));
+		if (!day) dispatch<any>(fetchTrendingThunk({ period: 'day' }));
 	}, [dispatch, day]);
 
 	useEffect(() => {
-		if (!week) dispatch<any>(fetchTrendingThunk('week'));
+		if (!week) dispatch<any>(fetchTrendingThunk({ period: 'week' }));
 	}, [dispatch, week]);
 
 	useEffect(() => {

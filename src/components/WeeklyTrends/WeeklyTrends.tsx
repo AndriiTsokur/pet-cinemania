@@ -27,14 +27,14 @@ export const WeeklyTrends: React.FC<PropsT> = ({ isCatalogue }) => {
 
 	useEffect(() => {
 		if (!genres) dispatch<any>(fetchGenresThunk());
-		if (!week) dispatch<any>(fetchTrendingThunk('week'));
+		if (!week) dispatch<any>(fetchTrendingThunk({ period: 'week' }));
 	}, [dispatch, genres, week]);
 
 	useEffect(() => {
 		if (week && genres && dayUpdated) {
 			const update = processAll({
 				categoryName: 'week',
-				categoryData: week,
+				categoryResults: week.results,
 				screen,
 				genres,
 				dayUpdated,
@@ -60,7 +60,7 @@ export const WeeklyTrends: React.FC<PropsT> = ({ isCatalogue }) => {
 			)}
 
 			<ul className={styles.cardsList}>
-				{weekUpdated.map((movie) => (
+				{weekUpdated.results.map((movie) => (
 					<li key={movie.id} className={styles.cardItem}>
 						<MovieCard movie={movie} source="week" />
 					</li>

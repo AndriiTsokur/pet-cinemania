@@ -23,7 +23,7 @@ export const Hero: React.FC = () => {
 		if (day && genres) {
 			const update = processAll({
 				categoryName: 'day',
-				categoryData: day,
+				categoryResults: day.results,
 				screen,
 				genres,
 			});

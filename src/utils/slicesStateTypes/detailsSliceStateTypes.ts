@@ -1,7 +1,5 @@
-import { TrendingDataT } from './trendingSliceStateTypes';
+import { MoviesResultsT } from './moviesDataTypes';
 import { RequestStatusT } from './serviceSliceStateTypes';
-
-export type DetailsDataT = TrendingDataT;
 
 export type TrailerDataT = {
 	iso_639_1: string;
@@ -17,7 +15,7 @@ export type TrailerDataT = {
 };
 
 export type DetailsStateT = {
-	data: null | DetailsDataT;
+	data: null | MoviesResultsT;
 	trailers: null | TrailerDataT[];
 	status: RequestStatusT;
 };
