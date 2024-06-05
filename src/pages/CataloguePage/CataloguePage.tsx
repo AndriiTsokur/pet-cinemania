@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import { Pagination } from '@mui/material';
 import styles from './CataloguePage.module.css';
 import { Hero, WeeklyTrends } from '@/components';
 
@@ -12,6 +13,10 @@ export const CataloguePage: React.FC = () => {
 	useEffect(() => {
 		dispatch<any>(searchMoviesThunk({ query: 'dune' }));
 	}, [dispatch]);
+
+	const handlePagination = (e: any) => {
+		console.log(typeof e.target.innerText);
+	};
 
 	return (
 		<article>
@@ -27,6 +32,15 @@ export const CataloguePage: React.FC = () => {
 			</div>
 
 			<WeeklyTrends isCatalogue={true} />
+
+			<div className={styles.paginationWrapper}>
+				<Pagination
+					count={10}
+					variant="outlined"
+					color="primary"
+					onClick={(e) => handlePagination(e)}
+				/>
+			</div>
 		</article>
 	);
 };

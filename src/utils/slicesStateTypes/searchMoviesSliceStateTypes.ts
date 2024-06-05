@@ -1,7 +1,7 @@
 import { RequestStatusT } from './serviceSliceStateTypes';
 import { TrendingDataT } from './trendingSliceStateTypes';
 
-export type SearchResultsDataT = {
+export type SearchMoviesDataT = {
 	page: number;
 	result: TrendingDataT[];
 	total_pages: number;
@@ -9,7 +9,7 @@ export type SearchResultsDataT = {
 };
 
 export type SearchResultsStateT = {
-	data: null | SearchResultsDataT[];
-	dataUpdated: null | SearchResultsDataT[];
+	data: null | SearchMoviesDataT[];
+	dataUpdated: null | SearchMoviesDataT[];
 	status: RequestStatusT;
 };

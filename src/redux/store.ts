@@ -14,7 +14,7 @@ import storage from 'redux-persist/lib/storage';
 import {
 	detailsReducer,
 	localReducer,
-	searchResultsReducer,
+	searchMoviesReducer,
 	serviceReducer,
 	trendingReducer,
 	upcomingReducer,
@@ -31,7 +31,7 @@ const persistedReducer = persistReducer(libraryPersistConfig, localReducer);
 const reducers = combineReducers({
 	details: detailsReducer,
 	local: persistedReducer,
-	searchResults: searchResultsReducer,
+	searchMovies: searchMoviesReducer,
 	service: serviceReducer,
 	trending: trendingReducer,
 	upcoming: upcomingReducer,

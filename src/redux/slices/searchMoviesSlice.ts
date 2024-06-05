@@ -11,11 +11,11 @@ const initialState: SearchResultsStateT = {
 	},
 };
 
-const searchResultsSlice = createSlice({
-	name: 'searchResults',
+const searchMoviesSlice = createSlice({
+	name: 'searchMovies',
 	initialState,
 	reducers: {
-		substituteSearchResults(state, action) {
+		substituteSearchMovies(state, action) {
 			state.dataUpdated = action.payload;
 		},
 	},
@@ -41,8 +41,8 @@ const searchResultsSlice = createSlice({
 	},
 });
 
-export const selectSearchResults = (state: {
-	searchResults: SearchResultsStateT;
-}) => state.searchResults;
-export const { substituteSearchResults } = searchResultsSlice.actions;
-export const searchResultsReducer = searchResultsSlice.reducer;
+export const selectSearchMovies = (state: {
+	searchMovies: SearchResultsStateT;
+}) => state.searchMovies;
+export const { substituteSearchMovies } = searchMoviesSlice.actions;
+export const searchMoviesReducer = searchMoviesSlice.reducer;

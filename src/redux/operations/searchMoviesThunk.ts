@@ -8,7 +8,7 @@ type RequestParamsT = {
 };
 
 export const searchMoviesThunk = createAsyncThunk(
-	'searchResults/searchMoviesThunk',
+	'searchMovies/searchMoviesThunk',
 	async (requestParams: RequestParamsT, thunkApi) => {
 		try {
 			const { data } = await searchMovies(requestParams);
