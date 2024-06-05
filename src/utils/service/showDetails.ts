@@ -1,9 +1,9 @@
 import { toggleModal, uploadDetails } from '@/redux';
-import { TrendingDataT } from '@/utils';
+import { MoviesResultsT } from '@/utils';
 
 type ParamsT = {
 	modalType: string;
-	movie: TrendingDataT;
+	movie: MoviesResultsT;
 	dispatch: any;
 };
 

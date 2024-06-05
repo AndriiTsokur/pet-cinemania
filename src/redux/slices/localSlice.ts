@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { TrendingDataT } from '@/utils';
+import { MoviesResultsT } from '@/utils';
 
 type LocalStateT = {
 	isDarkMode: boolean;
-	movies: TrendingDataT[];
+	movies: MoviesResultsT[];
 };
 
 const initialState: LocalStateT = {
@@ -18,7 +18,7 @@ const localSlice = createSlice({
 		toggleColorMode(state) {
 			state.isDarkMode = !state.isDarkMode;
 		},
-		addToLibrary(state, action: PayloadAction<TrendingDataT>) {
+		addToLibrary(state, action: PayloadAction<MoviesResultsT>) {
 			const temp = [...state.movies];
 			temp.unshift(action.payload);
 			state.movies = [...temp];

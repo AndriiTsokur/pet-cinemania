@@ -1,7 +1,7 @@
-import { TrendingDataT } from '@/utils';
+import { MoviesResultsT } from '@/utils';
 
 type ParamsT = {
-	movie: TrendingDataT;
+	movie: MoviesResultsT;
 	deviceType: string | null | undefined;
 };
 

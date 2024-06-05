@@ -3,11 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import styles from './MovieCard.module.css';
 import { selectService, selectTrendingAll } from '@/redux';
 import { StarsRating } from '@/components';
-import { showDetails, TrendingDataT } from '@/utils';
+import { showDetails, MoviesResultsT } from '@/utils';
 import posterPlug from '@/assets/images/poster-plug.jpg';
 
 type PropsT = {
-	movie: TrendingDataT;
+	movie: MoviesResultsT;
 	source: 'library' | 'week';
 };
 

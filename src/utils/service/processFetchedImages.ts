@@ -1,9 +1,9 @@
-import { ScreenDataT, TrendingDataT } from '@/utils';
+import { ScreenDataT, MoviesResultsT } from '@/utils';
 import posterPlug from '@/assets/images/poster-plug.jpg';
 
 type ParamsT = {
 	screen: ScreenDataT;
-	movie: TrendingDataT;
+	movie: MoviesResultsT;
 };
 
 export const processFetchedImages = ({ screen, movie }: ParamsT) => {
