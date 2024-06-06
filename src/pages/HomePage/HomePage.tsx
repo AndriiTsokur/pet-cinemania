@@ -5,7 +5,7 @@ export const HomePage: React.FC = () => {
 	return (
 		<>
 			<Hero />
-			<WeeklyTrends />
+			<WeeklyTrends isCatalogue={false} />
 			<Upcoming />
 		</>
 	);

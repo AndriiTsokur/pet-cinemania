@@ -30,6 +30,10 @@ export const processAll = ({
 	dayUpdated,
 	isCatalogue,
 }: ProcessAllT): MoviesResultsT | MoviesResultsT[] => {
+	if (!categoryResults || !Array.isArray(categoryResults)) {
+		return [];
+	} // Proposed by ChatGPT
+
 	let index = 0;
 	let result: MoviesResultsT | MoviesResultsT[];
 
@@ -59,13 +63,16 @@ export const processAll = ({
 		}
 
 		tempRandomCardIndexes.map((index) => {
-			const update = commonCalculations({
-				index,
-				categoryResults,
-				screen,
-				genres,
-			});
-			randomUpdatedMovies.push(update);
+			if (categoryResults[index]) {
+				// if proposed by ChatGPT
+				const update = commonCalculations({
+					index,
+					categoryResults,
+					screen,
+					genres,
+				});
+				randomUpdatedMovies.push(update);
+			}
 		});
 
 		result = [...randomUpdatedMovies];

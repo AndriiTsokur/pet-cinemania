@@ -2,7 +2,12 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './Upcoming.module.css';
-import { selectService, selectUpcoming, substituteUpcoming } from '@/redux';
+import {
+	fetchUpcomingThunk,
+	selectService,
+	selectUpcoming,
+	substituteUpcoming,
+} from '@/redux';
 import {
 	ArticleTitle,
 	ButtonHandleLibrary,
@@ -21,7 +26,11 @@ export const Upcoming: React.FC = () => {
 		useSelector(selectUpcoming);
 
 	useEffect(() => {
-		if (upcoming && genres) {
+		if (!upcoming) dispatch<any>(fetchUpcomingThunk());
+	}, []);
+
+	useEffect(() => {
+		if (upcoming && genres && !upcomingUpdated) {
 			const update = processAll({
 				categoryName: 'upcoming',
 				categoryResults: upcoming.results,
@@ -31,7 +40,7 @@ export const Upcoming: React.FC = () => {
 
 			dispatch(substituteUpcoming(update));
 		}
-	}, [dispatch, upcoming, genres]);
+	}, [dispatch, upcoming, genres, upcomingUpdated, screen]);
 
 	let image = '';
 	if (upcomingUpdated) {

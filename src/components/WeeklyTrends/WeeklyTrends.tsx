@@ -10,7 +10,7 @@ import {
 	selectTrendingAll,
 	substituteTrendingWeek,
 } from '@/redux';
-import { ArticleTitle, MovieCard, Loader } from '@/components';
+import { ArticleTitle, MovieCard } from '@/components';
 import { processAll } from '@/utils';
 
 type PropsT = {
@@ -26,12 +26,19 @@ export const WeeklyTrends: React.FC<PropsT> = ({ isCatalogue }) => {
 	const { week, weekUpdated, dayUpdated } = useSelector(selectTrendingAll);
 
 	useEffect(() => {
-		if (!genres) dispatch<any>(fetchGenresThunk());
+		if (!genres) dispatch<any>(fetchGenresThunk()); // Proposed by ChatGPT
 		if (!week) dispatch<any>(fetchTrendingThunk({ period: 'week' }));
 	}, [dispatch, genres, week]);
 
 	useEffect(() => {
-		if (week && genres && dayUpdated) {
+		if (
+			(week && genres && dayUpdated && !weekUpdated) ||
+			(week &&
+				genres &&
+				dayUpdated &&
+				!isCatalogue &&
+				weekUpdated!.results.length > 3)
+		) {
 			const update = processAll({
 				categoryName: 'week',
 				categoryResults: week.results,
@@ -43,9 +50,7 @@ export const WeeklyTrends: React.FC<PropsT> = ({ isCatalogue }) => {
 
 			dispatch(substituteTrendingWeek(update));
 		}
-	}, [dispatch, week, genres, dayUpdated]);
-
-	if (!weekUpdated) return <Loader />;
+	}, [dispatch, week, genres, dayUpdated, weekUpdated, screen, isCatalogue]);
 
 	return (
 		<article className={styles.weeklyTrends}>
@@ -60,7 +65,7 @@ export const WeeklyTrends: React.FC<PropsT> = ({ isCatalogue }) => {
 			)}
 
 			<ul className={styles.cardsList}>
-				{weekUpdated.results.map((movie) => (
+				{weekUpdated?.results.map((movie) => (
 					<li key={movie.id} className={styles.cardItem}>
 						<MovieCard movie={movie} source="week" />
 					</li>

@@ -3,12 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './Hero.module.css';
 import {
+	fetchTrendingThunk,
 	selectService,
 	selectTrendingAll,
 	substituteTrendingDay,
 } from '@/redux';
 import { HeroPlug } from './parts';
-import { Button, ButtonWatchTrailer, Loader, StarsRating } from '@/components';
+import { Button, ButtonWatchTrailer, StarsRating } from '@/components';
 import { processAll, showDetails } from '@/utils';
 
 export const Hero: React.FC = () => {
@@ -18,6 +19,10 @@ export const Hero: React.FC = () => {
 		genres: { data: genres },
 	} = useSelector(selectService);
 	const { day, dayUpdated } = useSelector(selectTrendingAll);
+
+	useEffect(() => {
+		if (!day) dispatch<any>(fetchTrendingThunk({ period: 'day' }));
+	}, [dispatch]);
 
 	useEffect(() => {
 		if (day && genres) {
@@ -30,15 +35,13 @@ export const Hero: React.FC = () => {
 
 			dispatch(substituteTrendingDay(update));
 		}
-	}, [dispatch, day, genres]);
+	}, [dispatch, day, genres, screen]);
 
 	let heroBg = {};
 	if (dayUpdated) {
 		heroBg = {
 			backgroundImage: `linear-gradient(68.84deg, rgb(17, 17, 17) 36.846%, rgba(17, 17, 17, 0) 60.047%), url(${dayUpdated.backdrop_url})`,
 		};
-	} else {
-		return <Loader />;
 	}
 
 	return (
