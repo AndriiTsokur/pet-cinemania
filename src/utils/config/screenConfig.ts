@@ -17,7 +17,7 @@ export const screenConfig = [
 	},
 	{
 		deviceType: 'mobile',
-		cardsInRow: 1,
+		cardsInRow: 3,
 		minScreenWidth: 320,
 		minCardHeight: 406,
 		minBackdropWidth: 320,

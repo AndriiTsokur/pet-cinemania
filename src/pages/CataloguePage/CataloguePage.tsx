@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
@@ -17,41 +17,53 @@ import {
 	searchMoviesThunk,
 	substituteSearchMovies,
 	substituteTrendingWeek,
+	setQuery,
 } from '@/redux';
 
 export const CataloguePage: React.FC = () => {
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
+	const [searchParams] = useSearchParams();
+
 	const {
 		screen,
 		genres: { data: genres },
 	} = useSelector(selectService);
 	const { dayUpdated, week, weekUpdated } = useSelector(selectTrendingAll);
-	const {
-		query: searchQuery,
-		data: searchData,
-		dataUpdated: searchDataUpdated,
-	} = useSelector(selectSearchMovies);
+	const { data: searchData, dataUpdated: searchDataUpdated } =
+		useSelector(selectSearchMovies);
 
-	const { page: pageAddress } = useParams<{ page: string }>();
+	const [inputState, setInputState] = useState(searchParams.get('query') || '');
 
-	const currentPage = pageAddress ? Number(pageAddress) : 1;
+	const currentPage = searchParams.get('page')
+		? Number(searchParams.get('page'))
+		: 1;
+	const query = searchParams.get('query') || '';
 
 	useEffect(() => {
-		if (!week || week.page !== currentPage) {
+		if (query) {
+			dispatch(setQuery(query));
+		}
+	}, [dispatch, query]);
+
+	useEffect(() => {
+		setInputState(query);
+	}, [query]);
+
+	useEffect(() => {
+		if (!query && (!week || week.page !== currentPage)) {
 			dispatch<any>(fetchTrendingThunk({ period: 'week', page: currentPage }));
 		}
-	}, [dispatch, week, currentPage]);
+	}, [dispatch, week, currentPage, query]);
 
 	useEffect(() => {
-		if (searchData?.page !== currentPage) {
-			dispatch<any>(
-				searchMoviesThunk({ query: searchQuery, page: currentPage }),
-			);
+		if (query && searchData?.page !== currentPage) {
+			dispatch<any>(searchMoviesThunk({ query, page: currentPage }));
 		}
-	}, [dispatch, searchData, currentPage]);
+	}, [dispatch, searchData, currentPage, query]);
 
 	useEffect(() => {
-		if (week && genres && dayUpdated) {
+		if (week && genres && dayUpdated && !query) {
 			const update = processAll({
 				categoryName: 'week',
 				categoryResults: week.results,
@@ -63,14 +75,15 @@ export const CataloguePage: React.FC = () => {
 
 			dispatch(substituteTrendingWeek(update));
 		}
-	}, [dispatch, week, genres, dayUpdated, screen]);
+	}, [dispatch, week, genres, dayUpdated, screen, query]);
 
 	const handleSubmit = (inputState: string) => {
-		dispatch<any>(searchMoviesThunk({ query: inputState }));
+		dispatch(setQuery(inputState));
+		navigate(`/catalogue?query=${inputState}&page=1`);
 	};
 
 	useEffect(() => {
-		if (searchData && genres && dayUpdated) {
+		if (searchData && genres && dayUpdated && query) {
 			const update = processAll({
 				categoryName: 'week',
 				categoryResults: searchData.results,
@@ -82,23 +95,23 @@ export const CataloguePage: React.FC = () => {
 
 			dispatch(substituteSearchMovies(update));
 		}
-	}, [dispatch, searchData, genres, dayUpdated, screen]);
+	}, [dispatch, searchData, genres, dayUpdated, screen, query]);
 
 	return (
 		<article>
 			<Hero />
-			<SearchForm onSubmit={handleSubmit} />
+			<SearchForm onSubmit={handleSubmit} initialQuery={inputState} />
 
-			{!searchQuery ? (
+			{!query ? (
 				<>
 					<PaginationAltered
 						pageName="catalogue"
-						totalPages={weekUpdated ? weekUpdated.total_pages / 2 : 0}
+						totalPages={weekUpdated ? weekUpdated.total_pages : 0}
 					/>
 					<WeeklyTrends isCatalogue={true} weekUpdatedProp={weekUpdated} />
 					<PaginationAltered
 						pageName="catalogue"
-						totalPages={weekUpdated ? weekUpdated.total_pages / 2 : 0}
+						totalPages={weekUpdated ? weekUpdated.total_pages : 0}
 					/>
 				</>
 			) : (

@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './MovieCard.module.css';
-import { selectService, selectTrendingAll } from '@/redux';
+import { selectSearchMovies, selectService, selectTrendingAll } from '@/redux';
 import { StarsRating } from '@/components';
 import { showDetails, MoviesResultsT } from '@/utils';
 import posterPlug from '@/assets/images/poster-plug.jpg';
@@ -17,9 +17,13 @@ export const MovieCard: React.FC<PropsT> = ({ movie, source }) => {
 		screen: { movieCardHeight },
 	} = useSelector(selectService);
 	const { weekUpdated: movies } = useSelector(selectTrendingAll);
+	const { dataUpdated: foundedMovies } = useSelector(selectSearchMovies);
 
 	let cardBg = {};
-	if ((source === 'week' && movies) || source === 'library') {
+	if (
+		(source === 'week' && (movies || foundedMovies)) ||
+		source === 'library'
+	) {
 		cardBg = {
 			height: movieCardHeight,
 			backgroundImage: `linear-gradient(180.00deg, rgba(0, 0, 0, 0) 63.48%,rgba(0, 0, 0, 0.9) 92.161%), url(${movie.poster_url})`,
@@ -33,7 +37,8 @@ export const MovieCard: React.FC<PropsT> = ({ movie, source }) => {
 
 	return (
 		<>
-			{((source === 'week' && movies) || source === 'library') && (
+			{((source === 'week' && (movies || foundedMovies)) ||
+				source === 'library') && (
 				<section
 					className={styles.section}
 					style={cardBg}

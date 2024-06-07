@@ -27,7 +27,9 @@ export const App: React.FC = () => {
 			dispatch(defineScreenParams(updatedScreenParams));
 		};
 
-		if (screenWidth !== window.innerWidth) updateScreenParams();
+		if (screenWidth !== window.innerWidth) {
+			updateScreenParams();
+		}
 
 		window.addEventListener('resize', updateScreenParams);
 		return () => window.removeEventListener('resize', updateScreenParams);

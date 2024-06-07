@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Pagination } from '@mui/material';
 import styles from './PaginationAltered.module.css';
@@ -14,11 +14,16 @@ export const PaginationAltered: React.FC<PropsT> = ({
 	totalPages,
 }) => {
 	const navigate = useNavigate();
+	const [searchParams] = useSearchParams();
+
 	const {
 		screen: { deviceType },
 	} = useSelector(selectService);
 	const { isDarkMode } = useSelector(selectLocal);
-	const { page: pageAddress } = useParams<{ page: string }>();
+	const currentPage = searchParams.get('page')
+		? Number(searchParams.get('page'))
+		: 1;
+	const query = searchParams.get('query') || '';
 
 	let paginationSize: any;
 	switch (deviceType) {
@@ -40,7 +45,13 @@ export const PaginationAltered: React.FC<PropsT> = ({
 	const colorGrey = isDarkMode ? '#b7b7b7' : '#595959';
 
 	const handlePagination = (_: any, page: number) => {
-		navigate(page === 1 ? `/${pageName}` : `/${pageName}/${page}`);
+		if (query) {
+			navigate(`/${pageName}?query=${query}&page=${page}`);
+		} else {
+			navigate(
+				page === 1 ? `/${pageName}?page=1` : `/${pageName}?page=${page}`,
+			);
+		}
 	};
 
 	return (
@@ -50,7 +61,7 @@ export const PaginationAltered: React.FC<PropsT> = ({
 				variant="outlined"
 				disabled={totalPages <= 1}
 				onChange={handlePagination}
-				page={pageAddress ? Number(pageAddress) : 1}
+				page={currentPage}
 				size={paginationSize}
 				sx={{
 					'& .MuiPaginationItem-root': {
