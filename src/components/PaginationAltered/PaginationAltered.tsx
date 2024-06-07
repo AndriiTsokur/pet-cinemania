@@ -2,15 +2,17 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Pagination } from '@mui/material';
 import styles from './PaginationAltered.module.css';
-import { MoviesDataT } from '@/utils';
 import { selectLocal, selectService } from '@/redux';
 
 type PropsT = {
-	data: MoviesDataT | null;
 	pageName: string;
+	totalPages: number;
 };
 
-export const PaginationAltered: React.FC<PropsT> = ({ data, pageName }) => {
+export const PaginationAltered: React.FC<PropsT> = ({
+	pageName,
+	totalPages,
+}) => {
 	const navigate = useNavigate();
 	const {
 		screen: { deviceType },
@@ -44,10 +46,9 @@ export const PaginationAltered: React.FC<PropsT> = ({ data, pageName }) => {
 	return (
 		<div className={styles.paginationWrapper}>
 			<Pagination
-				count={data ? data.total_pages / 2 : 0}
+				count={totalPages}
 				variant="outlined"
-				color="primary"
-				disabled={!data || data.total_pages <= 1}
+				disabled={totalPages <= 1}
 				onChange={handlePagination}
 				page={pageAddress ? Number(pageAddress) : 1}
 				size={paginationSize}
@@ -60,7 +61,7 @@ export const PaginationAltered: React.FC<PropsT> = ({ data, pageName }) => {
 						borderColor: colorGrey,
 						background:
 							'linear-gradient(144.81deg, rgb(255, 194, 38) 9.233%,rgb(248, 65, 25) 92.699%)',
-						color: colorPrimary,
+						color: 'colorPrimary',
 					},
 				}}
 			/>
