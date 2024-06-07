@@ -15,6 +15,7 @@ export { Loader } from './Loader';
 export { MobileMenu } from './MobileMenu';
 export { Modal } from './Modal';
 export { MovieCard } from './MovieCard';
+export { PaginationAltered } from './PaginationAltered';
 export { SelectAltered } from './SelectAltered';
 export { StarsRating } from './StarsRating';
 export { WeeklyTrends } from './WeeklyTrends';

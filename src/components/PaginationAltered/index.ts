@@ -1,0 +1,1 @@
+export { PaginationAltered } from './PaginationAltered';

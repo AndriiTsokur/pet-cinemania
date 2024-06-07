@@ -1,10 +1,9 @@
 import { useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { Pagination } from '@mui/material';
 
 import styles from './CataloguePage.module.css';
-import { Hero, WeeklyTrends } from '@/components';
+import { Hero, PaginationAltered, WeeklyTrends } from '@/components';
 import { processAll } from '@/utils';
 
 import {
@@ -15,7 +14,6 @@ import {
 } from '@/redux';
 
 export const CataloguePage: React.FC = () => {
-	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const {
 		screen,
@@ -25,18 +23,13 @@ export const CataloguePage: React.FC = () => {
 
 	const { page: pageAddress } = useParams<{ page: string }>();
 
-	const handlePagination = (_: any, page: number) => {
-		navigate(page === 1 ? '/catalogue' : `/catalogue/${page}`);
+	const currentPage = pageAddress ? Number(pageAddress) : 1;
 
-		if (week?.page !== page) {
-			dispatch<any>(
-				fetchTrendingThunk({
-					period: 'week',
-					page: pageAddress ? Number(pageAddress) : 1,
-				}),
-			);
+	useEffect(() => {
+		if (!week || week.page !== currentPage) {
+			dispatch<any>(fetchTrendingThunk({ period: 'week', page: currentPage }));
 		}
-	};
+	}, [dispatch, week, currentPage]);
 
 	useEffect(() => {
 		if (week && genres && dayUpdated) {
@@ -51,12 +44,13 @@ export const CataloguePage: React.FC = () => {
 
 			dispatch(substituteTrendingWeek(update));
 		}
-	}, [dispatch, week, genres, dayUpdated]);
+	}, [dispatch, week, genres, dayUpdated, screen]);
 
 	return (
 		<article>
 			<Hero />
-			<WeeklyTrends isCatalogue={true} />
+			<PaginationAltered data={weekUpdated} pageName="catalogue" />
+			<WeeklyTrends isCatalogue={true} weekUpdatedProp={weekUpdated} />
 
 			<div className={styles.selectWrapper}>
 				{/* <SelectAltered
@@ -67,16 +61,7 @@ export const CataloguePage: React.FC = () => {
 				/> */}
 			</div>
 
-			<div className={styles.paginationWrapper}>
-				<Pagination
-					count={500}
-					variant="outlined"
-					color="primary"
-					disabled={!weekUpdated || weekUpdated.total_pages <= 1}
-					onChange={handlePagination}
-					page={pageAddress ? Number(pageAddress) : 1}
-				/>
-			</div>
+			<PaginationAltered data={weekUpdated} pageName="catalogue" />
 		</article>
 	);
 };

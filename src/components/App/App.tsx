@@ -36,12 +36,10 @@ export const App: React.FC = () => {
 	// Initial fetch of Service Details data
 	useEffect(() => {
 		if (!apiConfig) dispatch<any>(fetchApiConfigThunk());
-		// }, [dispatch, apiConfig]);
 	}, []);
 
 	useEffect(() => {
 		if (!genres) dispatch<any>(fetchGenresThunk());
-		// }, [dispatch, genres]);
 	}, []);
 
 	return (

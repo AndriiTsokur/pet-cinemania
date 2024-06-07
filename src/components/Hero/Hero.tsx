@@ -35,7 +35,7 @@ export const Hero: React.FC = () => {
 
 			dispatch(substituteTrendingDay(update));
 		}
-	}, [dispatch, day, genres, screen]);
+	}, [dispatch, day, genres]);
 
 	let heroBg = {};
 	if (dayUpdated) {
