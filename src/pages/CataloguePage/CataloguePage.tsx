@@ -79,6 +79,7 @@ export const CataloguePage: React.FC = () => {
 
 	const handleSubmit = (inputState: string) => {
 		dispatch(setQuery(inputState));
+		dispatch<any>(searchMoviesThunk({ query }));
 		navigate(`/catalogue?query=${inputState}&page=1`);
 	};
 
