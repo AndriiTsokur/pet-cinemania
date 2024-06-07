@@ -28,7 +28,7 @@ export const SearchForm: React.FC<PropsT> = ({ onSubmit, initialQuery }) => {
 
 	const handleInput = (e: any) => {
 		const input = e.target.value.trimStart();
-		setInputState(input.replaceAll('  ', ' '));
+		setInputState(input.replaceAll('  ', ' ').toLowerCase());
 	};
 
 	const handleClear = () => {
