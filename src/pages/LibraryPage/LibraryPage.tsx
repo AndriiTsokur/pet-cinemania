@@ -5,7 +5,7 @@ import { SelectChangeEvent } from '@mui/material';
 import styles from './LibraryPage.module.css';
 import { selectLocal } from '@/redux';
 import { MovieCard, SelectAltered } from '@/components';
-import { LibraryPlug } from './parts';
+import { LibraryPlug } from './parts/LibraryPlug';
 
 export const LibraryPage: React.FC = () => {
 	const [selectedGenre, setSelectedGenre] = useState('');

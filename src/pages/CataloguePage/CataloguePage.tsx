@@ -8,6 +8,7 @@ import {
 	SearchForm,
 	WeeklyTrends,
 } from '@/components';
+import { SearchResults } from './parts/SearchResults';
 import { processAll } from '@/utils';
 import {
 	fetchTrendingThunk,
@@ -107,29 +108,16 @@ export const CataloguePage: React.FC = () => {
 				<>
 					<PaginationAltered
 						pageName="catalogue"
-						totalPages={weekUpdated ? weekUpdated.total_pages : 0}
+						totalPages={weekUpdated ? weekUpdated.total_pages / 2 : 0}
 					/>
 					<WeeklyTrends isCatalogue={true} weekUpdatedProp={weekUpdated} />
 					<PaginationAltered
 						pageName="catalogue"
-						totalPages={weekUpdated ? weekUpdated.total_pages : 0}
+						totalPages={weekUpdated ? weekUpdated.total_pages / 2 : 0}
 					/>
 				</>
 			) : (
-				<>
-					<PaginationAltered
-						pageName="catalogue"
-						totalPages={searchDataUpdated ? searchDataUpdated.total_pages : 0}
-					/>
-					<WeeklyTrends
-						isCatalogue={true}
-						weekUpdatedProp={searchDataUpdated}
-					/>
-					<PaginationAltered
-						pageName="catalogue"
-						totalPages={searchDataUpdated ? searchDataUpdated.total_pages : 0}
-					/>
-				</>
+				<SearchResults data={searchDataUpdated} />
 			)}
 		</article>
 	);

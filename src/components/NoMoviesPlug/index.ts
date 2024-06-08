@@ -1,0 +1,1 @@
+export { NoMoviesPlug } from './NoMoviesPlug';
