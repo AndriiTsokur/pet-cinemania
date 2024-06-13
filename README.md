@@ -5,7 +5,7 @@ https://andriitsokur.github.io/pet-cinemania/
 ## Brief Description
 
 This was originally a team project at the end of the Vanilla JavaScript
-education block at the GoIT school (`https://goit.global`) - my classmates and I
+education block at the GoIT school (https://goit.global) - my classmates and I
 successfully completed it almost a year ago.
 
 However, the implementation of some parts of the project didn't quite suit me,
@@ -20,8 +20,8 @@ So, here we are!
 - You can check out a list of the latest trending and upcoming movies, get brief
   information about them and watch their official trailers.
 - The "Catalogue" section includes a complete list of movies from the TMDB
-  collection (`https://www.themoviedb.org/`) - a search function by movie title
-  is also included.
+  collection (https://www.themoviedb.org/) - a search function by movie title is
+  also included.
 - Finally, you can save (or remove) cards of your favorite movies in the Library
   (and filter them by genre) without any registration - this data will be stored
   in your local storage.
