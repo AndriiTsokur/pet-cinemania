@@ -1,36 +1,45 @@
-# React + TypeScript + Vite
+# Pet-project: Cinemania
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+https://andriitsokur.github.io/pet-cinemania/
 
-Currently, two official plugins are available:
+## Brief Description
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md)
-  uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses
-  [SWC](https://swc.rs/) for Fast Refresh
+This was originally a team project at the end of the Vanilla JavaScript
+education block at the GoIT school (`https://goit.global`) - my classmates and I
+successfully completed it almost a year ago.
 
-## Expanding the ESLint configuration
+However, the implementation of some parts of the project didn't quite suit me,
+and now, having some free time, I decided it was a good chance to completely
+redo the project by myself using the ready-made Figma layout, ReactJS and
+Vanilla CSS (the last one is just for fun).
 
-If you are developing a production application, we recommend updating the configuration to enable
-type aware lint rules:
+So, here we are!
 
-- Configure the top-level `parserOptions` property like this:
+## Features
 
-```js
-export default {
-	// other rules...
-	parserOptions: {
-		ecmaVersion: 'latest',
-		sourceType: 'module',
-		project: ['./tsconfig.json', './tsconfig.node.json'],
-		tsconfigRootDir: __dirname,
-	},
-};
-```
+- You can check out a list of the latest trending and upcoming movies, get brief
+  information about them and watch their official trailers.
+- The "Catalogue" section includes a complete list of movies from the TMDB
+  collection (`https://www.themoviedb.org/`) - a search function by movie title
+  is also included.
+- Finally, you can save (or remove) cards of your favorite movies in the Library
+  (and filter them by genre) without any registration - this data will be stored
+  in your local storage.
 
-- Replace `plugin:@typescript-eslint/recommended` to
-  `plugin:@typescript-eslint/recommended-type-checked` or
-  `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add
-  `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Enjoy!
+
+## Used Technologies
+
+- Mobile First adaptive and responsive markup
+- CSS modules
+- Material Design UI library for some elements
+- TypeScript
+- ReactJS functional components
+- Redux-Toolkit for state management
+- Redux Persist for working with local storage
+- Axios for working with the TMDB REST API
+- ESLint and Prettier - you know what for
+- Built on Vite
+
+I hope you enjoy it, but any comments you have, including criticism, are welcome
+:)
